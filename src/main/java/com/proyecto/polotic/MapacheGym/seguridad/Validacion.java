@@ -19,7 +19,7 @@ public class Validacion {
     public boolean validarDniEmpleado(String dni) {
         /*if (empleadoRepositorio == null) {
             System.out.println("Empleado es nulo");
-        }*/
+        }*/ //Esto podriamos eliminar
         Empleado empleadoExistente = empleadoRepositorio.findByDni(dni);
         return empleadoExistente == null;
     }
