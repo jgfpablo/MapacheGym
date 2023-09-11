@@ -61,19 +61,19 @@
 }
 
 .membership-bg-basico {
-    background-image: url(res/basico.png);
+    background-image: url(/images/basico.png);
     background-position: center;
     background-size: 100%;
 }
 
 .membership-bg-mapache {
-    background-image: url(res/mapache.png);
+    background-image: url(/images/mapache.png);
     background-position: center;
     background-size: 100%;
 }
 
 .membership-bg-feroz {
-    background-image: url(res/feroz.png);
+    background-image: url(/images/feroz.png);
     background-position: top;
     background-size: 100%;
 }

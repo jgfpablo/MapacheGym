@@ -8,25 +8,26 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title th:text="${title + ' - MapacheGym'}"></title>
 
-        <link rel="stylesheet" href="/css/styles.css">
-        <link rel="stylesheet" href="/css/mapache.css">
-        <script src="/js/script.js"></script>
+        <link rel="stylesheet" href="css/styles.css">
+        <link rel="stylesheet" href="css/mapache.css">
+        <script src="js/script.js"></script>
+
+        <!-- FontAwesome -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
     </head>
-    <body>
+    <body class="bg-gradient-to-b from-gray-800 to-gray-900 via-opacity-0 via-opacity-0 bg-no-repeat bg-fixed">
         <div id="content" class="container-fluid">
-            <div class="row" style="height: 84px;">
+            <div>
                 <div class="col" th:replace="~{fragments/header :: header}"></div>
             </div>
 
-            <!-- <div class="row" style="min-height: calc(100vh - 144px);">
+            <div>
                 <div class="col" th:replace="~{${view} :: content}"></div>
-            </div> -->
+            </div>
 
-            <div class="row bg-dark text-white text-truncate"
-                style="height: 60px;">
-                <div class="col my-auto px-3 px-sm-5">
-                    MapacheGym &copy; 2023
-                </div>
+            <div>
+                <div class="col" th:replace="~{fragments/footer :: footer}"></div>
             </div>
         </div>
     </body>
