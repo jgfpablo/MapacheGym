@@ -1,0 +1,109 @@
+<main
+    class="text-white p-4 m-2 rounded-sm landing-bg flex flex-col justify-center"
+    th:fragment="content"
+>
+    <div
+        class="inline-flex flex-col items-center rounded-md p-6 m-12 px-12 bg-gradient-to-b from-gray-900 to-gray-900 via-opacity-0 via-opacity-0 bg-no-repeat bg-fixed text-white font-light shadow-sm shadow-black"
+    >
+        <form
+            th:action="@{/empleados/update}"
+            th:object="${empleado}"
+            method="post"
+        >
+            <div class="mb-4 text-xl">
+                <span class="font-semibold">Registrar </span
+                ><span class="text-red-400 font-semibold">Empleado</span>
+            </div>
+            <input type="hidden" th:field="${empleado.id}" />
+            <div class="mb-4 text-xl">
+                <span class="font-sans text-sm">Nombre Empleado</span>
+                <input
+                    class="p-1.5 rounded-md text-black mb-2"
+                    type="text"
+                    th:field="${empleado.nombre}"
+                />
+            </div>
+            <br />
+            <div class="mb-4 text-xl">
+                <span class="font-sans text-sm">Apellido Empleado</span>
+                <input
+                    class="p-1.5 rounded-md text-black mb-2"
+                    type="text"
+                    th:field="${empleado.apellido}"
+                />
+            </div>
+            <br />
+            <div class="mb-4 text-xl">
+                <span class="font-sans text-sm">DNI Empleado</span>
+                <input
+                    class="p-1.5 rounded-md text-black mb-2"
+                    type="number"
+                    th:name="dni"
+                    th:field="${empleado.dni}"
+                />
+            </div>
+            <br />
+            <div class="mb-4 text-xl">
+                <span class="font-sans text-sm">Telefono Empleado</span>
+                <input
+                    class="p-1.5 rounded-md text-black mb-2"
+                    type="number"
+                    th:field="${empleado.telefono}"
+                />
+            </div>
+            <br />
+            <div class="mb-4 text-xl">
+                <span class="font-sans text-sm">Contraseña Empleado</span>
+                <input
+                    class="p-1.5 rounded-md text-black mb-2"
+                    type="text"
+                    th:field="${empleado.contrasenia}"
+                />
+            </div>
+            <br />
+            <div class="mb-4 text-xl">
+                <span class="font-sans text-sm">Email Empleado</span>
+                <input
+                    class="p-1.5 rounded-md text-black mb-2"
+                    type="text"
+                    th:field="${empleado.email}"
+                />
+            </div>
+            <br />
+            <div class="mb-4 text-xl">
+                <span class="font-sans text-sm">Tipo Empleado</span>
+                <select
+                    class="text-black p-1.5 rounded-md text-black mb-2 w-full"
+                    id="tipoEmpleado"
+                    th:field="${empleado.tipoEmpleado}"
+                >
+                    <option
+                        value="Administrador"
+                        th:selected="${empleado.tipoEmpleado == 'Administrador'}"
+                    >
+                        Administrador
+                    </option>
+                    <option
+                        value="Usuario"
+                        th:selected="${empleado.tipoEmpleado == 'Usuario'}"
+                    >
+                        Usuario
+                    </option>
+                    <option
+                        value="Instructor"
+                        th:selected="${empleado.tipoEmpleado == 'Instructor'}"
+                    >
+                        Instructor
+                    </option>
+                </select>
+            </div>
+            <br />
+            <button
+                class="bg-red-600 rounded-sm text-white w-full py-2 mb-2 hover:bg-red-800 transition duration-300 mt-4"
+                type="submit"
+            >
+                Modificar
+            </button>
+        </form>
+    </div>
+</main>

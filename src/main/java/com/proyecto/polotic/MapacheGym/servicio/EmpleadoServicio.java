@@ -29,6 +29,11 @@ public class EmpleadoServicio {
         return empleadoRepositorio.findByDni(dni);
     }
 
+
+    public Empleado traerEmpleadoPorId(Integer id){
+        return empleadoRepositorio.findEmpleadoById(id);
+    }
+
     public void eliminarEmpleado(Empleado empleado){
         empleadoRepositorio.delete(empleado);
     }

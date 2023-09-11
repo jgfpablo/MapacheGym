@@ -1,0 +1,77 @@
+<main
+    class="text-white p-4 m-2 rounded-sm landing-bg flex flex-col justify-center"
+    th:fragment="content"
+>
+   <div class="inline-flex flex-col items-center rounded-md p-6 m-12 px-12 bg-gradient-to-b from-gray-900 to-gray-900 via-opacity-0 via-opacity-0 bg-no-repeat bg-fixed text-white font-light shadow-sm shadow-black">
+        <form   th:action="@{/empleados/guardar}"
+            th:object="${empleado}"
+            method="post">
+            <div>
+            <div class="mb-4 text-xl">
+                <span class="font-semibold ">Registrar </span><span class=" text-red-400 font-semibold">Empleado</span>
+            </div>
+            <div class="mb-2 text-left">
+                <span class="font-sans text-sm">Nombre Empleado</span>
+                
+                <input class="p-1.5 rounded-md text-black mb-2" type="text" th:field="*{nombre}" placeholder="Nombre">
+            </div>
+            <div class="mb-2 text-left">
+                <span class="font-sans text-sm">Apellido Empleado</span>
+                
+                <input class="p-1.5 rounded-md text-black  mb-2" type="text" th:field="*{apellido}" placeholder="Apellido">
+            </div>
+            <div class="text-left">
+                <span class="font-sans text-sm">DNI Empleado</span>
+                
+                <input class="p-1.5 rounded-md   text-black mb-2" placeholder="DNI" th:name="dni" th:field="*{dni}" type="number">
+            </div>
+            <div class="text-left">
+                <span class="font-sans text-sm">Telefono Empleado</span>
+                
+                <input class="p-1.5 rounded-md   text-black mb-2" placeholder="Telefono" th:name="telefono" th:field="*{telefono}"  type="number">
+            </div>
+             <div class="text-left">
+                <span class="font-sans text-sm">Contraseña Empleado</span>
+                
+                <input class="p-1.5 rounded-md   text-black mb-2" placeholder="Contraseña" th:name="contrasenia" th:field="*{contrasenia}"  type="number">
+            </div> 
+            <div class="text-left">
+                <span class="font-sans text-sm">Email Empleado</span>
+                
+                <input class="p-1.5 rounded-md   text-black mb-2" placeholder="Email" th:name="email" th:field="*{email}"  type="text">
+            </div>
+            
+
+             <div class="text-left ">
+                <span class="font-sans text-sm">Tipo Empleado</span>
+                
+
+                 <select class="text-black p-1.5 rounded-md   text-black mb-2 w-full" id="tipoEmpleado"  th:field="*{tipoEmpleado}">
+                    <option
+                        value="Administrador"
+                        th:selected="${empleado.tipoEmpleado == 'Administrador'}"
+                    >
+                        Administrador
+                    </option>
+                    <option
+                        value="Usuario"
+                        th:selected="${empleado.tipoEmpleado == 'Usuario'}"
+                    >
+                        Usuario
+                    </option>
+                    <option
+                        value="Instructor"
+                        th:selected="${empleado.tipoEmpleado == 'Instructor'}"
+                    >
+                        Instructor
+                    </option>
+                </select>
+                
+            </div>
+            <div>
+                <button class=" bg-red-600 rounded-sm text-white w-full py-2 mb-2 hover:bg-red-800 transition duration-300 mt-4"type="submit">Guardar Empleado</button>
+            </div>
+            
+        </form>
+    </div>
+</main>
