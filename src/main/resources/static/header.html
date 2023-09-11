@@ -1,0 +1,46 @@
+<nav class="bg-gray-900 text-white p-4 m-2 rounded-md" th:fragment="header">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center text-glow">
+        <a href="/inicio/index"><img src="images/logo-light.svg"  alt="MapacheGym Logo" class="w-12 h-12"></a>
+        <p class="ml-2 text-white font-semibold">
+          <span class="text-white">Mapache</span><span class="text-red-500">Gym</span>
+        </p>
+      </div>
+      <div class="hidden md:flex space-x-4 items-center">
+        <a href="#" class="text-red-500 font-semibold hover:text-red-700 transition duration-300 text-glow">
+          Acerca de
+        </a>
+        <a href="#" class="text-red-500 font-semibold hover:text-red-700 transition duration-300 text-glow">
+          Membresías
+        </a>
+        <a href="/login" class="bg-red-500 text-white rounded-full px-4 py-2 hover:bg-white hover:text-red-500 transition duration-300" >
+          Iniciar Sesión
+        </a>
+        <div class="nav-item" sec:authorize="isAuthenticated()">
+          <form class="form-inline" th:action="@{/logout}" method="POST">
+            <button class="btn btn-link nav-link active" type="submit" onclick="return confirm('¿Seguro de cerrar sesión?')">
+              <i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión
+            </button>
+          </form>
+        </div>
+
+
+
+      </div>
+      <div id="mobileMenuButton" class="md:hidden">
+        <svg class="w-6 h-6 text-white cursor-pointer" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </div>
+    </div>
+    <div id="mobileMenu" class="hidden fixed top-0 right-0 h-full w-72 bg-gray-900 text-white p-4 transform translate-x-0">
+      <button id="hideMobileMenu" class="text-red-500 text-3xl absolute top-2 right-2">&times;</button>
+      <ul class="space-y-2">
+        <li><a href="#" class="block text-white font-semibold hover:text-red-500 ">Inicio</a></li>
+        <li class="border-t border-gray-700 pt-2"><a href="#" class="block text-white font-semibold hover:text-red-500">Acerca de</a></li>
+        <li class="border-t border-gray-700 pt-2"><a href="#" class="block text-white font-semibold hover:text-red-500">Membresías</a></li>
+        <li class="border-t border-gray-700 pt-2"><a href="#" class="block text-white font-semibold hover:bg-white hover:text-black bg-red-500 px-4 py-2 rounded-md">Iniciar Sesión</a></li>
+      </ul>
+    </div>
+  </nav>
+  
