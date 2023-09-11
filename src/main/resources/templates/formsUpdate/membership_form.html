@@ -1,4 +1,54 @@
 <main
     class="text-white p-4 m-2 rounded-sm landing-bg flex justify-center"
     th:fragment="content"
-></main>
+>
+    <div
+        class="inline-flex flex-col items-center rounded-md p-6 m-12 px-12 bg-gradient-to-b from-gray-900 to-gray-900 via-opacity-0 via-opacity-0 bg-no-repeat bg-fixed text-white font-light shadow-sm shadow-black"
+    >
+        <form
+            th:action="@{/membresias/update}"
+            th:object="${membresia}"
+            method="post"
+        >
+            <input type="hidden" th:field="${membresia.idMembresia}" />
+            <div>
+                <span class="font-sans text-sm">Descripcion</span>
+                <input
+                    class="p-1.5 rounded-md text-black mb-2"
+                    type="text"
+                    th:field="${membresia.descripcion}"
+                />
+            </div>
+            <div>
+                <span class="font-sans text-sm">Tipo Membresia</span>
+                <input
+                    class="p-1.5 rounded-md text-black mb-2"
+                    type="text"
+                    th:field="${membresia.tipoMembresia}"
+                />
+            </div>
+            <div>
+                <span class="font-sans text-sm">Precio</span>
+                <input
+                    class="p-1.5 rounded-md text-black mb-2"
+                    type="number"
+                    th:field="${membresia.precio}"
+                />
+            </div>
+            <div>
+                <span class="font-sans text-sm">Dias Semanales</span>
+                <input
+                    class="p-1.5 rounded-md text-black mb-2"
+                    type="number"
+                    th:field="${membresia.diasSemanales}"
+                />
+            </div>
+            <button
+                class="bg-red-600 rounded-sm text-white w-full py-2 mb-2 hover:bg-red-800 transition duration-300 mt-4"
+                type="submit"
+            >
+                Guardar
+            </button>
+        </form>
+    </div>
+</main>

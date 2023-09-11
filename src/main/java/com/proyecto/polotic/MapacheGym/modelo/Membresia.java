@@ -28,7 +28,7 @@ public class Membresia implements Serializable {
     @Column(name = "dias_semanales")
     @Min(value = 1, message = "El valor mínimo permitido es 1")
     @Max(value = 7, message = "El valor máximo permitido es 7")
-    private int diasSemanales;
+    private Integer diasSemanales;
 
     //RELACION (1-N) CON CLIENTE
     @OneToMany(mappedBy = "membresia")
@@ -41,7 +41,7 @@ public class Membresia implements Serializable {
     public Membresia() {
     }
 
-    public Membresia(int idMembresia, String descripcion, String tipoMembresia, double precio, int diasSemanales, List<Cliente> cliente, List<Pago> pago) {
+    public Membresia(int idMembresia, String descripcion, String tipoMembresia, double precio, Integer diasSemanales, List<Cliente> cliente, List<Pago> pago) {
         this.idMembresia = idMembresia;
         this.descripcion = descripcion;
         this.tipoMembresia = tipoMembresia;
@@ -99,11 +99,11 @@ public class Membresia implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public int getDiasSemanales() {
+    public Integer getDiasSemanales() {
         return diasSemanales;
     }
 
-    public void setDiasSemanales(int diasSemanales) {
+    public void setDiasSemanales(Integer diasSemanales) {
         this.diasSemanales = diasSemanales;
     }
 }

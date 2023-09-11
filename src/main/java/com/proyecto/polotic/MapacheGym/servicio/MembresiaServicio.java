@@ -25,12 +25,13 @@ public class MembresiaServicio {
         return membresiaRepositorio.findAll();
     }
 
-    public Membresia traerMembresiaPorId(int idMembresia) {
+    public Membresia traerMembresiaPorId(Integer idMembresia) {
         return membresiaRepositorio.getById(idMembresia);
     }
 
     public void eliminarMembresia(Membresia membresia){
         membresiaRepositorio.delete(membresia);
     }
+    
 
 }
