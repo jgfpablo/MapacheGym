@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es" style="position: relative; min-height: 100%;"
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title th:text="${title + ' - MapacheGym'}"></title>
+
+        <link rel="stylesheet" href="/css/styles.css">
+        <link rel="stylesheet" href="/css/mapache.css">
+        <script src="/js/script.js"></script>
+    </head>
+    <body>
+        <div id="content" class="container-fluid">
+            <div class="row" style="height: 84px;">
+                <div class="col" th:replace="~{fragments/header :: header}"></div>
+            </div>
+
+            <!-- <div class="row" style="min-height: calc(100vh - 144px);">
+                <div class="col" th:replace="~{${view} :: content}"></div>
+            </div> -->
+
+            <div class="row bg-dark text-white text-truncate"
+                style="height: 60px;">
+                <div class="col my-auto px-3 px-sm-5">
+                    MapacheGym &copy; 2023
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
