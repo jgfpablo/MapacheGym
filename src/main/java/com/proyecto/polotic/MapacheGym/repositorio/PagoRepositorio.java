@@ -1,5 +1,7 @@
 package com.proyecto.polotic.MapacheGym.repositorio;
 
+import com.proyecto.polotic.MapacheGym.modelo.Cliente;
+import com.proyecto.polotic.MapacheGym.modelo.Empleado;
 import com.proyecto.polotic.MapacheGym.modelo.Pago;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -15,4 +17,12 @@ public interface PagoRepositorio extends JpaRepository<Pago, Integer> {
     //probando sql nativo con nativeQuery
     @Query(value = "SELECT * FROM Pago WHERE cliente = :cliente ORDER BY fecha_pago DESC LIMIT 1", nativeQuery = true)
     Pago findUltimoPagoCliente(@Param("cliente") Integer idCliente);
+
+    @Query(value = "SELECT * FROM Pago WHERE cliente = :cliente ORDER BY fecha_pago DESC", nativeQuery = true)
+    List<Pago> findAllPagosCliente(@Param("cliente") Integer idCliente);
+
+    
+
+   
+
 }

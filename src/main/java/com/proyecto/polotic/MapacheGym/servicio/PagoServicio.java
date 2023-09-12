@@ -1,5 +1,6 @@
 package com.proyecto.polotic.MapacheGym.servicio;
 
+import com.proyecto.polotic.MapacheGym.modelo.Membresia;
 import com.proyecto.polotic.MapacheGym.modelo.Pago;
 import com.proyecto.polotic.MapacheGym.repositorio.PagoRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,14 @@ public class PagoServicio {
 
     public void eliminarPago(Pago pago){
         pagoRepositorio.delete(pago);
+    }
+
+    public List<Pago> findAllPagosCliente(Integer idCliente) {
+        return pagoRepositorio.findAllPagosCliente(idCliente);
+    }
+
+    public Pago traerPagoPorId(Integer idPago) {
+        return pagoRepositorio.getById(idPago);
     }
 
 }

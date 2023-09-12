@@ -1,0 +1,97 @@
+<main
+    class="text-white p-4 m-2 rounded-sm landing-bg flex flex-col justify-center"
+    th:fragment="content"
+>
+    <form method="get" th:action="@{/pago/cliente/nuevo}">
+        <input type="hidden" th:name="idCliente" th:value="${idCliente}" />
+        <button
+            class="bg-blue-800 border-solid border border-white text-white rounded-full px-4 py-2 hover:bg-white hover:text-blue-800 transition duration-300"
+            type="submit"
+        >
+            Registrar Nuevo Pago
+        </button>
+    </form>
+
+    <div class="flex p-4">
+        <table class="table-fixed shadow-md mx-auto">
+            <thead>
+                <tr>
+                    <th class="w-1/12 px-2 py-1 text-center">Nombre</th>
+                    <th class="w-1/12 px-2 py-1 text-center">Apellido</th>
+                    <th class="w-1/12 px-2 py-1 text-center">DNI</th>
+                    <th class="w-1/12 px-2 py-1 text-center">Telefono</th>
+                    <th class="w-1/12 px-2 py-1 text-center">Status</th>
+                    <th class="w-1/12 px-2 py-1 text-center">Tipo Membresia</th>
+                    <th class="w-1/12 px-2 py-1 text-center">Fecha Abonada</th>
+                    <th class="w-1/12 px-2 py-1 text-center">Fecha Fin</th>
+                    <th class="w-1/12 px-2 py-1 text-center">Valor Abonado</th>
+                    <th class="w-1/12 px-2 py-1 text-center">Accion</th>
+                </tr>
+            </thead>
+            <tbody class="font-semibold divide-y divide-gray-200">
+                <tr class="bg-slate-600" th:each="pago : ${pagos}">
+                    <td lass="px-2 py-1" th:text="${pago.cliente.nombre}"></td>
+                    <td
+                        lass="px-2 py-1"
+                        th:text="${pago.cliente.apellido}"
+                    ></td>
+                    <td lass="px-2 py-1" th:text="${pago.cliente.dni}"></td>
+                    <td
+                        lass="px-2 py-1"
+                        th:text="${pago.cliente.telefono}"
+                    ></td>
+                    <td lass="px-2 py-1" th:text="${pago.cliente.status}"></td>
+                    <td
+                        lass="px-2 py-1"
+                        th:text="${pago.membresia.tipoMembresia}"
+                    ></td>
+
+                    <td lass="px-2 py-1" th:text="${pago.fechaPago}"></td>
+
+                    <td lass="px-2 py-1" th:text="${pago.validez}"></td>
+                    <td lass="px-2 py-1" th:text="${pago.valorAbonado}"></td>
+
+                    <td lass="px-2 py-1">
+                        <form th:action="@{/pagos/eliminar}" method="post">
+                            <input
+                                type="hidden"
+                                name="idPago"
+                                th:value="${pago.idPago}"
+                            />
+                            <input
+                                type="hidden"
+                                name="idCliente"
+                                th:value="${pago.cliente.id}"
+                            />
+                            <button
+                                class="bg-red-800 mt-2 rounded-2xl border-solid borde border-white text-white hover:bg-red-600 hover:transition duration-300"
+                                type="submit"
+                            >
+                                eliminar
+                            </button>
+                        </form>
+
+                        <form th:action="@{/pago/cliente/modificar}">
+                            <input
+                                type="hidden"
+                                th:name="idPago"
+                                th:value="${pago.idPago}"
+                            />
+                            <input
+                                type="hidden"
+                                th:name="idCliente"
+                                th:value="${pago.cliente.id}"
+                            />
+                            <button
+                                class="bg-yellow-400 mt-2 rounded-2xl border-solid borde border-white text-white hover:bg-yellow-300 hover:text-black transition duration-300"
+                                type="submit"
+                            >
+                                Modificar
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
