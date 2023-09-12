@@ -1,6 +1,7 @@
 package com.proyecto.polotic.MapacheGym.controladora;
 
 import com.proyecto.polotic.MapacheGym.modelo.Cliente;
+import com.proyecto.polotic.MapacheGym.modelo.Empleado;
 import com.proyecto.polotic.MapacheGym.modelo.Membresia;
 import com.proyecto.polotic.MapacheGym.modelo.Pago;
 import com.proyecto.polotic.MapacheGym.servicio.ClienteServicio;
@@ -10,15 +11,21 @@ import com.proyecto.polotic.MapacheGym.seguridad.Validacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.ui.Model;
+
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
-@RestController
-@RequestMapping("/cliente")
+// @RestController
+// @RequestMapping("/cliente")
+@Controller
 public class ClienteControlador {
 
     @Autowired
@@ -33,103 +40,161 @@ public class ClienteControlador {
     @Autowired
     private Validacion validar;
 
-    @GetMapping
-    public List<Cliente> traerClientes(){
-        return clienteServicio.traerClientes();
+    @GetMapping({"/clientes"})
+    public ModelAndView traerClientes(){
+        List<Cliente> cliente = clienteServicio.traerClientes();
+        ModelAndView maw = new ModelAndView();
+        maw.setViewName("fragments/base");
+        maw.addObject("title", "Lista Clientes");
+        maw.addObject("view", "tables/client_table");
+        maw.addObject("clientes", cliente);
+        return maw;   
     }
 
-/*  ESTA ERA LA FORMA DE REGISTRAR CLIENTES, PERO NO DEVUELVE MENSAJES AL CODIGO JS
-    @PostMapping
-    public Cliente crearCliente(@RequestParam("dniCliente") String dni,
-                                @RequestParam("nombreCliente") String nombre,
-                                @RequestParam("apellidoCliente") String apellido,
-                                @RequestParam("telefonoCliente") String telefono,
-                                @RequestParam("idMembresia") int idMembresia){
 
-        if (!validar.validarDniCliente(dni)) {
-            throw new IllegalArgumentException("Ya existe un cliente con ese DNI");
-        }
 
-        if (dni.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || telefono.isEmpty() || idMembresia == 0) {
-            throw new IllegalArgumentException("Todos los campos son obligatorios, incluyendo idMembresia");
-        }
-
-        Membresia membresia = membresiaServicio.traerMembresiaPorId(idMembresia);
-
-        // Se obtiene la fecha actual
-        LocalDate fechaActual = LocalDate.now();
-        // Calcular la fecha de validez (1 mes después de la fecha actual)
-        LocalDate fechaValidez = fechaActual.plusMonths(1);
-
-        Cliente cliente = new Cliente();
-        Pago pago =new Pago();
-
-        cliente.setDni(dni);
-        cliente.setNombre(nombre);
-        cliente.setApellido(apellido);
-        cliente.setTelefono(telefono);
-        cliente.setStatus("Activo");
-        cliente.setFechaAlta(fechaActual);
-        cliente.setDiasDisponibles(membresia.getDiasSemanales());
-        cliente.setMembresia(membresia);
-
-        pago.setMembresia(membresia);
-        pago.setValorAbonado(membresia.getPrecio());
-        pago.setCliente(cliente);
-        pago.setFechaPago(fechaActual);
-        pago.setValidez(fechaValidez);
-
-        // Llamar a los servicios para crear el cliente y el pago
-        pagoServicio.crearPago(pago);
-        return clienteServicio.crearCliente(cliente);
+    @GetMapping(value = {"/clientes/nuevo"})
+    public ModelAndView nuevoEmpleado(Model model) {
+        List<Membresia> membresias = membresiaServicio.traerMembresias();
+        ModelAndView maw = new ModelAndView();
+        maw.setViewName("fragments/base");
+        maw.addObject("title", "Nuevo Cliente");
+        maw.addObject("view", "formsCreate/client_form");
+        maw.addObject("cliente", new Cliente());
+        maw.addObject("membresias", membresias);
+        return maw;   
     }
-*/
-    @PostMapping
-    public ResponseEntity<?> crearCliente(@RequestParam("dniCliente") String dni,
-                                          @RequestParam("nombreCliente") String nombre,
-                                          @RequestParam("apellidoCliente") String apellido,
-                                          @RequestParam("telefonoCliente") String telefono,
-                                          @RequestParam("idMembresia") int idMembresia) {
 
-        if (!validar.validarDniCliente(dni)) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(Collections.singletonMap("error", "Ya existe un cliente registrado para el DNI: " + dni));
-        }
 
-        if (dni.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || telefono.isEmpty()/* || idMembresia == 0*/) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(Collections.singletonMap("error", "Todos los campos son obligatorios, incluyendo idMembresia"));
-        }
-        Membresia membresia = membresiaServicio.traerMembresiaPorId(idMembresia);
 
-        // Se obtiene la fecha actual
-        LocalDate fechaActual = LocalDate.now();
-        // Calcular la fecha de validez (1 mes después de la fecha actual)
-        LocalDate fechaValidez = fechaActual.plusMonths(1);
+    @GetMapping("/cliente/modificar_cliente")
+    public ModelAndView modificarCliente(@RequestParam Integer id,Model model){
 
-        Cliente cliente = new Cliente();
-        Pago pago =new Pago();
+        Cliente cliente = clienteServicio.traerClientePorId(id);
+        
+        List<Membresia> membresias = membresiaServicio.traerMembresias();
+        ModelAndView maw = new ModelAndView();
+        maw.setViewName("fragments/base");
+        maw.addObject("title", "Nueva Membresia");
+        maw.addObject("view", "formsUpdate/client_form");
+        maw.addObject("cliente", cliente);
+        maw.addObject("membresias", membresias);
 
-        cliente.setDni(dni);
-        cliente.setNombre(nombre);
-        cliente.setApellido(apellido);
-        cliente.setTelefono(telefono);
-        cliente.setStatus("Activo");
-        cliente.setFechaAlta(fechaActual);
-        cliente.setDiasDisponibles(membresia.getDiasSemanales());
-        cliente.setMembresia(membresia);
+        return maw;  
+    }
 
-        pago.setMembresia(membresia);
-        pago.setValorAbonado(membresia.getPrecio());
-        pago.setCliente(cliente);
-        pago.setFechaPago(fechaActual);
-        pago.setValidez(fechaValidez);
 
-        // Llamamos a los servicios para crear el cliente y el pago
-        pagoServicio.crearPago(pago);
+    @PostMapping("/clientes/eliminar")
+    public String eliminarCliente(@RequestParam Integer clienteId){
+        Cliente cliente = clienteServicio.traerClientePorId(clienteId);
+        cliente.setStatus("Inactivo");
+        cliente.setId(clienteId);
         clienteServicio.crearCliente(cliente);
-        return ResponseEntity.ok(Collections.singletonMap("message", "Cliente se registró exitosamente"));
+        return "redirect:/clientes";
     }
+
+
+
+
+@PostMapping("/clientes/guardar")
+    public String guardarEmpleado(@ModelAttribute Cliente cliente,@RequestParam Integer idMembresia){
+
+        Membresia membresia = membresiaServicio.traerMembresiaPorId(idMembresia);
+        Pago pago = new Pago();
+
+        LocalDate fechaActual = LocalDate.now();
+         // Calcular la fecha de validez (1 mes después de la fecha actual)
+        LocalDate fechaValidez = fechaActual.plusMonths(1);
+        cliente.setStatus("Activo");
+        cliente.setFechaAlta(fechaActual);
+        
+        cliente.setDiasDisponibles(membresia.getDiasSemanales());
+        cliente.setMembresia(membresia);
+
+        pago.setMembresia(membresia);
+        pago.setMembresia(membresia);
+        pago.setValorAbonado(membresia.getPrecio());
+        pago.setCliente(cliente);
+        pago.setFechaPago(fechaActual);
+        pago.setValidez(fechaValidez);
+
+        
+         //ERROR GIGANTE --------------------------------------------------------------------------------
+        //  if (!validar.validarDniCliente(cliente.getDni())) {
+        //      return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+        //              .body(Collections.singletonMap("error", "Ya existe un cliente registrado para el DNI: " + cliente.getDni()));
+        //   }
+
+
+        // ERROR GIGANTE ------------------------------------------------------------------------------------
+        //   if (cliente.getDni().isEmpty() || cliente.getNombre().isEmpty() || cliente.getApellido().isEmpty() || cliente.getTelefono().isEmpty()/* || idMembresia == 0*/) {
+        //      return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+        //              .body(Collections.singletonMap("error", "Todos los campos son obligatorios, incluyendo idMembresia"));
+        //  }
+
+
+        clienteServicio.crearCliente(cliente);
+        pagoServicio.crearPago(pago);
+
+        return "redirect:/clientes";
+    }
+
+    @PostMapping("/clientes/update")
+    public String updateEmpleado(Cliente cliente,@RequestParam Integer idMembresia){
+
+        // ,@RequestParam Integer idMembresia
+         Membresia membresia = membresiaServicio.traerMembresiaPorId(idMembresia);
+         cliente.setMembresia(membresia);
+    clienteServicio.modificarCliente(cliente);
+    return "redirect:/clientes";
+    }
+
+    //  @PostMapping({"/clientes/nuevo"})
+    //  public ResponseEntity<?> crearCliente(@RequestParam("dniCliente") String dni,
+    //                                        @RequestParam("nombreCliente") String nombre,
+    //                                        @RequestParam("apellidoCliente") String apellido,
+    //                                        @RequestParam("telefonoCliente") String telefono,
+    //                                        @RequestParam("idMembresia") int idMembresia) {
+
+    //      if (!validar.validarDniCliente(dni)) {
+    //          return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+    //                  .body(Collections.singletonMap("error", "Ya existe un cliente registrado para el DNI: " + dni));
+    //      }
+
+    //      if (dni.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || telefono.isEmpty()/* || idMembresia == 0*/) {
+    //          return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+    //                  .body(Collections.singletonMap("error", "Todos los campos son obligatorios, incluyendo idMembresia"));
+    //      }
+    //      Membresia membresia = membresiaServicio.traerMembresiaPorId(idMembresia);
+
+    //      // Se obtiene la fecha actual
+    //      LocalDate fechaActual = LocalDate.now();
+    //      // Calcular la fecha de validez (1 mes después de la fecha actual)
+    //      LocalDate fechaValidez = fechaActual.plusMonths(1);
+
+    //      Cliente cliente = new Cliente();
+    //      Pago pago =new Pago();
+
+    //      cliente.setDni(dni);
+    //      cliente.setNombre(nombre);
+    //      cliente.setApellido(apellido);
+    //      cliente.setTelefono(telefono);
+    //      cliente.setStatus("Activo");
+    //      cliente.setFechaAlta(fechaActual);
+    //      cliente.setDiasDisponibles(membresia.getDiasSemanales());
+    //      cliente.setMembresia(membresia);
+
+    //      pago.setMembresia(membresia);
+    //      pago.setValorAbonado(membresia.getPrecio());
+    //      pago.setCliente(cliente);
+    //      pago.setFechaPago(fechaActual);
+    //      pago.setValidez(fechaValidez);
+
+    // //     // Llamamos a los servicios para crear el cliente y el pago
+    //      pagoServicio.crearPago(pago);
+    //      clienteServicio.crearCliente(cliente);
+    //      return ResponseEntity.ok(Collections.singletonMap("message", "Cliente se registró exitosamente"));
+    //  }
 
 // Este es el metodo que efectua la busqueda de clientes para el formulario de pagos
     @GetMapping("/datos")
@@ -156,14 +221,14 @@ public class ClienteControlador {
         }
     }
 
-    @PutMapping
-    public Cliente modificarCliente(@RequestBody Cliente cliente){
-        return clienteServicio.modificarCliente(cliente);
-    }
+    // @PutMapping
+    // public Cliente modificarCliente(@RequestBody Cliente cliente){
+    //     return clienteServicio.modificarCliente(cliente);
+    // }
 
-    @DeleteMapping
-    public void eliminarCliente(@RequestBody Cliente cliente){
-        clienteServicio.eliminarCliente(cliente);
-    }
+    // @DeleteMapping
+    // public void eliminarCliente(@RequestBody Cliente cliente){
+    //     clienteServicio.eliminarCliente(cliente);
+    // }
 
 }

@@ -8,7 +8,7 @@ public class Persona {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private int id;
+    private Integer id;
 
     @Column(length=8)
     private String dni;
@@ -25,7 +25,7 @@ public class Persona {
     public Persona() {
     }
 
-    public Persona(int id, String dni, String nombre, String apellido, String telefono) {
+    public Persona(Integer id, String dni, String nombre, String apellido, String telefono) {
         this.id = id;
         this.dni = dni;
         this.nombre = nombre;
@@ -33,11 +33,11 @@ public class Persona {
         this.telefono = telefono;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

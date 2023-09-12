@@ -1,4 +1,61 @@
 <main
     class="text-white p-4 m-2 rounded-sm landing-bg flex justify-center"
     th:fragment="content"
-></main>
+>
+
+<div class="inline-flex flex-col items-center rounded-md p-6 m-12 px-12 bg-gradient-to-b from-gray-900 to-gray-900 via-opacity-0 via-opacity-0 bg-no-repeat bg-fixed text-white font-light shadow-sm shadow-black">
+        <form  th:action="@{/clientes/update}"
+            th:object="${cliente}"
+            method="post">
+            <div>
+            <div class="mb-4 text-xl">
+                <span class="font-semibold ">Registrar </span><span class=" text-red-400 font-semibold">Cliente</span>
+            </div>
+            <input type="hidden" th:field="${cliente.id}" />
+            <input type="hidden" th:field="${cliente.Status}" />
+            <input type="hidden" th:field="${cliente.diasDisponibles}" />
+            <input type="hidden" th:field="${cliente.fechaAlta}" />
+            
+            <div class="mb-2 text-left">
+                <span class="font-sans text-sm">Nombre Cliente</span>
+                <br>
+                <input class="p-1.5 rounded-md text-black mb-2" type="text" th:field="*{nombre}" placeholder="Nombre">
+            </div>
+            <div class="mb-2 text-left">
+                <span class="font-sans text-sm">Apellido Cliente</span>
+                <br>
+                <input class="p-1.5 rounded-md text-black  mb-2" type="text" th:field="*{apellido}" placeholder="Apellido">
+            </div>
+            <div class="text-left">
+                <span class="font-sans text-sm">DNI Cliente</span>
+                <br>
+                <input class="p-1.5 rounded-md   text-black mb-2" placeholder="DNI" th:name="dni" th:field="*{dni}" type="text">
+            </div>
+            <div class="text-left">
+                <span class="font-sans text-sm">Telefono Cliente</span>
+                <br>
+                <input class="p-1.5 rounded-md   text-black mb-2" placeholder="Teléfono" th:name="telefono" th:field="*{telefono}" type="text">
+            </div>
+
+             <div class="text-left">
+                <span class="font-sans text-sm">Estado</span>
+            <select class="p-1.5 rounded-md text-black mb-2" name="status">
+    <option value="Activo" th:selected="${cliente.Status == 'Activo'}">Activo</option>
+    <option value="Inactivo" th:selected="${cliente.Status == 'Inactivo'}">Inactivo</option>
+</select>
+</div>
+
+            <div class="text-left">
+                        <span class="font-sans text-sm">Tipo Membresia</span>
+                        <select class="p-1.5 rounded-md text-black mb-2"  name="idMembresia">
+                            <option  th:each="membresia : ${membresias}"  th:value="${membresia.idMembresia}"  th:text="${membresia.tipoMembresia}"></option>
+                        </select> 
+                    </div>
+            <div>
+                <input class=" bg-red-600 rounded-sm text-white w-full py-2 mb-2 hover:bg-red-800 transition duration-300 mt-4" value="Guardar Cliente" type="submit">
+            </div>
+        </form>
+    </div>
+
+
+</main>
