@@ -24,24 +24,10 @@
     <body
         class="bg-gradient-to-b from-gray-800 to-gray-900 via-opacity-0 via-opacity-0 bg-no-repeat bg-fixed"
     >
-        <div id="content" class="container-fluid">
-            <div>
-                <div
-                    class="col"
-                    th:replace="~{fragments/header :: header}"
-                ></div>
-            </div>
+    
+    <header th:replace="~{fragments/header :: header}"></header>
+    <main th:replace="~{${view} :: content}"></main>
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
 
-            <div>
-                <div class="col" th:replace="~{${view} :: content}"></div>
-            </div>
-
-            <div>
-                <div
-                    class="col"
-                    th:replace="~{fragments/footer :: footer}"
-                ></div>
-            </div>
-        </div>
     </body>
 </html>

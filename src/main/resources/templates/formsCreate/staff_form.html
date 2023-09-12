@@ -1,5 +1,5 @@
 <main
-    class="text-white p-4 m-2 rounded-sm landing-bg flex flex-col justify-center"
+    class="text-white p-4 m-2 rounded-sm landing-bg flex justify-center"
     th:fragment="content"
 >
    <div class="inline-flex flex-col items-center rounded-md p-6 m-12 px-12 bg-gradient-to-b from-gray-900 to-gray-900 via-opacity-0 via-opacity-0 bg-no-repeat bg-fixed text-white font-light shadow-sm shadow-black">
@@ -42,11 +42,11 @@
             </div>
             
 
-             <div class="text-left ">
+             <div class="text-left">
                 <span class="font-sans text-sm">Tipo Empleado</span>
                 
 
-                 <select class="text-black p-1.5 rounded-md   text-black mb-2 w-full" id="tipoEmpleado"  th:field="*{tipoEmpleado}">
+                 <select class="text-black p-1.5 rounded-md text-black mb-2 w-full" id="tipoEmpleado"  th:field="*{tipoEmpleado}">
                     <option
                         value="Administrador"
                         th:selected="${empleado.tipoEmpleado == 'Administrador'}"
