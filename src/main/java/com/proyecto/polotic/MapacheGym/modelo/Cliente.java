@@ -36,7 +36,7 @@ public class Cliente extends Persona implements Serializable {
     public Cliente() {
     }
 
-    public Cliente(int id, String dni, String nombre, String apellido, String telefono, int diasDisponibles, String status, LocalDate fechaAlta, Membresia membresia, List<Asistencia> asistencia, List<Pago> pago) {
+    public Cliente(Integer id, String dni, String nombre, String apellido, String telefono, int diasDisponibles, String status, LocalDate fechaAlta, Membresia membresia, List<Asistencia> asistencia, List<Pago> pago) {
         super(id, dni, nombre, apellido, telefono);
         this.diasDisponibles = diasDisponibles;
         this.status = status;

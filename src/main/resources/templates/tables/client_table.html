@@ -1,4 +1,101 @@
 <main
     class="text-white p-4 m-2 rounded-sm landing-bg flex flex-col justify-center"
     th:fragment="content"
-></main>
+>
+    <form
+        class="flex justify-center"
+        method="get"
+        th:action="@{/clientes/nuevo}"
+    >
+        <button
+            class="bg-blue-800 border-solid border border-white text-white rounded-full px-4 py-2 hover:bg-white hover:text-blue-800 transition duration-300"
+            type="submit"
+        >
+            Registrar Nuevo Cliente
+        </button>
+    </form>
+
+    <div class="flex p-4 justify-center">
+        <table class="table-fixed shadow-md mx-auto">
+            <thead class="bg-red-800 bg-opacity-70 text-sm">
+                <tr>
+                    <th class="w-1/12 px-2 py-1 text-center">ID</th>
+                    <th class="w-1/12 px-2 py-1 text-center">Nombre</th>
+                    <th class="w-1/12 px-2 py-1 text-center">Apellido</th>
+                    <th class="w-1/12 px-2 py-1 text-center">DNI</th>
+                    <th class="w-1/12 px-2 py-1 text-center">Telefono</th>
+                    <th class="w-1/12 px-2 py-1 text-center">Status</th>
+                    <th class="w-1/12 px-2 py-1 text-center">Fecha de alta</th>
+                    <th class="w-1/12 px-2 py-1 text-center">
+                        Dias Disponibles
+                    </th>
+                    <th class="w-1/12 px-2 py-1 text-center">Tipo Membresia</th>
+                    <th class="w-1/12 px-2 py-1 text-center">Accion</th>
+                </tr>
+            </thead>
+            <tbody class="font-semibold divide-y divide-gray-200">
+                <tr class="bg-slate-600" th:each="cliente : ${clientes}">
+                    <td class="px-2 py-1" th:text="${cliente.id}"></td>
+                    <td class="px-2 py-1" th:text="${cliente.nombre}"></td>
+                    <td class="px-2 py-1" th:text="${cliente.apellido}"></td>
+                    <td class="px-2 py-1" th:text="${cliente.dni}"></td>
+                    <td class="px-2 py-1" th:text="${cliente.telefono}"></td>
+                    <td class="px-2 py-1" th:text="${cliente.status}"></td>
+                    <td class="px-2 py-1" th:text="${cliente.fechaAlta}"></td>
+                    <td
+                        class="px-2 py-1"
+                        th:text="${cliente.diasDisponibles}"
+                    ></td>
+
+                    <td
+                        class="px-2 py-1"
+                        th:text="${(cliente.membresia?.tipoMembresia) ?: ''}"
+                    ></td>
+                    <td class="px-2 py-1">
+                        <form th:action="@{/clientes/eliminar}" method="post">
+                            <input
+                                type="hidden"
+                                name="clienteId"
+                                th:value="${cliente.id}"
+                            />
+                            <button
+                                class="bg-red-800 mt-2 rounded-2xl border-solid borde border-white text-white hover:bg-red-600 hover:transition duration-300"
+                                type="submit"
+                            >
+                                eliminar Cliente
+                            </button>
+                        </form>
+
+                        <form th:action="@{cliente/modificar_cliente}">
+                            <input
+                                type="hidden"
+                                th:name="id"
+                                th:value="${cliente.id}"
+                            />
+                            <button
+                                class="bg-yellow-400 mt-2 rounded-2xl border-solid borde border-white text-white hover:bg-yellow-300 hover:text-black transition duration-300"
+                                type="submit"
+                            >
+                                Modificar Cliente
+                            </button>
+                        </form>
+
+                        <form th:action="@{/pagos/cliente}" method="get">
+                            <input
+                                type="hidden"
+                                th:name="id"
+                                th:value="${cliente.id}"
+                            />
+                            <button
+                                class="bg-blue-800 w-16 mt-2 rounded-2xl border-solid borde border-white text-white hover:bg-blue-600 hover:transition duration-300"
+                                type="submit"
+                            >
+                                Ver Pagos
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</main>
