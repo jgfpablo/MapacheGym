@@ -14,7 +14,8 @@ import org.springframework.ui.Model;
 import java.util.Collections;
 import java.util.List;
 
-@Controller
+@RestController
+@RequestMapping("/empleados")
 public class EmpleadoControlador {
 
     @Autowired

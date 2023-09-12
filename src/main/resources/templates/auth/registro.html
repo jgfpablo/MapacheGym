@@ -1,0 +1,54 @@
+<div class="flex   w-72 mx-auto bg-gray-800  flex-col justify-center px-6 py-12 lg:px-8" th:fragment="contenido">
+  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    <img class="mx-auto h-32" src="images/logo-light.svg" alt="Mapache Gym">
+    <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-red-500">Login</h2>
+  </div>
+
+  <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+    <form class="space-y-6"  th:action="@{/registro}" th:object="${registroDto}" method="POST">
+
+      <div>
+        <label for="email" class="block  font-semibold text-white leading-6 ">Email address</label>
+        <div class="mt-2">
+          <input  name="email" type="text"  id="email" th:field="*{email}" th:errorClass="'is-invalid'" autocomplete="email" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+          <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="flex items-center justify-between">
+          <label for="password" class="block font-semibold leading-6 text-white">Password</label>
+        </div>
+        <div class="mt-2">
+          <input type="password" id="password" th:field="*{password}" th:errorClass="'is-invalid'" name="password" autocomplete="current-password" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+          <div class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+        </div>
+      </div>
+      <div>
+        <div class="flex items-center justify-between">
+          <label for="confirmar" class="block font-semibold leading-6 text-white">Repita la contraseña</label>
+        </div>
+        <div class="mt-2">
+          <input type="password"  id="confirmar" th:field="*{confirmar}" th:errorClass="'is-invalid'"  name="password" autocomplete="current-password" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+          <div class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+        </div>
+      </div>
+      <div>
+        <div class="">
+          <div class="g-recaptcha" name="recaptcha" th:errorClass="'is-invalid'" data-sitekey="6LcxtgwoAAAAAA2qs-Az2wR7T1ZgVPHb1HZkDt8S"></div>
+          <div class="invalid-feedback" th:if="${#fields.hasErrors('recaptcha')}" th:errors="*{recaptcha}"></div>
+        </div>
+
+      <div>
+        <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-red-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in</button>
+      </div>
+    </form>
+
+    <div class="card-footer text-center p-3">
+      <a href="/login" class="text-decoration-none fw-bold h5">Ya tengo una cuenta</a>
+    </div>
+  </div>
+</div>
+
+<script th:fragment="script"></script>
+
