@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -22,30 +24,47 @@ public class AsistenciaControlador {
     @Autowired
     private Validacion validar;
 
-    @GetMapping
-    public List<Asistencia> traerAsistencias(){
-        return asistenciaServicio.traerAsistencias();
+    @GetMapping("/empleados")
+    public ModelAndView traerAsistencias(){
+        List<Asistencia> asistencias = asistenciaServicio.traerAsistenciasEmpleados();
+
+        ModelAndView maw = new ModelAndView();
+        maw.setViewName("fragments/base");
+        maw.addObject("title", "Asistencias Empleados");
+        maw.addObject("view", "tables/attendance_staff_table");
+        maw.addObject("asistencias", asistencias);
+        return maw;  
     }
 
-    @PostMapping
-    public ResponseEntity<?> crearAsistencia(@RequestParam("dniAsistencia") String dni) {
-        if (dni.isEmpty()) {
+    @GetMapping("/nueva")
+    public ModelAndView nuevaAsistencia(){
+        ModelAndView maw = new ModelAndView();
+        maw.setViewName("fragments/base");
+        maw.addObject("title", "Crear Aasistencia");
+        maw.addObject("view", "formsCreate/attendance_form");
+        return maw;  
+    }
+
+    @PostMapping("/crear")
+    public ResponseEntity<?> crearAsistencia(@RequestParam String dniAsistencia) {
+        if (dniAsistencia.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.singletonMap("error", "Complete el campo DNI"));
         }
+        System.out.println(dniAsistencia);
 
-        boolean noDniEmpleado = validar.validarDniEmpleado(dni);
-        boolean noDniCliente = validar.validarDniCliente(dni);
+        boolean noDniEmpleado = validar.validarDniEmpleado(dniAsistencia);
+        boolean noDniCliente = validar.validarDniCliente(dniAsistencia);
 
         try {
             if (noDniEmpleado && noDniCliente) {
                 throw new IllegalArgumentException("DNI no registrado previamente");
             } else if (noDniCliente) {
                 // Realiza las operaciones necesarias para crear la asistencia del empleado
-                asistenciaServicio.crearAsistenciaEmpleado(dni);
+                asistenciaServicio.crearAsistenciaEmpleado(dniAsistencia);
                 return ResponseEntity.status(HttpStatus.OK).body(Collections.singletonMap("message", "Asistencia del empleado se registró exitosamente"));
             } else if (noDniEmpleado) {
                 // Realiza las operaciones necesarias para crear la asistencia del cliente
-                asistenciaServicio.crearAsistenciaCliente(dni);
+                asistenciaServicio.crearAsistenciaCliente(dniAsistencia);
                 return ResponseEntity.status(HttpStatus.OK).body(Collections.singletonMap("message", "Asistencia del cliente se registró exitosamente"));
             }
         } catch (IllegalArgumentException e) {

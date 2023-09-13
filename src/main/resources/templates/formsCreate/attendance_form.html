@@ -6,16 +6,19 @@
         <h2>Formulario de Registro de Asistencias</h2>
         <form
             id="asistenciaForm"
-            action="/asistencia"
+            th:action="@{/asistencias/crear}"
             method="post"
             enctype="application/x-www-form-urlencoded"
         >
+            <!-- enctype="application/x-www-form-urlencoded" -->
+
             <label for="dniAsistencia">DNI:</label>
             <input
+                class="text-black"
                 type="text"
                 id="dniAsistencia"
-                name="dniAsistencia"
-                th:field="*{dniAsistencia}"
+                th:name="dniAsistencia"
+                th:text="${dniAsistencia}"
                 inputmode="numeric"
                 pattern="[0-9]{8}"
                 title="El DNI debe tener 8 dígitos numéricos sin puntos"

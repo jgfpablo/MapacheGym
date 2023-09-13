@@ -31,6 +31,7 @@ public class AsistenciaServicio {
         return asistenciaRepositorio.save(asistencia);
     }
 
+
     @Transactional
     public Asistencia crearAsistenciaCliente(String dni) {
         Asistencia asistencia = new Asistencia();
@@ -101,6 +102,12 @@ public class AsistenciaServicio {
 
     public List<Asistencia> traerAsistencias(){
         return asistenciaRepositorio.findAll();
+    }
+
+
+    //En teoria trae todas las asistencias relacionadas con empleados para la tabla
+    public List<Asistencia> traerAsistenciasEmpleados(){
+        return asistenciaRepositorio.findAsistenciasEmpleados();
     }
 
     public void eliminarAsistencia(Asistencia asistencia){
