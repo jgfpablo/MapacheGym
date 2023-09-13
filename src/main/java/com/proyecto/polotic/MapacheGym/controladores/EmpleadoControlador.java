@@ -78,6 +78,19 @@ public class EmpleadoControlador {
 
     @PostMapping("/guardar")
     public RedirectView guardarEmpleado(@ModelAttribute Empleado empleado){
+
+        // EJEMPLO DE COMO HACER UN ERROR  EN ESTE CASO SE MOSTRARA CUANDO ID ESTE VACIO AL CARGAR UN EMPLEADO
+        // MOSTRARA UN MENSAJE QUE ESTA EN EL FONDO DEL HTML
+        if (empleado.getDni() == null || empleado.getDni().isEmpty()) {
+    String error = "Todos los campos del formulario deben estar completos";
+    
+    RedirectView redirectView = new RedirectView("/empleados", true);
+    redirectView.addStaticAttribute("error", error); // Usa addStaticAttribute para agregar atributos
+    
+    return redirectView; // Retorna el RedirectView con los atributos
+    }
+            
+        
         //ResponseEntity<?>
                 //Falta agregar logica de santiago , porque aun no la entiendo 
         // if (!validar.validarDniEmpleado(empleado.getDni())) {
