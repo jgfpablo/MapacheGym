@@ -2,10 +2,9 @@
     class="text-white p-4 m-2 rounded-sm landing-bg flex flex-col justify-center"
     th:fragment="content"
 >
-
-
-            <a href="/membresias/nueva">Registrar Nueva Membresia</a>
-
+    <form th:action="@{/membresias/nueva}">
+        <button type="submit">Registrar Nueva Membresia</button>
+    </form>
 
     <div class="flex p-4 justify-center">
         <table class="table-fixed shadow-md mx-auto">

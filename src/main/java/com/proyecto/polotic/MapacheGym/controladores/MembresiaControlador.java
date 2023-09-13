@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.Collections;
 import java.util.List;
@@ -26,7 +27,7 @@ public class MembresiaControlador implements WebMvcConfigurer{
     private MembresiaServicio membresiaServicio;
 
 
-    @GetMapping("/membresias")
+    @GetMapping("")
     public ModelAndView obtenerMembresias(Model model)
     {
         List<Membresia> membresia = membresiaServicio.traerMembresias();
@@ -90,23 +91,25 @@ public class MembresiaControlador implements WebMvcConfigurer{
     }
 
     @PostMapping("/guardar")
-    public ResponseEntity<?> crearMembresia(@ModelAttribute Membresia membresia){
+    public RedirectView crearMembresia(@ModelAttribute Membresia membresia){
+        // ResponseEntity<?>  habia que cambiarlo para retornar la redireccion a vista y al cambiarlo murio el resto
     
         membresiaServicio.crearMembresia(membresia);
-        if (membresia.getDescripcion().isEmpty() || membresia.getTipoMembresia().isEmpty() || membresia.getDiasSemanales() == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(Collections.singletonMap("error", "Todos los campos son obligatorios"));
-        }
+        // if (membresia.getDescripcion().isEmpty() || membresia.getTipoMembresia().isEmpty() || membresia.getDiasSemanales() == null) {
+        //     return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+        //             .body(Collections.singletonMap("error", "Todos los campos son obligatorios"));
+        // }
 
-        return ResponseEntity.ok(Collections.singletonMap("message", "Membresia se registró exitosamente"));
+        // return ResponseEntity.ok(Collections.singletonMap("message", "Membresia se registró exitosamente"));
+        return new RedirectView("/membresias", true);
     }
 
 
     @PostMapping({"/eliminar"})
-    public String eliminarMembresia(Membresia membresia){
+    public RedirectView eliminarMembresia(Membresia membresia){
         membresiaServicio.eliminarMembresia(membresia);
 
-        return "redirect:/membresias";
+        return new RedirectView("/membresias", true);
     }
 
 
@@ -145,9 +148,9 @@ public class MembresiaControlador implements WebMvcConfigurer{
     // }
 
     @PostMapping("/update")
-    public String modificarMembresia( Membresia membresia){
+    public RedirectView modificarMembresia( Membresia membresia){
         membresiaServicio.modificarMembresia(membresia);
-        return "redirect:/membresias";
+        return new RedirectView("/membresias", true);
     }
 
     
