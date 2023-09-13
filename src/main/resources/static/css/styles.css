@@ -48,12 +48,6 @@ body,
   text-shadow: 0 0 5px #e27272;
 }
 
-.landing-bg {
-  background-image: url(res/landing-main.jpg);
-  background-size: cover;
-  background-position: center;
-}
-
 .shadow-red-900 {
   text-shadow: 0 0 8px #742a2a;
 }
