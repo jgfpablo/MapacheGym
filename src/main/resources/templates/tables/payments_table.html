@@ -2,7 +2,7 @@
     class="text-white p-4 m-2 rounded-sm landing-bg flex flex-col justify-center"
     th:fragment="content"
 >
-    <form method="get" th:action="@{/pago/cliente/nuevo}">
+    <form method="get" th:action="@{/pagos/cliente/nuevo}">
         <input type="hidden" th:name="idCliente" th:value="${idCliente}" />
         <button
             class="bg-blue-800 border-solid border border-white text-white rounded-full px-4 py-2 hover:bg-white hover:text-blue-800 transition duration-300"
@@ -71,7 +71,7 @@
                             </button>
                         </form>
 
-                        <form th:action="@{/pago/cliente/modificar}">
+                        <form th:action="@{/pagos/cliente/modificar}">
                             <input
                                 type="hidden"
                                 th:name="idPago"
@@ -95,4 +95,5 @@
         </table>
     </div>
 </main>
-<script th:replace="~{${view} :: script}" />
+<script th:fragment="script"></script>
+<!-- <script th:replace="~{${view} :: script}" ><script/> -->

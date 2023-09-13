@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.ui.Model;
 
 import java.time.LocalDate;
@@ -38,7 +39,7 @@ public class ClienteControlador {
     @Autowired
     private Validacion validar;
 
-    @GetMapping({"/clientes"})
+    @GetMapping({""})
     public ModelAndView traerClientes(){
         List<Cliente> cliente = clienteServicio.traerClientes();
         ModelAndView maw = new ModelAndView();
@@ -51,7 +52,7 @@ public class ClienteControlador {
 
 
 
-    @GetMapping(value = {"/clientes/nuevo"})
+    @GetMapping(value = {"/nuevo"})
     public ModelAndView nuevoEmpleado(Model model) {
         List<Membresia> membresias = membresiaServicio.traerMembresias();
         ModelAndView maw = new ModelAndView();
@@ -65,7 +66,7 @@ public class ClienteControlador {
 
 
 
-    @GetMapping("/cliente/modificar_cliente")
+    @GetMapping("/modificar_cliente")
     public ModelAndView modificarCliente(@RequestParam Integer id,Model model){
 
         Cliente cliente = clienteServicio.traerClientePorId(id);
@@ -73,7 +74,7 @@ public class ClienteControlador {
         List<Membresia> membresias = membresiaServicio.traerMembresias();
         ModelAndView maw = new ModelAndView();
         maw.setViewName("fragments/base");
-        maw.addObject("title", "Nueva Membresia");
+        maw.addObject("title", "Modificar Cliente");
         maw.addObject("view", "formsUpdate/client_form");
         maw.addObject("cliente", cliente);
         maw.addObject("membresias", membresias);
@@ -82,20 +83,20 @@ public class ClienteControlador {
     }
 
 
-    @PostMapping("/clientes/eliminar")
-    public String eliminarCliente(@RequestParam Integer clienteId){
+    @PostMapping("/eliminar")
+    public RedirectView eliminarCliente(@RequestParam Integer clienteId){
         Cliente cliente = clienteServicio.traerClientePorId(clienteId);
         cliente.setStatus("Inactivo");
         cliente.setId(clienteId);
         clienteServicio.crearCliente(cliente);
-        return "redirect:/clientes";
+        return new RedirectView("/clientes", true);
     }
 
 
 
 
-@PostMapping("/clientes/guardar")
-    public String guardarEmpleado(@ModelAttribute Cliente cliente,@RequestParam Integer idMembresia){
+@PostMapping("/guardar")
+    public RedirectView guardarCliente(@ModelAttribute Cliente cliente,@RequestParam Integer idMembresia){
 
         Membresia membresia = membresiaServicio.traerMembresiaPorId(idMembresia);
         Pago pago = new Pago();
@@ -106,11 +107,13 @@ public class ClienteControlador {
         cliente.setStatus("Activo");
         cliente.setFechaAlta(fechaActual);
         
+
         cliente.setDiasDisponibles(membresia.getDiasSemanales());
         cliente.setMembresia(membresia);
+        // cliente.setD(membresia.getDiasSemanales());
 
         pago.setMembresia(membresia);
-        pago.setMembresia(membresia);
+        // pago.setMembresia(membresia);
         pago.setValorAbonado(membresia.getPrecio());
         pago.setCliente(cliente);
         pago.setFechaPago(fechaActual);
@@ -134,17 +137,18 @@ public class ClienteControlador {
         clienteServicio.crearCliente(cliente);
         pagoServicio.crearPago(pago);
 
-        return "redirect:/clientes";
+            return new RedirectView("/clientes", true);
     }
 
-    @PostMapping("/clientes/update")
-    public String updateEmpleado(Cliente cliente,@RequestParam Integer idMembresia){
+    @PostMapping("/update")
+    public RedirectView updateEmpleado(Cliente cliente,@RequestParam Integer idMembresia){
 
         // ,@RequestParam Integer idMembresia
          Membresia membresia = membresiaServicio.traerMembresiaPorId(idMembresia);
          cliente.setMembresia(membresia);
+         cliente.setDiasDisponibles(membresia.getDiasSemanales());
     clienteServicio.modificarCliente(cliente);
-    return "redirect:/clientes";
+    return new RedirectView("/clientes", true);
     }
 
     //  @PostMapping({"/clientes/nuevo"})

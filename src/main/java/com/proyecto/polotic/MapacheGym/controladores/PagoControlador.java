@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.time.LocalDate;
 import java.util.Date;
@@ -34,21 +35,10 @@ public class PagoControlador {
 
 
 
-    @GetMapping(value = {"/pagos/cliente"})
+    @GetMapping("/cliente")
     public ModelAndView pagos(Model model,@RequestParam Integer id)
     {
-        
         List<Pago> pagos = pagoServicio.findAllPagosCliente(id);
-
-
-        // Integer idCliente;
-
-        // if (!pagos.isEmpty()) {
-        // Pago primerPago = pagos.get(0);
-        // idCliente = primerPago.getCliente().getId();
-        // } else {
-        //     idCliente = 0; // podria causar una implosion. voto porque julian lo repare
-        // }
         
         model.addAttribute("pagos", pagoServicio.traerPagos());
         ModelAndView maw = new ModelAndView();
@@ -65,7 +55,7 @@ public class PagoControlador {
 
 
 
-    @GetMapping(value = {"/pago/cliente/nuevo"})
+    @GetMapping(value = {"/cliente/nuevo"})
     public ModelAndView nuevoPago(Model model,@RequestParam Integer idCliente)
     {
         List<Membresia> membresias = membresiaServicio.traerMembresias();
@@ -83,8 +73,8 @@ public class PagoControlador {
     }
 
 
-    @PostMapping("/pagos/clientes/nuevo")
-    public String guardarPago(@RequestParam Integer idMembresia,@RequestParam Integer idCliente){
+    @PostMapping("/cliente/nuevo")
+    public RedirectView guardarPago(@RequestParam Integer idMembresia,@RequestParam Integer idCliente){
 
         Cliente cliente = clienteServicio.traerClientePorId(idCliente);
 
@@ -128,26 +118,29 @@ public class PagoControlador {
         clienteServicio.crearCliente(cliente);
         pagoServicio.crearPago(pago);
 
-        return "redirect:/pagos/cliente?id="+cliente.getId();
+        // return "redirect:/pagos/cliente?id="+cliente.getId();
+                return new RedirectView("/pagos/cliente?id="+cliente.getId(), true);
+
     }
 
 
 
-    @PostMapping(value = {"/pagos/eliminar"})
-    public String eliminarPago(Model model,@RequestParam Integer idPago,@RequestParam Integer idCliente)
+    @PostMapping(value = {"/eliminar"})
+    public RedirectView eliminarPago(Model model,@RequestParam Integer idPago,@RequestParam Integer idCliente)
     {
         Pago pago = new Pago();
         pago = pagoServicio.traerPagoPorId(idPago);
         pagoServicio.eliminarPago(pago);
 
-        return "redirect:/pagos/cliente?id="+idCliente;
+        // return "redirect:/pagos/cliente?id="+idCliente;
+        return new RedirectView("/pagos/cliente?id="+idCliente, true);
     }
 
 
 
 
 
-    @GetMapping(value = {"/pago/cliente/modificar"})
+    @GetMapping(value = {"/cliente/modificar"})
     public ModelAndView modificarPago(Model model,@RequestParam Integer idCliente,@RequestParam Integer idPago)
     {
         List<Membresia> membresias = membresiaServicio.traerMembresias();
@@ -168,8 +161,8 @@ public class PagoControlador {
 
 
 
-    @PostMapping("/pagos/clientes/update")
-    public String updatePago(@RequestParam Integer idMembresia,@RequestParam Integer idCliente,@RequestParam Integer idPago){
+    @PostMapping("/clientes/update")
+    public RedirectView updatePago(@RequestParam Integer idMembresia,@RequestParam Integer idCliente,@RequestParam Integer idPago){
 
         Cliente cliente = clienteServicio.traerClientePorId(idCliente);
         Membresia membresia = membresiaServicio.traerMembresiaPorId(idMembresia);
@@ -210,7 +203,8 @@ public class PagoControlador {
         clienteServicio.modificarCliente(cliente);
         pagoServicio.modificarPago(pago);
 
-        return "redirect:/pagos/cliente?id="+cliente.getId();
+        // return "redirect:/pagos/cliente?id="+cliente.getId();
+            return new RedirectView("/pagos/cliente?id="+cliente.getId(), true);
     }
 
 
