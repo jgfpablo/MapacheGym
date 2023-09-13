@@ -1,0 +1,55 @@
+<main
+    class="text-white p-4 m-2 rounded-sm landing-bg flex justify-center"
+    th:fragment="content"
+>
+    <div class="registro" id="registro-asistencias">
+        <h2>Formulario de Registro de Asistencias</h2>
+        <form
+            id="asistenciaForm"
+            action="/asistencia"
+            method="post"
+            enctype="application/x-www-form-urlencoded"
+        >
+            <label for="dniAsistencia">DNI:</label>
+            <input
+                type="text"
+                id="dniAsistencia"
+                name="dniAsistencia"
+                th:field="*{dniAsistencia}"
+                inputmode="numeric"
+                pattern="[0-9]{8}"
+                title="El DNI debe tener 8 dígitos numéricos sin puntos"
+                required
+            /><br />
+            <button type="submit">Registrar</button>
+        </form>
+        <!-- este codigo js recibe el mensaje desde la controladora y lo muestra en pantalla -->
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const asistenciaForm =
+                    document.getElementById("asistenciaForm");
+
+                asistenciaForm.addEventListener("submit", function (event) {
+                    event.preventDefault();
+
+                    fetch("/asistencia", {
+                        method: "POST",
+                        body: new FormData(this),
+                    })
+                        .then((response) => response.json())
+                        .then((data) => {
+                            if (data.error) {
+                                alert(data.error);
+                            } else if (data.message) {
+                                alert(data.message);
+                            }
+                        })
+                        .catch((error) => {
+                            console.error(error);
+                            alert("Error interno del servidor");
+                        });
+                });
+            });
+        </script>
+    </div>
+</main>
