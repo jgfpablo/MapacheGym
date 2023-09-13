@@ -1,10 +1,10 @@
-<div class="flex   w-72 mx-auto bg-gray-800  flex-col justify-center px-6 py-12 lg:px-8" th:fragment="content">
+<div style="min-height: 100vh;" class="flex mx-auto bg-gray-800  flex-col justify-center px-6 py-12 lg:px-8" th:fragment="content">
   <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-    <img class="mx-auto h-32" src="images/logo-light.svg" alt="Mapache Gym">
+    <a href="/"><img class="mx-auto h-32" src="images/logo-light.svg" alt="Mapache Gym"></a>
     <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-red-500">Login</h2>
   </div>
 
-  <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+  <div  class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
     <form class="space-y-6" th:action="@{/logincheck}" method="POST">
       <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
       <div>

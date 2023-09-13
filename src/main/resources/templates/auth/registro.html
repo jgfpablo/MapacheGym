@@ -1,7 +1,7 @@
-<div class="flex   w-72 mx-auto bg-gray-800  flex-col justify-center px-6 py-12 lg:px-8" th:fragment="contenido">
+<div class="flex mx-auto bg-gray-800  flex-col justify-center px-6 py-12 lg:px-8" th:fragment="content">
   <div class="sm:mx-auto sm:w-full sm:max-w-sm">
     <img class="mx-auto h-32" src="images/logo-light.svg" alt="Mapache Gym">
-    <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-red-500">Login</h2>
+    <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-red-500">Registro</h2>
   </div>
 
   <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
@@ -34,8 +34,8 @@
         </div>
       </div>
       <div>
-        <div class="">
-          <div class="g-recaptcha" name="recaptcha" th:errorClass="'is-invalid'" data-sitekey="6LcxtgwoAAAAAA2qs-Az2wR7T1ZgVPHb1HZkDt8S"></div>
+        <div class="bg-white" >
+          <div class="g-recaptcha" style="height: 100px;" name="recaptcha" th:errorClass="'is-invalid'" data-sitekey="6LcxtgwoAAAAAA2qs-Az2wR7T1ZgVPHb1HZkDt8S"></div>
           <div class="invalid-feedback" th:if="${#fields.hasErrors('recaptcha')}" th:errors="*{recaptcha}"></div>
         </div>
 
@@ -50,5 +50,4 @@
   </div>
 </div>
 
-<script th:fragment="script"></script>
-
+<script th:fragment="script" src="https://www.google.com/recaptcha/api.js"></script>

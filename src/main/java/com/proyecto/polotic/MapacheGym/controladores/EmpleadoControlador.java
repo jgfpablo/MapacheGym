@@ -30,6 +30,7 @@ public class EmpleadoControlador {
     {
         model.addAttribute("empleados", empleadoServicio.traerEmpleados());
         ModelAndView maw = new ModelAndView();
+        
         maw.setViewName("fragments/base");
         maw.addObject("title", "Inicio");
         maw.addObject("view", "tables/staff_table");

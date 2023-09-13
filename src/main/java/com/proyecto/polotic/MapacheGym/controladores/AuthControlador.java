@@ -15,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class AuthControlador {
@@ -38,11 +37,13 @@ public class AuthControlador {
         @RequestParam(name="logout", required = false) String logout) {
             
         ModelAndView maw = new ModelAndView();
-        maw.setViewName("fragments/base-sin-header");
-        maw.addObject("titulo", "Iniciar sesión");
+        boolean showHeader = false;
+        maw.setViewName("fragments/base");
+        maw.addObject("title", "Iniciar sesión");
         maw.addObject("view", "auth/login");
         model.addAttribute("error", error);
         model.addAttribute("logout", logout);
+        maw.addObject("showHeader", showHeader);
         return maw;
     }
 
@@ -55,10 +56,12 @@ public class AuthControlador {
 	public ModelAndView registro(RegistroDto registroDto)
     {
         ModelAndView maw = new ModelAndView();
-        maw.setViewName("fragments/base-sin-header");
-        maw.addObject("titulo", "Registrarse");
-        maw.addObject("vista", "auth/registro");
+        boolean showHeader = false;
+        maw.setViewName("fragments/base");
+        maw.addObject("title", "Registrarse");
+        maw.addObject("view", "auth/registro");
         maw.addObject("registroDto", registroDto);
+        maw.addObject("showHeader", showHeader);
         return maw;
 	}
 
