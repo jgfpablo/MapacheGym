@@ -8,6 +8,17 @@ body,
   height: 100%;
 }
 
+body {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+footer,
+.footer-art {
+  margin-top: auto;
+}
+
 * {
   scrollbar-width: thin;
   scrollbar-color: #750a0a #dfe9eb;
