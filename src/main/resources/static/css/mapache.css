@@ -2,16 +2,6 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities"; */
 
-body {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-footer {
-  margin-top: auto;
-}
-
 * {
   scrollbar-width: thin;
   scrollbar-color: #750a0a #dfe9eb;

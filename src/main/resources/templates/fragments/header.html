@@ -21,17 +21,17 @@
         <div class="nav-item" sec:authorize="isAuthenticated()">
             <form class="form-inline" th:action="@{/logout}" method="POST">
               <button class="btn btn-link nav-link active" type="submit" onclick="return confirm('¿Seguro de cerrar sesión?')">
-                <i class="fas fa-sign-out-alt fa-lg" style="color: #ffffff;"></i>
+                <i class="fas fa-sign-out-alt fa-lg" style="color: #ffffff;"><span class="mx-2 font-medium font-sans hidden md:flex text-sm">Cerrar sesion</span></i>
               </button>
             </form>
         </div>
-        <div id="mobileMenuButton" class="md:hidden">
+        <div sec:authorize="isAnonymous()" id="mobileMenuButton" class="md:hidden">
             <svg class="w-6 h-6 text-white cursor-pointer" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
             </svg>
         </div>
     </div>
-    <div id="mobileMenu" class="hidden fixed top-0 right-0 h-full w-72 bg-gray-900 text-white p-4 transform translate-x-0">
+    <div sec:authorize="isAnonymous()" id="mobileMenu" class="hidden fixed top-0 right-0 h-full w-72 bg-gray-900 text-white p-4 transform translate-x-0">
         <button id="hideMobileMenu" class="text-red-500 text-3xl absolute top-2 right-2">&times;</button>
         <ul class="space-y-2">
             <li><a href="#" class="block text-white font-semibold hover:text-red-500 ">Inicio</a></li>
