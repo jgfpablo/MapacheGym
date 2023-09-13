@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@EnableJpaRepositories(basePackages = "com.proyecto.polotic.MapacheGym.repositorio")
-@EntityScan(basePackages = "com.proyecto.polotic.MapacheGym.modelo")
+@EnableJpaRepositories(basePackages = "com.proyecto.polotic.MapacheGym.repositorios")
+@EntityScan(basePackages = "com.proyecto.polotic.MapacheGym.entidades")
 public class MapacheGymApplication {
 
 	public static void main(String[] args) {

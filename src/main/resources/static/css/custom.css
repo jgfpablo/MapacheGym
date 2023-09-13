@@ -1,0 +1,77 @@
+
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #750A0A #DFE9EB;
+}
+
+/* Chrome, Edge and Safari */
+*::-webkit-scrollbar {
+    width: 6px;
+    width: 6px;
+}
+*::-webkit-scrollbar-track {
+    background-color: #2d3748;
+}
+
+*::-webkit-scrollbar-track:hover {
+    background-color: #2d3748;
+}
+
+*::-webkit-scrollbar-track:active {
+    background-color: #2d3748;
+}
+
+*::-webkit-scrollbar-thumb {
+    border-radius: 19px;
+    background-color: #750A0A;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background-color: #A31E1E;
+}
+
+*::-webkit-scrollbar-thumb:active {
+    background-color: #A30000;
+}
+
+.text-glow:hover {
+    transition: text-shadow 200ms ease-in-out;
+    text-shadow: 0 0 5px #e27272;
+}
+
+.landing-bg {
+    background-image: url(../images/landing-main.jpg);
+    background-size: cover;
+    background-position: center;
+}
+
+.shadow-red-900 {
+    text-shadow: 0 0 8px #742a2a;
+}
+
+.image-shadow-red-900 {
+    filter: drop-shadow(0px 0px 8px #742a2a); /* Ajusta los valores según sea necesario */
+}
+
+.shadow-black {
+    text-shadow: 0 0 8px #000000;
+}
+
+.membership-bg-basico {
+    background-image: url(../images/basico.png);
+    background-position: center;
+    background-size: 100%;
+}
+
+.membership-bg-mapache {
+    background-image: url(../images/mapache.png);
+    background-position: center;
+    background-size: 100%;
+}
+
+.membership-bg-feroz {
+    background-image: url(../images/feroz.png);
+    background-position: top;
+    background-size: 100%;
+}

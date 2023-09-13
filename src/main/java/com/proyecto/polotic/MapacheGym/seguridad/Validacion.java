@@ -1,9 +1,9 @@
 package com.proyecto.polotic.MapacheGym.seguridad;
 
-import com.proyecto.polotic.MapacheGym.modelo.Cliente;
-import com.proyecto.polotic.MapacheGym.modelo.Empleado;
-import com.proyecto.polotic.MapacheGym.repositorio.ClienteRepositorio;
-import com.proyecto.polotic.MapacheGym.repositorio.EmpleadoRepositorio;
+import com.proyecto.polotic.MapacheGym.entidades.Cliente;
+import com.proyecto.polotic.MapacheGym.entidades.Empleado;
+import com.proyecto.polotic.MapacheGym.repositorios.ClienteRepositorio;
+import com.proyecto.polotic.MapacheGym.repositorios.EmpleadoRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

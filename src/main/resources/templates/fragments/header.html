@@ -10,9 +10,9 @@
             <button class="bg-transparent border-solid border border-white text-white rounded-full px-4 py-2 hover:bg-white hover:text-black transition duration-300">
                 Registrarse
             </button>
-            <button href="/login" class="bg-red-500 text-white rounded-full px-4 py-2 hover:bg-white hover:text-red-500 transition duration-300">
+            <a href="/login" class="bg-red-500 text-white rounded-full px-4 py-2 hover:bg-white hover:text-red-500 transition duration-300" >
                 Iniciar Sesión
-            </button>
+            </a>
         </div>
         <div class="nav-item" sec:authorize="isAuthenticated()">
             <form class="form-inline" th:action="@{/logout}" method="POST">
