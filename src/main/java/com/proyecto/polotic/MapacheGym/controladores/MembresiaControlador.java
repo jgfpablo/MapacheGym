@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.Collections;
 import java.util.List;
@@ -18,17 +19,12 @@ import java.util.List;
 //  @RestController
 //  @RequestMapping("/membresias")  --------------- Preguntar Chatgpt
 @RestController
-@RequestMapping("/membresias")
-public class MembresiaControlador {
+@RequestMapping("membresias")
+public class MembresiaControlador implements WebMvcConfigurer{
 
     @Autowired
     private MembresiaServicio membresiaServicio;
 
-    @GetMapping
-    @ResponseBody
-    public List<Membresia> traerMembresias(){
-        return membresiaServicio.traerMembresias();
-    }
 
     @GetMapping("/membresias")
     public ModelAndView obtenerMembresias(Model model)
@@ -83,18 +79,17 @@ public class MembresiaControlador {
     }
 */
 
-    @GetMapping(value = {"/nueva"})
-    public ModelAndView nuevaMembresia(Model model) {
-        Membresia membresia = new Membresia();
+    @GetMapping("/nueva")
+    public ModelAndView nuevaMembresia(Membresia membresia) {
         ModelAndView maw = new ModelAndView();
         maw.setViewName("fragments/base");
         maw.addObject("title", "Nueva Membresia");
-        maw.addObject("view", "formsCreate/membership_form");
+        maw.addObject("view", "formsCreate/membership_form_create");
         maw.addObject("membresia", membresia);
         return maw;   
     }
 
-    @PostMapping(value = {"/guardar"})
+    @PostMapping("/guardar")
     public ResponseEntity<?> crearMembresia(@ModelAttribute Membresia membresia){
     
         membresiaServicio.crearMembresia(membresia);
