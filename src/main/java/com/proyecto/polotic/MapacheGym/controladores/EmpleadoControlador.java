@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.ui.Model;
 
 import java.util.Collections;
@@ -25,7 +26,7 @@ public class EmpleadoControlador {
     @Autowired
     private Validacion validar;
     
-    @GetMapping(value = {"/empleados"})
+    @GetMapping(value = {""})
     public ModelAndView empleados(Model model)
     {
         model.addAttribute("empleados", empleadoServicio.traerEmpleados());
@@ -37,7 +38,7 @@ public class EmpleadoControlador {
         return maw;  
     }
 
-    @GetMapping(value = {"/empleados/nuevo"})
+    @GetMapping(value = {"/nuevo"})
     public ModelAndView nuevoEmpleado(Model model) {
         ModelAndView maw = new ModelAndView();
         maw.setViewName("fragments/base");
@@ -47,15 +48,15 @@ public class EmpleadoControlador {
         return maw;   
     }
 
-    @PostMapping("/empleados/eliminar")
-    public String eliminarEmpleado(@RequestParam Integer id){
+    @PostMapping("/eliminar")
+    public RedirectView eliminarEmpleado(@RequestParam Integer id){
         Empleado empleado = new Empleado();
         empleado = empleadoServicio.traerEmpleadoPorId(id);
         empleadoServicio.eliminarEmpleado(empleado);
-        return "redirect:/empleados";
+        return new RedirectView("/empleados", true);
     }
 
-    @GetMapping("/empleados/modificar-empleado")
+    @GetMapping("/modificar-empleado")
     public ModelAndView modificarEmpleado(@RequestParam Integer id, Model model){
         Empleado empleado = empleadoServicio.traerEmpleadoPorId(id);
 
@@ -67,33 +68,36 @@ public class EmpleadoControlador {
         return maw;  
     }
 
-    @PostMapping("/empleados/update")
-    public String updateEmpleado(Empleado empleado){
+    @PostMapping("/update")
+    public RedirectView updateEmpleado(Empleado empleado){
     empleadoServicio.modificarEmpleado(empleado);
-    return "redirect:/empleados";
+    return new RedirectView("/empleados", true);
+
     }
 
 
-    @PostMapping("/empleados/guardar")
-    public ResponseEntity<?> guardarEmpleado(@ModelAttribute Empleado empleado){
+    @PostMapping("/guardar")
+    public RedirectView guardarEmpleado(@ModelAttribute Empleado empleado){
+        //ResponseEntity<?>
                 //Falta agregar logica de santiago , porque aun no la entiendo 
-        if (!validar.validarDniEmpleado(empleado.getDni())) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(Collections.singletonMap("error", "Ya existe un empleado con ese DNI"));
-        }
+        // if (!validar.validarDniEmpleado(empleado.getDni())) {
+        //     return ResponseEntity.status(HttpStatus.NOT_FOUND)
+        //             .body(Collections.singletonMap("error", "Ya existe un empleado con ese DNI"));
+        // }
 
-        if (empleado.getDni().isEmpty() || empleado.getNombre().isEmpty() || empleado.getApellido().isEmpty() || empleado.getTelefono().isEmpty() || empleado.getEmail().isEmpty() || empleado.getTipoEmpleado().isEmpty()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(Collections.singletonMap("error", "Todos los campos son obligatorios"));
-        }
+        // if (empleado.getDni().isEmpty() || empleado.getNombre().isEmpty() || empleado.getApellido().isEmpty() || empleado.getTelefono().isEmpty() || empleado.getEmail().isEmpty() || empleado.getTipoEmpleado().isEmpty()) {
+        //     return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+        //             .body(Collections.singletonMap("error", "Todos los campos son obligatorios"));
+        // }
 
-        if (!empleado.getTipoEmpleado().equals("Administrador") && !empleado.getTipoEmpleado().equals("Usuario") && !empleado.getTipoEmpleado().equals("Instructor")) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                    .body(Collections.singletonMap("error", "El tipo de empleado debe ser 'Administrador', 'Usuario' o 'Instructor'"));
-        }
+        // if (!empleado.getTipoEmpleado().equals("Administrador") && !empleado.getTipoEmpleado().equals("Usuario") && !empleado.getTipoEmpleado().equals("Instructor")) {
+        //     return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+        //             .body(Collections.singletonMap("error", "El tipo de empleado debe ser 'Administrador', 'Usuario' o 'Instructor'"));
+        // }
 
                 empleadoServicio.crearEmpleado(empleado);
-        return ResponseEntity.ok(Collections.singletonMap("message", empleado.getTipoEmpleado() + " se registró exitosamente"));
+        // return ResponseEntity.ok(Collections.singletonMap("message", empleado.getTipoEmpleado() + " se registró exitosamente"));
+        return new RedirectView("/empleados", true);
     }
 
 
