@@ -1,41 +1,39 @@
-<div style="min-height: 100vh;" class="flex mx-auto bg-gray-800  flex-col justify-center px-6 py-12 lg:px-8" th:fragment="content">
-  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-    <a href="/"><img class="mx-auto h-32" src="images/logo-light.svg" alt="Mapache Gym"></a>
-    <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-red-500">Login</h2>
-  </div>
-
-  <div  class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-    <form class="space-y-6" th:action="@{/logincheck}" method="POST">
-      <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-      <div>
-        <label for="email" class="block  font-semibold text-white leading-6 ">Email address</label>
-        <div class="mt-2">
-          <input id="email" name="email" type="email" autocomplete="email" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+<div class="flex flex-col items-center justify-center text-center h-screen" th:fragment="content">
+  <div class="bg-gradient-to-b from-slate-800 to-gray-900 rounded-md shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px]">
+    <div class="flex flex-col items-center text-center p-6">
+        <img src="/images/logo-light.svg" alt="MapacheGym" class="h-24 w-24">
+        <div class="font-semibold text-glow pt-2">
+            <span class="text-white">Mapache</span><span class="text-red-500">Gym</span>
         </div>
-      </div>
-
-      <div>
-        <div class="flex items-center justify-between">
-          <label for="password" class="block font-semibold leading-6 text-white">Password</label>
-          
+    </div>
+    <form method="POST" th:action="@{/logincheck}">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
+        <div class="mx-4">
+            <div class="mt-6 mx-6 text-left">
+                <label class="font-bold text-white ml-1.5">Mail</label>
+                <br>
+                <input class="mt-1.5 py-2 px-5 rounded-full placeholder:text-slate-500 placeholder:text-opacity-50 text-sm font-medium focus:outline-none focus:ring-4 focus:ring-red-500 transition duration-300 ease-in-out hover:ring-4 hover:ring-red-500 hover:transition-transform hover:scale-105" placeholder="Ingrese su mail" id="email" name="email" type="email" autocomplete="email" required>
+            </div>
+            <div class="mx-6 mb-6 mt-4 text-left">
+                <label class="font-bold text-white ml-1.5">Contraseña</label>
+                <br>
+                <input class="mt-1.5 py-2 px-5 rounded-full placeholder:text-slate-500 placeholder:text-opacity-50 text-sm font-medium focus:outline-none focus:ring-4 focus:ring-red-500 transition duration-300 ease-in-out hover:ring-4 hover:ring-red-500 hover:transition-transform hover:scale-105" placeholder="Ingrese su contraseña" id="password" name="password" type="password" autocomplete="current-password" required>
+            </div>
+            <div>
+                <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 border border-red-700 rounded transition duration-300 mb-4 hover:ring-red-500 hover:transition-transform hover:scale-110">Ingresar</button>
+            </div>
         </div>
-        <div class="mt-2">
-          <input id="password" name="password" type="password" autocomplete="current-password" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-        </div>
-        <div class="text-sm py-2">
-          <a href="#" class="text-sm text-white  hover:text-red-500">Olvidaste la contraseña?</a>
-        </div>
-      </div>
-
-      <div>
-        <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-red-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in</button>
-      </div>
     </form>
-
-    <p class="mt-10 text-center text-sm">
-      <a href="/registro" class="font-bold leading-6 text-white hover:text-red-500">Registrate</a>
-    </p>
+    <div class="mb-1.5">
+        <a class="inline-block text-white text-glow transition-transform transform hover:scale-150 hover:duration-300 hover:animate-shake text-sm" href="/registro">
+            ¿Todavía no estás registrado?
+        </a>
+    </div>
+    <div class="mb-4">
+        <a href="#" class="inline-block text-white text-glow transition-transform transform hover:scale-150 hover:duration-300 hover:animate-shake text-sm">
+            Olvidé mi contraseña
+        </a>
+    </div>
   </div>
 </div>
-
 <script th:fragment="script"></script>
