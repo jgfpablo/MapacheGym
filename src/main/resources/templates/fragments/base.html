@@ -24,8 +24,9 @@
     <body
         class="bg-gradient-to-b from-gray-800 to-gray-900 via-opacity-0 via-opacity-0 bg-no-repeat bg-fixed"
     >
-    
-    <header th:replace="~{fragments/header :: header}"></header>
+    <div th:if="${showHeader}">
+        <header th:replace="~{fragments/header :: header}"></header>
+    </div>
     <main th:replace="~{${view} :: content}"></main>
     <footer th:replace="~{fragments/footer :: footer}"></footer>
 
