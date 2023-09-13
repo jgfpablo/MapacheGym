@@ -83,7 +83,7 @@ public class MembresiaControlador {
     }
 */
 
-    @GetMapping(value = {"/membresias/nueva"})
+    @GetMapping(value = {"/nueva"})
     public ModelAndView nuevaMembresia(Model model) {
         Membresia membresia = new Membresia();
         ModelAndView maw = new ModelAndView();
@@ -94,7 +94,7 @@ public class MembresiaControlador {
         return maw;   
     }
 
-    @PostMapping(value = {"/membresias/guardar"})
+    @PostMapping(value = {"/guardar"})
     public ResponseEntity<?> crearMembresia(@ModelAttribute Membresia membresia){
     
         membresiaServicio.crearMembresia(membresia);
@@ -107,7 +107,7 @@ public class MembresiaControlador {
     }
 
 
-    @PostMapping({"/membresias/eliminar"})
+    @PostMapping({"/eliminar"})
     public String eliminarMembresia(Membresia membresia){
         membresiaServicio.eliminarMembresia(membresia);
 
@@ -115,7 +115,7 @@ public class MembresiaControlador {
     }
 
 
-    @GetMapping("/membresias/modificar-membresia")
+    @GetMapping("/modificar-membresia")
     public ModelAndView modificarEmpleado(@RequestParam Integer id, Model model){
         Membresia membresia = membresiaServicio.traerMembresiaPorId(id);
 
@@ -149,7 +149,7 @@ public class MembresiaControlador {
     //     return ResponseEntity.ok(Collections.singletonMap("message", "Membresia se registró exitosamente"));
     // }
 
-    @PostMapping("/membresias/update")
+    @PostMapping("/update")
     public String modificarMembresia( Membresia membresia){
         membresiaServicio.modificarMembresia(membresia);
         return "redirect:/membresias";

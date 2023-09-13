@@ -4,9 +4,9 @@
 >
 
   <div class="inline-flex flex-col items-center rounded-md p-6 m-12 px-12 bg-gradient-to-b from-gray-900 to-gray-900 via-opacity-0 via-opacity-0 bg-no-repeat bg-fixed text-white font-light shadow-sm shadow-black">
-        <form th:action="@{/membresias/guardar}"
+        <form th:action="@{/guardar}"
             th:object="${membresia}"
-            method="post">
+            method="POST">
             <div>
             <div class="mb-4 text-xl">
                 <span class="font-semibold ">Registrar </span><span class=" text-red-400 font-semibold">membresía</span>
@@ -38,3 +38,4 @@
     </div>
 
 </main>
+<script th:replace="~{${view} :: script}" />
