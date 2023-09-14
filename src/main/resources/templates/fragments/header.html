@@ -7,14 +7,14 @@
         </p>
         </div>
 
-        <div class="relative group md:hidden" id="dropdownButton">
+        <div class="relative group md:hidden" id="dropdownButton" sec:authorize="isAuthenticated()">
             <a class="text-md font-semibold text-white text-glow group-hover:text-red-400 flex items-center justify-between w-full sm:w-auto sm:pr-4 py-2 sm:py-1">
                 Opciones <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                 </svg>
             </a>
      
-            <div id="dropdownMenu" class="scale-0 opacity-0 transition-all duration-200 overflow-hidden absolute z-10 bg-gray-800 origin-top-right right-0 mt-2 rounded-md shadow-lg font-semibold">
+            <div sec:authorize="isAuthenticated()" id="dropdownMenu" class="scale-0 opacity-0 transition-all duration-200 overflow-hidden absolute z-10 bg-gray-800 origin-top-right right-0 mt-2 rounded-md shadow-lg font-semibold">
                 <div class="py-1">
                   <ul>
                       <li>
