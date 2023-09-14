@@ -22,17 +22,15 @@
             </thead>
             <tbody class="font-semibold divide-y divide-gray-200">
                 <tr class="bg-slate-600" th:each="asistencia : ${asistencias}">
-                    <td lass="px-2 py-1" th:text="${asistencia.empleado.nombre}"></td>
+                    <td lass="px-2 py-1" th:text="${asistencia.asistenciaEmpleado.nombre}"></td>
                     <td
                         lass="px-2 py-1"
-                        th:text="${asistencia.empleado.dia}"
+                        th:text="${asistencia.dia}"
                     ></td>
-                    <td lass="px-2 py-1" th:text="${asistencia.empleado.horaInicio}"></td>
-                    <td
-                        lass="px-2 py-1"
-                        th:text="${asistencia.empleado.horaFin}"
-                    ></td>
-                    <td lass="px-2 py-1" th:text="${asistencia.empleado.horaFin}"></td>
+                    <td lass="px-2 py-1" th:text="${asistencia.horaInicio}"></td>
+                    <td lass="px-2 py-1" th:text="${asistencia.horaFin}"></td>
+                    </td>
+                    <td lass="px-2 py-1" th:text="${asistencia.fecha}"></td>
                     </td>
                 </tr>
             </tbody>
