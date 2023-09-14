@@ -9,6 +9,8 @@ import com.proyecto.polotic.MapacheGym.servicios.RolServicio;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -85,6 +87,16 @@ public class EmpleadoControlador {
 
     @PostMapping("/guardar")
     public RedirectView guardarEmpleado(@ModelAttribute Empleado empleado){
+
+    String contrasenia = empleado.getContrasenia();
+    
+    BCryptPasswordEncoder coder = new BCryptPasswordEncoder();
+
+    String contraseniaCrypt = coder.encode(contrasenia);
+
+    empleado.setContrasenia(contraseniaCrypt);
+
+
         if (empleado.getDni() == null || empleado.getDni().isEmpty()) {
     String error = "Todos los campos del formulario deben estar completos";
     
