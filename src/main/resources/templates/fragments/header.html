@@ -6,6 +6,40 @@
             <span class="text-white">Mapache</span><span class="text-red-500">Gym</span>
         </p>
         </div>
+
+        <div class="relative group md:hidden" id="dropdownButton" sec:authorize="isAuthenticated()">
+            <a class="text-md font-semibold text-white text-glow group-hover:text-red-400 flex items-center justify-between w-full sm:w-auto sm:pr-4 py-2 sm:py-1">
+                Opciones <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+            </a>
+     
+            <div sec:authorize="isAuthenticated()" id="dropdownMenu" class="scale-0 opacity-0 transition-all duration-200 overflow-hidden absolute z-10 bg-gray-800 origin-top-right right-0 mt-2 rounded-md shadow-lg font-semibold">
+                <div class="py-1">
+                  <ul>
+                      <li>
+                      <form method="GET" class="flex items-center px-4 py-2 text-white hover:bg-red-400 hover:text-white transition-colors duration-200">
+                          <button type="submit" class="fa-solid fa-user mr-2"></button>example@mail.com
+                      </form>
+                      </li>
+                      <hr class="my-1 border-t border-gray-400">
+                      <form method="GET" class="flex items-center px-4 py-2 text-white hover:bg-red-400 hover:text-white transition-colors duration-200">
+                        <button type="submit" class="fa-solid fa-address-book mr-2"></button>Asistencias clientes
+                      </form>
+                      <form method="GET" class="flex items-center px-4 py-2 text-white hover:bg-red-400 hover:text-white transition-colors duration-200">
+                        <button type="submit" class="fa-regular fa-address-book mr-2"></button>Asistencia staff
+                      </form>
+                      <form method="GET" class="flex items-center px-4 py-2 text-white hover:bg-red-400 hover:text-white transition-colors duration-200">
+                        <button type="submit" class="fas fa-users mr-2"></button>Clientes
+                      </form>
+                      <form method="GET" class="flex items-center px-4 py-2 text-white hover:bg-red-400 hover:text-white transition-colors duration-200">
+                        <button type="submit" class="fas fa-address-card mr-2"></button>Membresias
+                      </form>
+                  </ul>
+              </div>
+            </div>
+        </div>
+
         <div class="hidden md:flex space-x-4 items-center">
             <div sec:authorize="isAnonymous()">
                 <a href="/registro" class="bg-transparent border-solid border border-white text-white rounded-full px-4 py-2 hover:bg-white hover:text-black transition duration-300">
@@ -36,7 +70,7 @@
         <ul class="space-y-2">
             <li><a href="#" class="block text-white font-semibold hover:text-red-500 ">Inicio</a></li>
             <li class="border-t border-gray-700 pt-2"><a href="#" class="block text-white font-semibold hover:bg-white hover:text-black bg-red-500 px-4 py-2 rounded-md">Iniciar Sesión</a></li>
-            <li class="border-t border-gray-700 pt-2"><a href="#" class="block text-white font-semibold hover:bg-white hover:text-black bg-white border border-solid px-4 py-2 rounded-md">Registrarse</a></li>
+            <li class="border-t border-gray-700 pt-2"><a href="#" class="block text-black font-semibold hover:bg-white hover:text-black bg-white border border-solid px-4 py-2 rounded-md">Registrarse</a></li>
         </ul>
     </div>
 </nav>

@@ -18,7 +18,7 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 public class AuthControlador {
-    
+
     @Autowired
     private BCryptPasswordEncoder codificador;
 
@@ -32,10 +32,10 @@ public class AuthControlador {
     private RecaptchaServicio recaptchaServicio;
 
     @GetMapping("/login")
-    public ModelAndView showLoginForm(Model model, 
-        @RequestParam(name = "error", required = false) String error,
-        @RequestParam(name="logout", required = false) String logout) {
-            
+    public ModelAndView showLoginForm(Model model,
+            @RequestParam(name = "error", required = false) String error,
+            @RequestParam(name = "logout", required = false) String logout) {
+
         ModelAndView maw = new ModelAndView();
         boolean showHeader = false;
         maw.setViewName("fragments/base");
@@ -47,14 +47,13 @@ public class AuthControlador {
         return maw;
     }
 
-    @GetMapping({"/loginSuccess"})
-    public RedirectView loginCheck(){
-        return new RedirectView("/");
+    @GetMapping({ "/loginSuccess" })
+    public RedirectView loginCheck() {
+        return new RedirectView("/home");
     }
-    
+
     @GetMapping("/registro")
-	public ModelAndView registro(RegistroDto registroDto)
-    {
+    public ModelAndView registro(RegistroDto registroDto) {
         ModelAndView maw = new ModelAndView();
         boolean showHeader = false;
         maw.setViewName("fragments/base");
@@ -63,11 +62,11 @@ public class AuthControlador {
         maw.addObject("registroDto", registroDto);
         maw.addObject("showHeader", showHeader);
         return maw;
-	}
+    }
 
-	@PostMapping("/registro")
-	public ModelAndView registrar(@RequestParam(name="g-recaptcha-response") String recaptchaResponse, @Valid RegistroDto registroDto, BindingResult br, RedirectAttributes ra, HttpServletRequest request)
-    {
+    @PostMapping("/registro")
+    public ModelAndView registrar(@RequestParam(name = "g-recaptcha-response") String recaptchaResponse,
+            @Valid RegistroDto registroDto, BindingResult br, RedirectAttributes ra, HttpServletRequest request) {
         String ip = request.getRemoteAddr();
         String captchaVerifyMessage = recaptchaServicio.verifyRecaptcha(ip, recaptchaResponse);
 
@@ -75,21 +74,20 @@ public class AuthControlador {
             br.rejectValue("recaptcha", "recaptcha", captchaVerifyMessage);
         }
 
-        if ( br.hasErrors() ) {
-			return this.registro(registroDto);
-		}
+        if (br.hasErrors()) {
+            return this.registro(registroDto);
+        }
 
         Usuario u = new Usuario();
         u.setEmail(registroDto.getEmail());
         u.setPassword(codificador.encode(registroDto.getPassword()));
-        u.setRol(rolRepositorio.findByNombre("Administrador").orElseThrow(() -> new IllegalArgumentException("Error al crear usuario")));
+        u.setRol(rolRepositorio.findByNombre("Administrador")
+                .orElseThrow(() -> new IllegalArgumentException("Error al crear usuario")));
 
-		usuarioRepositorio.save(u);
-
-
+        usuarioRepositorio.save(u);
 
         HomeControlador hc = new HomeControlador();
         return hc.home();
-	}
+    }
 
 }
