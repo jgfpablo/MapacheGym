@@ -15,11 +15,11 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfiguration {
 
 	@Autowired
-	private UsuarioServicio usuarioServicio;
+	private EmpleadoServicio empleadoServicio;
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(usuarioServicio).passwordEncoder(new BCryptPasswordEncoder());
+		auth.userDetailsService(empleadoServicio).passwordEncoder(new BCryptPasswordEncoder());
 	}
 
 	@Bean

@@ -2,27 +2,31 @@ package com.proyecto.polotic.MapacheGym.entidades;
 
 import jakarta.persistence.*;
 
-import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.List;
+import jakarta.validation.constraints.*;
+
 
 @Entity
 @Table(name = "empleado")
 public class Empleado extends Persona implements Serializable {
     //Administrador, Usuario, y Instructor
-    @Column(name = "tipo_empleado")
-    @Pattern(regexp = "^(Administrador|Usuario|Instructor)$", message= "usuario no valido")
-    private String tipoEmpleado;
+    
+    @ManyToOne
+    @NotNull
+    private Rol rol;
+
 
     @Column(name = "legajo")
     private String legajo;
 
     @Pattern(regexp = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9.-]+$")
+    @NotNull
     @Column(name = "email")
     private String email;
 
     @Column(name = "contrasenia")
-    private String contrasenia;
+    private String password;
 
     //RELACION BIDERECCIONAL (1-N) CON ASISTENCIA
     @OneToMany(mappedBy = "asistenciaEmpleado")
@@ -31,21 +35,21 @@ public class Empleado extends Persona implements Serializable {
     public Empleado() {
     }
 
-    public Empleado(int id, String dni, String nombre, String apellido, String telefono, String tipoEmpleado, String legajo, String email, String contrasenia, List<Asistencia> asistencia) {
+    public Empleado(int id, String dni, String nombre, String apellido, String telefono, Rol rol, String legajo, String email, String password, List<Asistencia> asistencia) {
         super(id, dni, nombre, apellido, telefono);
-        this.tipoEmpleado = tipoEmpleado;
+        this.rol = rol;
         this.legajo = legajo;
         this.email = email;
-        this.contrasenia = contrasenia;
+        this.password = password;
         this.asistencia = asistencia;
     }
 
-    public String getTipoEmpleado() {
-        return tipoEmpleado;
+    public Rol getRol() {
+        return rol;
     }
 
-    public void setTipoEmpleado(String tipoEmpleado) {
-        this.tipoEmpleado = tipoEmpleado;
+    public void setRol(Rol rol) {
+        this.rol = rol;
     }
 
     public String getLegajo() {
@@ -65,11 +69,11 @@ public class Empleado extends Persona implements Serializable {
     }
 
     public String getContrasenia() {
-        return contrasenia;
+        return password;
     }
 
-    public void setContrasenia(String contrasenia) {
-        this.contrasenia = contrasenia;
+    public void setContrasenia(String password) {
+        this.password = password;
     }
 
     public List<Asistencia> getAsistencia() {

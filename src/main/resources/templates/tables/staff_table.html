@@ -44,7 +44,7 @@
                     <td class="px-2 py-1" th:text="${empleado.email}"></td>
                     <td
                         class="px-2 py-1"
-                        th:text="${empleado.tipoEmpleado}"
+                        th:text="${empleado.rol.nombre}"
                     ></td>
                     <td class="px-2 py-1">
                         <form th:action="@{/empleados/eliminar}" method="post">

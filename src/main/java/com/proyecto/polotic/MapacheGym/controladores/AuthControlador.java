@@ -26,7 +26,7 @@ public class AuthControlador {
     private RolRepositorio rolRepositorio;
 
     @Autowired
-    private UsuarioRepositorio usuarioRepositorio;
+    private EmpleadoRepositorio empleadoRepositorio;
 
     @Autowired
     private RecaptchaServicio recaptchaServicio;
@@ -78,13 +78,13 @@ public class AuthControlador {
             return this.registro(registroDto);
         }
 
-        Usuario u = new Usuario();
+        Empleado u = new Empleado();
         u.setEmail(registroDto.getEmail());
-        u.setPassword(codificador.encode(registroDto.getPassword()));
+        u.setContrasenia(codificador.encode(registroDto.getPassword()));
         u.setRol(rolRepositorio.findByNombre("Administrador")
                 .orElseThrow(() -> new IllegalArgumentException("Error al crear usuario")));
 
-        usuarioRepositorio.save(u);
+        empleadoRepositorio.save(u);
 
         HomeControlador hc = new HomeControlador();
         return hc.home();

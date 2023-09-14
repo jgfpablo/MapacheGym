@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class EmailUnicoValidator implements ConstraintValidator<EmailUnico, Object> {
 
     @Autowired
-    private UsuarioRepositorio usuarioRepositorio;
+    private EmpleadoRepositorio empleadoRepositorio;
 
     @Override
     public void initialize(final EmailUnico constraintAnnotation) {
@@ -18,7 +18,7 @@ public class EmailUnicoValidator implements ConstraintValidator<EmailUnico, Obje
     @Override
     public boolean isValid(final Object objeto, final ConstraintValidatorContext context) {
         final RegistroDto registro = (RegistroDto) objeto;
-        boolean esValido = ! usuarioRepositorio.existsByEmail(registro.getEmail());
+        boolean esValido = ! empleadoRepositorio.existsByEmail(registro.getEmail());
 
         if (! esValido) {
             context.disableDefaultConstraintViolation();

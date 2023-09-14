@@ -46,22 +46,22 @@
                 <span class="font-sans text-sm">Tipo Empleado</span>
                 
 
-                 <select class="text-black p-1.5 rounded-md text-black mb-2 w-full" id="tipoEmpleado"  th:field="*{tipoEmpleado}">
+                 <select class="text-black p-1.5 rounded-md text-black mb-2 w-full" id="rol"  th:field="*{rol}">
                     <option
                         value="Administrador"
-                        th:selected="${empleado.tipoEmpleado == 'Administrador'}"
+                        th:selected="${empleado.rol.toString() == 'Administrador'}"
                     >
                         Administrador
                     </option>
                     <option
                         value="Usuario"
-                        th:selected="${empleado.tipoEmpleado == 'Usuario'}"
+                        th:selected="${empleado.rol.toString() == 'Usuario'}"
                     >
                         Usuario
                     </option>
                     <option
                         value="Instructor"
-                        th:selected="${empleado.tipoEmpleado == 'Instructor'}"
+                        th:selected="${empleado.rol.toString() == 'Instructor'}"
                     >
                         Instructor
                     </option>

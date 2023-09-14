@@ -29,6 +29,6 @@ public class RolServicio {
     public void delete(Long id) {
         rolRepositorio.deleteById(id);
     }
-    
+
 }
 

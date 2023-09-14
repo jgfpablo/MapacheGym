@@ -13,10 +13,15 @@ public class Rol {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    
     @NotNull
     @NotBlank(message = "Campo obligatorio")
-    @Size(max = 50, message = "Nombre demasiado largo")
     @Column(unique = true)
     private String nombre;
+
+    @Override
+    public String toString(){
+        return nombre;
+    }
 
 }
