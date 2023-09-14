@@ -13,8 +13,10 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.ui.Model;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 
@@ -86,8 +88,27 @@ public class EmpleadoControlador {
     }
 
     @PostMapping("/update")
-    public RedirectView updateEmpleado(Empleado empleado,@RequestParam String password){
-         if (password != null && password != "") {
+    public RedirectView updateEmpleado(Empleado empleado,@RequestParam String password,RedirectAttributes redirectAttributes){
+
+
+            if (empleado.getDni() == null || empleado.getDni().isEmpty()) {
+    Integer error = empleado.getId();
+    
+    // redirectAttributes.addFlashAttribute("error", "El DNI es obligatorio.");
+    // model.addAttribute("miVariable", "Mi mensaje de error");
+    // RedirectView redirectView = new RedirectView("/empleados/modificar-empleado?id="+empleado.getId(), true);
+    redirectAttributes.addFlashAttribute("miVariable", "El DNI es obligatorio.");
+            redirectAttributes.addFlashAttribute("alertScript", true);
+            return new RedirectView("/empleados/modificar-empleado?id=" + empleado.getId(), true);
+
+    // redirectView.addStaticAttribute("", error); // Usa addStaticAttribute para agregar atributos
+    
+    // return redirectView; // Retorna el RedirectView con los atributos
+    }
+
+
+
+        if (password != null && password != "") {
     BCryptPasswordEncoder coder = new BCryptPasswordEncoder();
     String contraseniaCrypt = coder.encode(password);
     empleado.setContrasenia(contraseniaCrypt);
@@ -113,10 +134,10 @@ public class EmpleadoControlador {
     empleado.setContrasenia(contraseniaCrypt);
 
 
-        if (empleado.getDni() == null || empleado.getDni().isEmpty()) {
+         if (empleado.getDni() == null || empleado.getDni().isEmpty()) {
     String error = "Todos los campos del formulario deben estar completos";
     
-    RedirectView redirectView = new RedirectView("/empleados", true);
+    RedirectView redirectView = new RedirectView("/empleados/nuevo", true);
     redirectView.addStaticAttribute("error", error); // Usa addStaticAttribute para agregar atributos
     
     return redirectView; // Retorna el RedirectView con los atributos

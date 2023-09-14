@@ -96,4 +96,17 @@
         </form>
     </div>
 </main>
+
+<script th:if="${alertScript}" th:inline="javascript">
+    console.log("Código JavaScript ejecutado");
+    var errorMessage = /*[[${miVariable}]]*/ "";
+    if (errorMessage) {
+        Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "error los campos deben estar completos!!!",
+        });
+    }
+</script>
+
 <script th:fragment="script"></script>
