@@ -35,6 +35,11 @@
                       <form method="GET" class="flex items-center px-4 py-2 text-white hover:bg-red-400 hover:text-white transition-colors duration-200">
                         <button type="submit" class="fas fa-address-card mr-2"></button>Membresias
                       </form>
+                      <hr class="my-1 border-t border-gray-400">
+                      <form class="flex items-center px-4 py-2 text-white hover:bg-red-400 hover:text-white transition-colors duration-200" th:action="@{/logout}" method="POST">
+                        <i class="fas fa-sign-out-alt fa-lg"></i>
+                        <button class="flex items-center px-4 py-2 text-white hover:bg-red-400 hover:text-white transition-colors duration-200" type="submit" onclick="return confirm('¿Seguro de cerrar sesión?')">Cerrar sesion</button>
+                      </form>
                   </ul>
               </div>
             </div>
@@ -52,7 +57,7 @@
                 </a>
             </div>
         </div>
-        <div class="nav-item flex items-center" sec:authorize="isAuthenticated()">
+        <div class="nav-item hidden md:flex items-center" sec:authorize="isAuthenticated()">
             <form method="GET" class="flex items-center px-4 mx-2 rounded-md font-medium py-2 text-white hover:bg-red-400 hover:text-white transition-colors duration-200">
                 <button type="submit" class="fa-solid fa-address-book mr-2"></button>Asistencias clientes
             </form>
