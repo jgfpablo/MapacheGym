@@ -1,8 +1,12 @@
 package com.proyecto.polotic.MapacheGym.controladores;
 
 import com.proyecto.polotic.MapacheGym.entidades.Empleado;
+import com.proyecto.polotic.MapacheGym.entidades.Rol;
 import com.proyecto.polotic.MapacheGym.seguridad.Validacion;
 import com.proyecto.polotic.MapacheGym.servicios.EmpleadoServicio;
+import com.proyecto.polotic.MapacheGym.servicios.RolServicio;
+
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +25,9 @@ public class EmpleadoControlador {
 
     @Autowired
     private Validacion validar;
+
+     @Autowired
+    private RolServicio rolServicio;
     
     @GetMapping(value = {""})
     public ModelAndView empleados(Model model)
@@ -36,11 +43,15 @@ public class EmpleadoControlador {
 
     @GetMapping(value = {"/nuevo"})
     public ModelAndView nuevoEmpleado(Model model) {
+
+        List<Rol> roles = rolServicio.getAll();
+
         ModelAndView maw = new ModelAndView();
         maw.setViewName("fragments/base");
         maw.addObject("title", "Nuevo Empleado");
         maw.addObject("view", "formsCreate/staff_form");
         maw.addObject("empleado", new Empleado());
+        maw.addObject("roles", roles);
         return maw;   
     }
 
@@ -74,9 +85,6 @@ public class EmpleadoControlador {
 
     @PostMapping("/guardar")
     public RedirectView guardarEmpleado(@ModelAttribute Empleado empleado){
-
-        // EJEMPLO DE COMO HACER UN ERROR  EN ESTE CASO SE MOSTRARA CUANDO ID ESTE VACIO AL CARGAR UN EMPLEADO
-        // MOSTRARA UN MENSAJE QUE ESTA EN EL FONDO DEL HTML
         if (empleado.getDni() == null || empleado.getDni().isEmpty()) {
     String error = "Todos los campos del formulario deben estar completos";
     
@@ -109,108 +117,5 @@ public class EmpleadoControlador {
         return new RedirectView("/empleados", true);
     }
 
-
-
-      //FUNCIONA -----------------------------Pablo Frank----------------------------------------------------------------
-    // @PostMapping("/empleados/guardar")
-    // public String guardarEmpleado(@ModelAttribute Empleado empleado){
-    //             //Falta agregar logica de santiago , porque aun no la entiendo 
-    //             empleadoServicio.crearEmpleado(empleado);
-    //     return "redirect:/empleados";
-    // }
-
-
-
-/*  ESTA ERA LA FORMA DE REGISTRAR EMPLEADO, PERO NO DEVUELVE MENSAJES AL CODIGO JS
-    @PostMapping
-    public Empleado crearEmpleado(@RequestParam("dniEmpleado") String dni,
-                                  @RequestParam("nombreEmpleado") String nombre,
-                                  @RequestParam("apellidoEmpleado") String apellido,
-                                  @RequestParam("telefonoEmpleado") String telefono,
-                                  @RequestParam("emailEmpleado") String email,
-                                  @RequestParam("tipoEmpleado") String tipoEmpleado) {
-
-        if (!validar.validarDniEmpleado(dni)) {
-            throw new IllegalArgumentException("Ya existe un empleado con ese DNI");
-        }
-
-        if (dni.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || telefono.isEmpty() || email.isEmpty() || tipoEmpleado.isEmpty()) {
-            throw new IllegalArgumentException("Todos los campos son obligatorios");
-        }
-
-        if (!tipoEmpleado.equals("Administrador") && !tipoEmpleado.equals("Usuario") && !tipoEmpleado.equals("Instructor")) {
-            throw new IllegalArgumentException("El tipo de empleado debe ser 'Administrador', 'Usuario' o 'Instructor'");
-        }
-
-        Empleado empleado = new Empleado();
-        empleado.setDni(dni);
-        empleado.setNombre(nombre);
-        empleado.setApellido(apellido);
-        empleado.setTelefono(telefono);
-        empleado.setEmail(email);
-        empleado.setTipoEmpleado(tipoEmpleado);
-        empleado.setContrasenia(dni);
-
-        int dniValue = Integer.parseInt(dni);
-        String legajo = Integer.toHexString(dniValue);
-
-        empleado.setLegajo(legajo);
-        return empleadoServicio.crearEmpleado(empleado);
-    }
-*/
-
-
-
-
-    // @PostMapping
-    // public ResponseEntity<?> crearEmpleado(@RequestParam("dniEmpleado") String dni,
-    //                                        @RequestParam("nombreEmpleado") String nombre,
-    //                                        @RequestParam("apellidoEmpleado") String apellido,
-    //                                        @RequestParam("telefonoEmpleado") String telefono,
-    //                                        @RequestParam("emailEmpleado") String email,
-    //                                        @RequestParam("tipoEmpleado") String tipoEmpleado) {
-
-    //     if (!validar.validarDniEmpleado(dni)) {
-    //         return ResponseEntity.status(HttpStatus.NOT_FOUND)
-    //                 .body(Collections.singletonMap("error", "Ya existe un empleado con ese DNI"));
-    //     }
-
-    //     if (dni.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || telefono.isEmpty() || email.isEmpty() || tipoEmpleado.isEmpty()) {
-    //         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-    //                 .body(Collections.singletonMap("error", "Todos los campos son obligatorios"));
-    //     }
-
-    //     if (!tipoEmpleado.equals("Administrador") && !tipoEmpleado.equals("Usuario") && !tipoEmpleado.equals("Instructor")) {
-    //         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-    //                 .body(Collections.singletonMap("error", "El tipo de empleado debe ser 'Administrador', 'Usuario' o 'Instructor'"));
-    //     }
-
-    //     Empleado empleado = new Empleado();
-    //     empleado.setDni(dni);
-    //     empleado.setNombre(nombre);
-    //     empleado.setApellido(apellido);
-    //     empleado.setTelefono(telefono);
-    //     empleado.setEmail(email);
-    //     empleado.setTipoEmpleado(tipoEmpleado);
-    //     empleado.setContrasenia(dni);
-
-    //     int dniValue = Integer.parseInt(dni);
-    //     String legajo = Integer.toHexString(dniValue);
-
-    //     empleado.setLegajo(legajo);
-    //     empleadoServicio.crearEmpleado(empleado);
-
-    //     return ResponseEntity.ok(Collections.singletonMap("message", tipoEmpleado + " se registró exitosamente"));
-    // }
-
-    // @PutMapping
-    // public Empleado modificarEmpleado(@RequestBody Empleado empleado){
-    //     return empleadoServicio.modificarEmpleado(empleado);
-    // }
-
-    // @DeleteMapping
-    // public void eliminarEmpleado(@RequestBody Empleado empleado){
-    //     empleadoServicio.eliminarEmpleado(empleado);
-    // }
 
 }
