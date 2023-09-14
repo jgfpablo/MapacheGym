@@ -30,7 +30,7 @@ public class EmpleadoControlador {
     @Autowired
     private Validacion validar;
 
-     @Autowired
+    @Autowired
     private RolServicio rolServicio;
     
     @GetMapping(value = {""})
@@ -59,6 +59,7 @@ public class EmpleadoControlador {
         return maw;   
     }
 
+
     @PostMapping("/eliminar")
     public RedirectView eliminarEmpleado(@RequestParam Integer id){
         Empleado empleado = new Empleado();
@@ -71,11 +72,7 @@ public class EmpleadoControlador {
     public ModelAndView modificarEmpleado(@RequestParam Integer id, Model model){
         Empleado empleado = empleadoServicio.traerEmpleadoPorId(id);
 
-
         List<Rol> roles = rolServicio.getAll();
-
-
-
 
         ModelAndView maw = new ModelAndView();
         maw.setViewName("fragments/base");
@@ -86,27 +83,15 @@ public class EmpleadoControlador {
 
         return maw;  
     }
-
-    @PostMapping("/update")
+//-------------------------------------------
+@PostMapping("/update")
     public RedirectView updateEmpleado(Empleado empleado,@RequestParam String password,RedirectAttributes redirectAttributes){
 
-
             if (empleado.getDni() == null || empleado.getDni().isEmpty()) {
-    Integer error = empleado.getId();
-    
-    // redirectAttributes.addFlashAttribute("error", "El DNI es obligatorio.");
-    // model.addAttribute("miVariable", "Mi mensaje de error");
-    // RedirectView redirectView = new RedirectView("/empleados/modificar-empleado?id="+empleado.getId(), true);
     redirectAttributes.addFlashAttribute("miVariable", "El DNI es obligatorio.");
             redirectAttributes.addFlashAttribute("alertScript", true);
             return new RedirectView("/empleados/modificar-empleado?id=" + empleado.getId(), true);
-
-    // redirectView.addStaticAttribute("", error); // Usa addStaticAttribute para agregar atributos
-    
-    // return redirectView; // Retorna el RedirectView con los atributos
     }
-
-
 
         if (password != null && password != "") {
     BCryptPasswordEncoder coder = new BCryptPasswordEncoder();
@@ -120,49 +105,24 @@ public class EmpleadoControlador {
     return new RedirectView("/empleados", true);
 
     }
+//------------------------------------------
 
-
-    @PostMapping("/guardar")
-    public RedirectView guardarEmpleado(@ModelAttribute Empleado empleado){
+@PostMapping("/guardar")
+    public RedirectView guardarEmpleado(@ModelAttribute Empleado empleado,RedirectAttributes redirectAttributes){
 
     String contrasenia = empleado.getContrasenia();
-    
     BCryptPasswordEncoder coder = new BCryptPasswordEncoder();
-
     String contraseniaCrypt = coder.encode(contrasenia);
-
     empleado.setContrasenia(contraseniaCrypt);
 
 
-         if (empleado.getDni() == null || empleado.getDni().isEmpty()) {
-    String error = "Todos los campos del formulario deben estar completos";
-    
-    RedirectView redirectView = new RedirectView("/empleados/nuevo", true);
-    redirectView.addStaticAttribute("error", error); // Usa addStaticAttribute para agregar atributos
-    
-    return redirectView; // Retorna el RedirectView con los atributos
+    if (empleado.getDni() == null || empleado.getDni().isEmpty()) {
+    redirectAttributes.addFlashAttribute("miVariable", "El DNI es obligatorio.");
+            redirectAttributes.addFlashAttribute("alertScript", true);
+            return new RedirectView("/empleados/nuevo", true);
     }
             
-        
-        //ResponseEntity<?>
-                //Falta agregar logica de santiago , porque aun no la entiendo 
-        // if (!validar.validarDniEmpleado(empleado.getDni())) {
-        //     return ResponseEntity.status(HttpStatus.NOT_FOUND)
-        //             .body(Collections.singletonMap("error", "Ya existe un empleado con ese DNI"));
-        // }
-
-        // if (empleado.getDni().isEmpty() || empleado.getNombre().isEmpty() || empleado.getApellido().isEmpty() || empleado.getTelefono().isEmpty() || empleado.getEmail().isEmpty() || empleado.getTipoEmpleado().isEmpty()) {
-        //     return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-        //             .body(Collections.singletonMap("error", "Todos los campos son obligatorios"));
-        // }
-
-        // if (!empleado.getTipoEmpleado().equals("Administrador") && !empleado.getTipoEmpleado().equals("Usuario") && !empleado.getTipoEmpleado().equals("Instructor")) {
-        //     return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-        //             .body(Collections.singletonMap("error", "El tipo de empleado debe ser 'Administrador', 'Usuario' o 'Instructor'"));
-        // }
-
-                empleadoServicio.crearEmpleado(empleado);
-        // return ResponseEntity.ok(Collections.singletonMap("message", empleado.getTipoEmpleado() + " se registró exitosamente"));
+        empleadoServicio.crearEmpleado(empleado);
         return new RedirectView("/empleados", true);
     }
 

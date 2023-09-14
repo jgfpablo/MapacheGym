@@ -98,7 +98,7 @@
 </main>
 
 <script th:if="${alertScript}" th:inline="javascript">
-    console.log("Código JavaScript ejecutado");
+    // console.log("Código JavaScript ejecutado");
     var errorMessage = /*[[${miVariable}]]*/ "";
     if (errorMessage) {
         Swal.fire({

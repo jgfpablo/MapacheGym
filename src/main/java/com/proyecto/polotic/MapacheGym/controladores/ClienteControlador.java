@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.ui.Model;
 
@@ -54,6 +55,7 @@ public class ClienteControlador {
 
     @GetMapping(value = {"/nuevo"})
     public ModelAndView nuevoEmpleado(Model model) {
+
         List<Membresia> membresias = membresiaServicio.traerMembresias();
         ModelAndView maw = new ModelAndView();
         maw.setViewName("fragments/base");
@@ -64,8 +66,7 @@ public class ClienteControlador {
         return maw;   
     }
 
-
-
+    
     @GetMapping("/modificar_cliente")
     public ModelAndView modificarCliente(@RequestParam Integer id,Model model){
 
@@ -96,13 +97,12 @@ public class ClienteControlador {
 
 
 @PostMapping("/guardar")
-    public RedirectView guardarCliente(@ModelAttribute Cliente cliente,@RequestParam Integer idMembresia){
+    public RedirectView guardarCliente(@ModelAttribute Cliente cliente,@RequestParam Integer idMembresia,RedirectAttributes redirectAttributes){
 
         Membresia membresia = membresiaServicio.traerMembresiaPorId(idMembresia);
         Pago pago = new Pago();
 
         LocalDate fechaActual = LocalDate.now();
-         // Calcular la fecha de validez (1 mes después de la fecha actual)
         LocalDate fechaValidez = fechaActual.plusMonths(1);
         cliente.setStatus("Activo");
         cliente.setFechaAlta(fechaActual);
@@ -110,46 +110,49 @@ public class ClienteControlador {
 
         cliente.setDiasDisponibles(membresia.getDiasSemanales());
         cliente.setMembresia(membresia);
-        // cliente.setD(membresia.getDiasSemanales());
 
         pago.setMembresia(membresia);
-        // pago.setMembresia(membresia);
         pago.setValorAbonado(membresia.getPrecio());
         pago.setCliente(cliente);
         pago.setFechaPago(fechaActual);
         pago.setValidez(fechaValidez);
 
-        
-         //ERROR GIGANTE --------------------------------------------------------------------------------
-        //  if (!validar.validarDniCliente(cliente.getDni())) {
-        //      return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-        //              .body(Collections.singletonMap("error", "Ya existe un cliente registrado para el DNI: " + cliente.getDni()));
-        //   }
-
-
-        // ERROR GIGANTE ------------------------------------------------------------------------------------
-        //   if (cliente.getDni().isEmpty() || cliente.getNombre().isEmpty() || cliente.getApellido().isEmpty() || cliente.getTelefono().isEmpty()/* || idMembresia == 0*/) {
-        //      return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-        //              .body(Collections.singletonMap("error", "Todos los campos son obligatorios, incluyendo idMembresia"));
-        //  }
-
+    if (cliente.getNombre().isEmpty()||cliente.getApellido().isEmpty()||cliente.getDni().isEmpty()||cliente.getTelefono().isEmpty()) {
+            redirectAttributes.addFlashAttribute("miVariable", "Disparador");
+            redirectAttributes.addFlashAttribute("alertScript", true);
+            return new RedirectView("/clientes/nuevo", true);
+    }
 
         clienteServicio.crearCliente(cliente);
         pagoServicio.crearPago(pago);
-
-            return new RedirectView("/clientes", true);
+        return new RedirectView("/clientes", true);
     }
 
-    @PostMapping("/update")
-    public RedirectView updateEmpleado(Cliente cliente,@RequestParam Integer idMembresia){
+@PostMapping("/update")
+    public RedirectView updateEmpleado(Cliente cliente,@RequestParam Integer idMembresia,RedirectAttributes redirectAttributes){
 
-        // ,@RequestParam Integer idMembresia
-         Membresia membresia = membresiaServicio.traerMembresiaPorId(idMembresia);
-         cliente.setMembresia(membresia);
-         cliente.setDiasDisponibles(membresia.getDiasSemanales());
+            if (cliente.getNombre().isEmpty()||cliente.getApellido().isEmpty()||cliente.getDni().isEmpty()||cliente.getTelefono().isEmpty()) {
+            redirectAttributes.addFlashAttribute("miVariable", "Disparador");
+            redirectAttributes.addFlashAttribute("alertScript", true);
+            return new RedirectView("/clientes/modificar_cliente?id=" + cliente.getId(), true);
+    }
+        Membresia membresia = membresiaServicio.traerMembresiaPorId(idMembresia);
+        cliente.setMembresia(membresia);
+        cliente.setDiasDisponibles(membresia.getDiasSemanales());
     clienteServicio.modificarCliente(cliente);
     return new RedirectView("/clientes", true);
     }
+
+
+
+
+
+
+
+
+
+
+
 
     //  @PostMapping({"/clientes/nuevo"})
     //  public ResponseEntity<?> crearCliente(@RequestParam("dniCliente") String dni,
