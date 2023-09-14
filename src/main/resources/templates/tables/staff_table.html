@@ -16,7 +16,7 @@
     </form>
 
     <div class="overflow-x-auto">
-        <table class="min-w-full shadow-md mx-auto text-center">
+        <table id="tabla" class="min-w-full shadow-md mx-auto text-center">
             <thead class="bg-red-800 bg-opacity-70 text-sm">
                 <tr>
                     <th class="w-1/12 px-2 py-1 text-center">ID</th>
@@ -24,28 +24,25 @@
                     <th class="w-1/12 px-2 py-1 text-center">Apellido</th>
                     <th class="w-1/12 px-2 py-1 text-center">DNI</th>
                     <th class="w-1/12 px-2 py-1 text-center">Telefono</th>
-                    <th class="w-1/12 px-2 py-1 text-center">Contraseña</th>
+                    <!-- <th class="w-1/12 px-2 py-1 text-center">Contraseña</th> -->
                     <th class="w-1/12 px-2 py-1 text-center">email</th>
                     <th class="w-1/12 px-2 py-1 text-center">Tipo Empleado</th>
                     <th class="w-1/12 px-2 py-1 text-center">Accion</th>
                 </tr>
             </thead>
-            <tbody class="font-semibold divide-y divide-gray-200">
+            <tbody class="font-semibold divide-y divide-gray-200 text-black">
                 <tr class="bg-slate-600" th:each="empleado : ${empleados}">
                     <td class="px-2 py-1" th:text="${empleado.id}"></td>
                     <td class="px-2 py-1" th:text="${empleado.nombre}"></td>
                     <td class="px-2 py-1" th:text="${empleado.apellido}"></td>
                     <td class="px-2 py-1" th:text="${empleado.dni}"></td>
                     <td class="px-2 py-1" th:text="${empleado.telefono}"></td>
-                    <td
+                    <!-- <td
                         class="px-2 py-1"
                         th:text="${empleado.contrasenia}"
-                    ></td>
+                    ></td> -->
                     <td class="px-2 py-1" th:text="${empleado.email}"></td>
-                    <td
-                        class="px-2 py-1"
-                        th:text="${empleado.rol.nombre}"
-                    ></td>
+                    <td class="px-2 py-1" th:text="${empleado.rol.nombre}"></td>
                     <td class="px-2 py-1">
                         <form th:action="@{/empleados/eliminar}" method="post">
                             <input
@@ -92,5 +89,59 @@
         </p>
     </div>
 </main>
+
+<!-- <script>
+    $(document).ready(function () {
+        $("#tabla").DataTable({
+            language: {
+                sProcessing: "Procesando...",
+                sLengthMenu: "Mostrar _MENU_ registros",
+                sZeroRecords: "No se encontraron resultados",
+                sEmptyTable: "Ningún dato disponible en esta tabla",
+                sInfo: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                sInfoEmpty:
+                    "Mostrando registros del 0 al 0 de un total de 0 registros",
+                sInfoFiltered: "(filtrado de un total de _MAX_ registros)",
+                sInfoPostFix: "",
+                sSearch: "Buscar:",
+                sUrl: "",
+                sInfoThousands: ",",
+                sLoadingRecords: "Cargando...",
+                oPaginate: {
+                    sFirst: "Primero",
+                    sLast: "Último",
+                    sNext: "Siguiente",
+                    sPrevious: "Anterior",
+                },
+                oAria: {
+                    sSortAscending:
+                        ": Activar para ordenar la columna de manera ascendente",
+                    sSortDescending:
+                        ": Activar para ordenar la columna de manera descendente",
+                },
+            },
+            pageLength: 2,
+            lengthMenu: [2, 10, 25, 50],
+            lengthChange: false,
+            pagingType: "simple",
+            dom: "tp",
+        });
+    });
+</script> -->
+
+<script>
+    $(document).ready(function () {
+        $("#tabla").DataTable({
+            language: {
+                url: "//cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json",
+            },
+            searching: true, // Habilitar la función de búsqueda
+            pageLength: 5,
+            lengthMenu: [5, 10, 25, 50],
+            // lengthChange: false,
+            pagingType: "simple",
+        });
+    });
+</script>
 <script th:fragment="script"></script>
 <!-- <script th:replace="~{${view} :: script}" /> -->
