@@ -23,7 +23,7 @@ public class Membresia implements Serializable {
     private String tipoMembresia;
 
     @Column(name = "precio")
-    private double precio;
+    private String precio;
 
     @Column(name = "dias_semanales")
     @Min(value = 1, message = "El valor mínimo permitido es 1")
@@ -41,7 +41,7 @@ public class Membresia implements Serializable {
     public Membresia() {
     }
 
-    public Membresia(int idMembresia, String descripcion, String tipoMembresia, double precio, Integer diasSemanales, List<Cliente> cliente, List<Pago> pago) {
+    public Membresia(int idMembresia, String descripcion, String tipoMembresia, String precio, Integer diasSemanales, List<Cliente> cliente, List<Pago> pago) {
         this.idMembresia = idMembresia;
         this.descripcion = descripcion;
         this.tipoMembresia = tipoMembresia;
@@ -67,11 +67,11 @@ public class Membresia implements Serializable {
         this.tipoMembresia = tipoMembresia;
     }
 
-    public double getPrecio() {
+    public String getPrecio() {
         return precio;
     }
 
-    public void setPrecio(double precio) {
+    public void setPrecio(String precio) {
         this.precio = precio;
     }
 

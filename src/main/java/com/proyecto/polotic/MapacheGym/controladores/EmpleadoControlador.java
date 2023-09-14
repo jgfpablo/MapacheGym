@@ -110,21 +110,27 @@ public class EmpleadoControlador {
 @PostMapping("/guardar")
     public RedirectView guardarEmpleado(@ModelAttribute Empleado empleado,RedirectAttributes redirectAttributes){
 
+         if (empleado.getNombre()==""||empleado.getApellido()==""||empleado.getDni()=="") {
+            redirectAttributes.addFlashAttribute("error", "No fue posible crear un nuevo empleado");
+            redirectAttributes.addFlashAttribute("alertScript", true);
+            return new RedirectView("/empleados/nuevo", true);
+         }
+
     String contrasenia = empleado.getContrasenia();
     BCryptPasswordEncoder coder = new BCryptPasswordEncoder();
     String contraseniaCrypt = coder.encode(contrasenia);
     empleado.setContrasenia(contraseniaCrypt);
 
 
-    if (empleado.getDni() == null || empleado.getDni().isEmpty()) {
-    redirectAttributes.addFlashAttribute("miVariable", "El DNI es obligatorio.");
-            redirectAttributes.addFlashAttribute("alertScript", true);
-            return new RedirectView("/empleados/nuevo", true);
-    }
+    
             
         empleadoServicio.crearEmpleado(empleado);
+        redirectAttributes.addFlashAttribute("success", "El empleado fue creado con exito");
+        redirectAttributes.addFlashAttribute("alertScript", true);
         return new RedirectView("/empleados", true);
     }
 
 
 }
+
+

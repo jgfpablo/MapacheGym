@@ -19,7 +19,7 @@
             <div class="text-left">
                 <span class="font-sans text-sm">Precio</span>
                 <br>
-                <input class="p-1.5 rounded-md text-center  mb-2 text-black" th:field="*{precio}" name="price" required  >
+                <input class="p-1.5 rounded-md text-center  mb-2 text-black" th:field="*{precio}" name="price"   >
             </div>
             <div class="text-left">
                 <span class="font-sans text-sm">Dias Semanales</span>
@@ -33,7 +33,7 @@
     </div>
 
 </main>
-
+<!-- 
 <script th:if="${alertScript}" th:inline="javascript">
     var errorMessage = /*[[${error}]]*/ "";
     var successMessage = /*[[${success}]]*/ "";
@@ -48,6 +48,19 @@
             icon: "success",
             title: "Exito",
             text: successMessage,
+        });
+    }
+</script> -->
+
+
+<script th:if="${alertScript}" th:inline="javascript">
+    // console.log("Código JavaScript ejecutado");
+    var errorMessage = /*[[${miVariable}]]*/ "";
+    if (errorMessage) {
+        Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: errorMessage,
         });
     }
 </script>

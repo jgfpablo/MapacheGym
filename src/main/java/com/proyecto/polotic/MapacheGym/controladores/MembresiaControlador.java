@@ -55,9 +55,9 @@ public class MembresiaControlador implements WebMvcConfigurer{
        String tipo =  membresia.getTipoMembresia();
 //  tipo==""||tipo==null||tipo.isEmpty()
 // usa "" 
-Double precio = membresia.getPrecio();
+String precio = membresia.getPrecio();
 System.out.println(membresia.getPrecio());
-        if (membresia.getTipoMembresia() == ""||membresia.getDescripcion() == ""||membresia.getPrecio()== 0.0||membresia.getDiasSemanales() == null) {
+        if (membresia.getTipoMembresia() == ""||membresia.getDescripcion() == ""||membresia.getPrecio()=="0"||membresia.getDiasSemanales() == null) {
             redirectAttributes.addFlashAttribute("error", "No fue posible crear la membresia. Contactese con su Administrador");
             redirectAttributes.addFlashAttribute("alertScript", true);
             return new RedirectView("/membresias/nueva", true);
@@ -108,7 +108,7 @@ System.out.println(membresia.getPrecio());
     @PostMapping("/update")
     public RedirectView modificarMembresia( Membresia membresia,RedirectAttributes redirectAttributes){
 
-        if (membresia.getTipoMembresia() == ""||membresia.getDescripcion() == ""||membresia.getPrecio() == 0.0||membresia.getDiasSemanales() == null) {
+        if (membresia.getTipoMembresia() == ""||membresia.getDescripcion() == ""||membresia.getPrecio() == ""||membresia.getDiasSemanales() == null) {
             redirectAttributes.addFlashAttribute("error", "No fue posible crear la membresia. Contactese con su Administrador");
             redirectAttributes.addFlashAttribute("alertScript", true);
             return new RedirectView("/membresias/modificar-membresia?id="+membresia.getIdMembresia(), true);

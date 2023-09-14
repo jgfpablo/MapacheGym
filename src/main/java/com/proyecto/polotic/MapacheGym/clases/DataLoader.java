@@ -48,21 +48,21 @@ public class DataLoader implements CommandLineRunner{
 
         membresia.setTipoMembresia("Basico");
         membresia.setDescripcion("¡Comienza tu viaje de fitness con el Plan Básico!");
-        membresia.setPrecio(4.99);
+        membresia.setPrecio("4.99");
         membresia.setDiasSemanales(2);
         membresiaRepositorio.save(membresia);
 
         Membresia membresia2 = new Membresia();
         membresia2.setTipoMembresia("Plan Mapache");
         membresia2.setDescripcion("¡Mejora tu nivel con el Plan Mapache!");
-        membresia2.setPrecio(9.99);
+        membresia2.setPrecio("9.99");
         membresia2.setDiasSemanales(3);
         membresiaRepositorio.save(membresia2);
 
         Membresia membresia3 = new Membresia();
         membresia3.setTipoMembresia("Plan Mapache Feroz");
         membresia3.setDescripcion("¡Alcanza tus metas con el Plan Mapache Feroz!");
-        membresia3.setPrecio(14.99);
+        membresia3.setPrecio("14.99");
         membresia3.setDiasSemanales(5);
         membresiaRepositorio.save(membresia3);
 

@@ -24,7 +24,7 @@ public class Pago implements Serializable {
     private LocalDate validez;
 
     @Column(name = "valor_abonado")
-    private double valorAbonado;
+    private String valorAbonado;
 
     //RELACION (N-1) CON MEMBRESIA
     @ManyToOne(cascade = CascadeType.PERSIST)
@@ -39,7 +39,7 @@ public class Pago implements Serializable {
     public Pago() {
     }
 
-    public Pago(int idPago, LocalDate fechaPago, LocalDate validez, double valorAbonado, Membresia membresia, Cliente cliente) {
+    public Pago(int idPago, LocalDate fechaPago, LocalDate validez, String valorAbonado, Membresia membresia, Cliente cliente) {
         this.idPago = idPago;
         this.fechaPago = fechaPago;
         this.validez = validez;
@@ -72,11 +72,11 @@ public class Pago implements Serializable {
         this.validez = validez;
     }
 
-    public double getValorAbonado() {
+    public String getValorAbonado() {
         return valorAbonado;
     }
 
-    public void setValorAbonado(double valorAbonado) {
+    public void setValorAbonado(String valorAbonado) {
         this.valorAbonado = valorAbonado;
     }
 
