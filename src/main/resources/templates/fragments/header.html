@@ -1,96 +1,261 @@
 <nav class="bg-gray-900 text-white p-4 m-2 rounded-md" th:fragment="header">
     <div class="flex items-center justify-between">
         <div class="flex items-center text-glow">
-        <img src="/images/logo-light.svg" alt="MapacheGym Logo" class="w-12 h-12">
-        <p class="ml-2 text-white font-semibold">
-            <span class="text-white">Mapache</span><span class="text-red-500">Gym</span>
-        </p>
+            <img
+                src="/images/logo-light.svg"
+                alt="MapacheGym Logo"
+                class="w-12 h-12"
+            />
+            <p class="ml-2 text-white font-semibold">
+                <span class="text-white">Mapache</span
+                ><span class="text-red-500">Gym</span>
+            </p>
         </div>
 
-        <div class="relative group md:hidden" id="dropdownButton" sec:authorize="isAuthenticated()">
-            <a class="text-md font-semibold text-white text-glow group-hover:text-red-400 flex items-center justify-between w-full sm:w-auto sm:pr-4 py-2 sm:py-1">
-                Opciones <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+        <div
+            class="relative group md:hidden"
+            id="dropdownButton"
+            sec:authorize="isAuthenticated()"
+        >
+            <a
+                class="text-md font-semibold text-white text-glow group-hover:text-red-400 flex items-center justify-between w-full sm:w-auto sm:pr-4 py-2 sm:py-1"
+            >
+                Opciones
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="w-5 h-5 ml-2"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 9l-7 7-7-7"
+                    ></path>
                 </svg>
             </a>
-     
-            <div sec:authorize="isAuthenticated()" id="dropdownMenu" class="scale-0 opacity-0 transition-all duration-200 overflow-hidden absolute z-10 bg-gray-800 origin-top-right right-0 mt-2 rounded-md shadow-lg font-semibold">
+
+            <div
+                sec:authorize="isAuthenticated()"
+                id="dropdownMenu"
+                class="scale-0 opacity-0 transition-all duration-200 overflow-hidden absolute z-10 bg-gray-800 origin-top-right right-0 mt-2 rounded-md shadow-lg font-semibold"
+            >
                 <div class="py-1">
-                  <ul>
-                      <li>
-                      <form method="GET" class="flex items-center px-4 py-2 text-white hover:bg-red-400 hover:text-white transition-colors duration-200">
-                          <button type="submit" class="fa-solid fa-user mr-2"></button>example@mail.com
-                      </form>
-                      </li>
-                      <hr class="my-1 border-t border-gray-400">
-                      <form method="GET" class="flex items-center px-4 py-2 text-white hover:bg-red-400 hover:text-white transition-colors duration-200">
-                        <button type="submit" class="fa-solid fa-address-book mr-2"></button>Asistencias clientes
-                      </form>
-                      <form method="GET" class="flex items-center px-4 py-2 text-white hover:bg-red-400 hover:text-white transition-colors duration-200">
-                        <button type="submit" class="fa-regular fa-address-book mr-2"></button>Asistencia staff
-                      </form>
-                      <form method="GET" class="flex items-center px-4 py-2 text-white hover:bg-red-400 hover:text-white transition-colors duration-200">
-                        <button type="submit" class="fas fa-users mr-2"></button>Clientes
-                      </form>
-                      <form method="GET" class="flex items-center px-4 py-2 text-white hover:bg-red-400 hover:text-white transition-colors duration-200">
-                        <button type="submit" class="fas fa-address-card mr-2"></button>Membresias
-                      </form>
-                      <hr class="my-1 border-t border-gray-400">
-                      <form class="flex items-center px-4 py-2 text-white hover:bg-red-400 hover:text-white transition-colors duration-200" th:action="@{/logout}" method="POST">
-                        <i class="fas fa-sign-out-alt fa-lg"></i>
-                        <button class="flex items-center px-4 py-2 text-white hover:bg-red-400 hover:text-white transition-colors duration-200" type="submit" onclick="return confirm('¿Seguro de cerrar sesión?')">Cerrar sesion</button>
-                      </form>
-                  </ul>
-              </div>
+                    <ul>
+                        <li>
+                            <form
+                                method="GET"
+                                class="flex items-center px-4 py-2 text-white hover:bg-red-400 hover:text-white transition-colors duration-200"
+                            >
+                                <button
+                                    type="submit"
+                                    class="fa-solid fa-user mr-2"
+                                ></button
+                                >example@mail.com
+                            </form>
+                        </li>
+                        <hr class="my-1 border-t border-gray-400" />
+                        <form
+                            method="GET"
+                            class="flex items-center px-4 py-2 text-white hover:bg-red-400 hover:text-white transition-colors duration-200"
+                        >
+                            <button
+                                type="submit"
+                                class="fa-solid fa-address-book mr-2"
+                            ></button
+                            >Asistencias clientes
+                        </form>
+                        <form
+                            method="GET"
+                            class="flex items-center px-4 py-2 text-white hover:bg-red-400 hover:text-white transition-colors duration-200"
+                        >
+                            <button
+                                type="submit"
+                                class="fa-regular fa-address-book mr-2"
+                            ></button
+                            >Asistencia staff
+                        </form>
+                        <form
+                            method="GET"
+                            class="flex items-center px-4 py-2 text-white hover:bg-red-400 hover:text-white transition-colors duration-200"
+                        >
+                            <button
+                                type="submit"
+                                class="fas fa-users mr-2"
+                            ></button
+                            >Clientes
+                        </form>
+                        <form
+                            method="GET"
+                            class="flex items-center px-4 py-2 text-white hover:bg-red-400 hover:text-white transition-colors duration-200"
+                        >
+                            <button
+                                type="submit"
+                                class="fas fa-address-card mr-2"
+                            ></button
+                            >Membresias
+                        </form>
+                        <hr class="my-1 border-t border-gray-400" />
+                        <form
+                            class="flex items-center px-4 py-2 text-white hover:bg-red-400 hover:text-white transition-colors duration-200"
+                            th:action="@{/logout}"
+                            method="POST"
+                        >
+                            <i class="fas fa-sign-out-alt fa-lg"></i>
+                            <button
+                                class="flex items-center px-4 py-2 text-white hover:bg-red-400 hover:text-white transition-colors duration-200"
+                                type="submit"
+                                onclick="return confirm('¿Seguro de cerrar sesión?')"
+                            >
+                                Cerrar sesion
+                            </button>
+                        </form>
+                    </ul>
+                </div>
             </div>
         </div>
 
         <div class="hidden md:flex space-x-4 items-center">
             <div sec:authorize="isAnonymous()">
-                <a href="/registro" class="bg-transparent border-solid border border-white text-white rounded-full px-4 py-2 hover:bg-white hover:text-black transition duration-300">
+                <a
+                    href="/registro"
+                    class="bg-transparent border-solid border border-white text-white rounded-full px-4 py-2 hover:bg-white hover:text-black transition duration-300"
+                >
                     Registrarse
                 </a>
             </div>
             <div sec:authorize="isAnonymous()">
-                <a href="/login" class="bg-red-500 text-white rounded-full px-4 py-2 hover:bg-white hover:text-red-500 transition duration-300" >
+                <a
+                    href="/login"
+                    class="bg-red-500 text-white rounded-full px-4 py-2 hover:bg-white hover:text-red-500 transition duration-300"
+                >
                     Iniciar Sesión
                 </a>
             </div>
         </div>
-        <div class="nav-item hidden md:flex items-center" sec:authorize="isAuthenticated()">
-            <form method="GET" class="flex items-center px-4 mx-2 rounded-md font-medium py-2 text-white hover:bg-red-400 hover:text-white transition-colors duration-200">
-                <button type="submit" class="fa-solid fa-address-book mr-2"></button>Asistencias clientes
+        <div
+            class="nav-item hidden md:flex items-center"
+            sec:authorize="isAuthenticated()"
+        >
+            <form
+                method="GET"
+                th:action="@{/asistencias/clientes}"
+                class="flex items-center px-4 mx-2 rounded-md font-medium py-2 text-white hover:bg-red-400 hover:text-white transition-colors duration-200"
+            >
+                <button type="submit" class="fa-solid fa-address-book mr-2">
+                    Asistencias clientes
+                </button>
             </form>
-            <form method="GET" class="flex items-center px-4 mx-2 rounded-md font-medium py-2 text-white hover:bg-red-400 hover:text-white transition-colors duration-200">
-                <button type="submit" class="fa-regular fa-address-book mr-2"></button>Asistencias staff
+            <form
+                method="GET"
+                th:action="@{/asistencias/empleados}"
+                class="flex items-center px-4 mx-2 rounded-md font-medium py-2 text-white hover:bg-red-400 hover:text-white transition-colors duration-200"
+            >
+                <button type="submit" class="fa-regular fa-address-book mr-2">
+                    Asistencias staff
+                </button>
             </form>
-            <form method="GET" class="flex items-center px-4 mx-2 rounded-md font-medium py-2 text-white hover:bg-red-400 hover:text-white transition-colors duration-200">
-                <button type="submit" class="fas fa-users mr-2"></button>Clientes
+            <form
+                method="GET"
+                th:action="@{/clientes}"
+                class="flex items-center px-4 mx-2 rounded-md font-medium py-2 text-white hover:bg-red-400 hover:text-white transition-colors duration-200"
+            >
+                <button type="submit" class="fas fa-users mr-2">
+                    Clientes
+                </button>
             </form>
-            <form method="GET" class="flex items-center px-4 mx-2 rounded-md font-medium py-2 text-white hover:bg-red-400 hover:text-white transition-colors duration-200">
-                <button type="submit" class="fas fa-address-card mr-2"></button>Membresia
+            <form
+                method="GET"
+                th:action="@{/membresias}"
+                class="flex items-center px-4 mx-2 rounded-md font-medium py-2 text-white hover:bg-red-400 hover:text-white transition-colors duration-200"
+            >
+                <button type="submit" class="fas fa-address-card mr-2">
+                    Membresia
+                </button>
+            </form>
+            <form
+                method="GET"
+                th:action="@{/empleados}"
+                class="flex items-center px-4 mx-2 rounded-md font-medium py-2 text-white hover:bg-red-400 hover:text-white transition-colors duration-200"
+            >
+                <button type="submit" class="fas fa-address-card mr-2">
+                    Empleados
+                </button>
             </form>
             <div class="border-l border-gray-400 h-10 mx-2"></div>
             <form class="form-inline" th:action="@{/logout}" method="POST">
-              <button class="py-2 px-2 rounded-md btn btn-link nav-link active hover:bg-red-600 transition-colors duration-200" type="submit" onclick="return confirm('¿Seguro de cerrar sesión?')">
-                <i class="fas fa-sign-out-alt fa-lg" style="color: #ffffff;"></i><span class="hidden md:flex text-sm font-semibold">Cerrar sesion</span>
-              </button>
+                <button
+                    class="py-2 px-2 rounded-md btn btn-link nav-link active hover:bg-red-600 transition-colors duration-200"
+                    type="submit"
+                    onclick="return confirm('¿Seguro de cerrar sesión?')"
+                >
+                    <i
+                        class="fas fa-sign-out-alt fa-lg"
+                        style="color: #ffffff"
+                    ></i
+                    ><span class="hidden md:flex text-sm font-semibold"
+                        >Cerrar sesion</span
+                    >
+                </button>
             </form>
         </div>
-        <div sec:authorize="isAnonymous()" id="mobileMenuButton" class="md:hidden">
-            <svg class="w-6 h-6 text-white cursor-pointer" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        <div
+            sec:authorize="isAnonymous()"
+            id="mobileMenuButton"
+            class="md:hidden"
+        >
+            <svg
+                class="w-6 h-6 text-white cursor-pointer"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+            >
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 6h16M4 12h16M4 18h16"
+                ></path>
             </svg>
         </div>
     </div>
-    <div sec:authorize="isAnonymous()" id="mobileMenu" class="hidden fixed top-0 right-0 h-full w-72 bg-gray-900 text-white p-4 transform translate-x-0">
-        <button id="hideMobileMenu" class="text-red-500 text-3xl absolute top-2 right-2">&times;</button>
+    <div
+        sec:authorize="isAnonymous()"
+        id="mobileMenu"
+        class="hidden fixed top-0 right-0 h-full w-72 bg-gray-900 text-white p-4 transform translate-x-0"
+    >
+        <button
+            id="hideMobileMenu"
+            class="text-red-500 text-3xl absolute top-2 right-2"
+        >
+            &times;
+        </button>
         <ul class="space-y-2">
-            <li><a href="#" class="block text-white font-semibold hover:text-red-500 ">Inicio</a></li>
-            <li class="border-t border-gray-700 pt-2"><a href="/login" class="block text-white font-semibold hover:bg-white hover:text-black bg-red-500 px-4 py-2 rounded-md">Iniciar Sesión</a></li>
-            <li class="border-t border-gray-700 pt-2"><a href="/registro" class="block text-black font-semibold hover:bg-white hover:text-black bg-white border border-solid px-4 py-2 rounded-md">Registrarse</a></li>
+            <li>
+                <a
+                    href="#"
+                    class="block text-white font-semibold hover:text-red-500"
+                    >Inicio</a
+                >
+            </li>
+            <li class="border-t border-gray-700 pt-2">
+                <a
+                    href="/login"
+                    class="block text-white font-semibold hover:bg-white hover:text-black bg-red-500 px-4 py-2 rounded-md"
+                    >Iniciar Sesión</a
+                >
+            </li>
+            <li class="border-t border-gray-700 pt-2">
+                <a
+                    href="/registro"
+                    class="block text-black font-semibold hover:bg-white hover:text-black bg-white border border-solid px-4 py-2 rounded-md"
+                    >Registrarse</a
+                >
+            </li>
         </ul>
     </div>
 </nav>
 <script th:fragment="script"></script>
-
