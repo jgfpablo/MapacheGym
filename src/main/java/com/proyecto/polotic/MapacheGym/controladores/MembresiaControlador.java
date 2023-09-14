@@ -55,6 +55,8 @@ public class MembresiaControlador implements WebMvcConfigurer{
        String tipo =  membresia.getTipoMembresia();
 //  tipo==""||tipo==null||tipo.isEmpty()
 // usa "" 
+Double precio = membresia.getPrecio();
+System.out.println(membresia.getPrecio());
         if (membresia.getTipoMembresia() == ""||membresia.getDescripcion() == ""||membresia.getPrecio()== 0.0||membresia.getDiasSemanales() == null) {
             redirectAttributes.addFlashAttribute("error", "No fue posible crear la membresia. Contactese con su Administrador");
             redirectAttributes.addFlashAttribute("alertScript", true);

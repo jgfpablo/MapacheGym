@@ -19,12 +19,12 @@
             <div class="text-left">
                 <span class="font-sans text-sm">Precio</span>
                 <br>
-                <input class="p-1.5 rounded-md text-center  mb-2 text-black" th:field="*{precio}" name="price" id="precio" value="1.00" step="0.01" min="1">
+                <input class="p-1.5 rounded-md text-center  mb-2 text-black" th:field="*{precio}" name="price" required  >
             </div>
             <div class="text-left">
                 <span class="font-sans text-sm">Dias Semanales</span>
                 <br>
-                <input class="p-1.5 rounded-md text-center  mb-2 text-black" th:field="*{diasSemanales}" name="diasSemanales" id="diasSemanales" value="1.00" step="0.01" min="1">
+                <input class="p-1.5 rounded-md text-center  mb-2 text-black" type="number" th:field="*{diasSemanales}" name="diasSemanales" id="diasSemanales" >
             </div>
             <div>
                 <input class=" bg-red-600 rounded-sm text-white w-full py-2 mb-2 hover:bg-red-800 transition duration-300 mt-4" type="submit" value="Crear membresía">
