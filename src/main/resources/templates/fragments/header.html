@@ -52,9 +52,22 @@
                 </a>
             </div>
         </div>
-        <div class="nav-item" sec:authorize="isAuthenticated()">
+        <div class="nav-item flex items-center" sec:authorize="isAuthenticated()">
+            <form method="GET" class="flex items-center px-4 mx-2 rounded-md font-medium py-2 text-white hover:bg-red-400 hover:text-white transition-colors duration-200">
+                <button type="submit" class="fa-solid fa-address-book mr-2"></button>Asistencias clientes
+            </form>
+            <form method="GET" class="flex items-center px-4 mx-2 rounded-md font-medium py-2 text-white hover:bg-red-400 hover:text-white transition-colors duration-200">
+                <button type="submit" class="fa-regular fa-address-book mr-2"></button>Asistencias staff
+            </form>
+            <form method="GET" class="flex items-center px-4 mx-2 rounded-md font-medium py-2 text-white hover:bg-red-400 hover:text-white transition-colors duration-200">
+                <button type="submit" class="fas fa-users mr-2"></button>Clientes
+            </form>
+            <form method="GET" class="flex items-center px-4 mx-2 rounded-md font-medium py-2 text-white hover:bg-red-400 hover:text-white transition-colors duration-200">
+                <button type="submit" class="fas fa-address-card mr-2"></button>Membresia
+            </form>
+            <div class="border-l border-gray-400 h-10 mx-2"></div>
             <form class="form-inline" th:action="@{/logout}" method="POST">
-              <button class="btn btn-link nav-link active" type="submit" onclick="return confirm('¿Seguro de cerrar sesión?')">
+              <button class="py-2 px-2 rounded-md btn btn-link nav-link active hover:bg-red-600 transition-colors duration-200" type="submit" onclick="return confirm('¿Seguro de cerrar sesión?')">
                 <i class="fas fa-sign-out-alt fa-lg" style="color: #ffffff;"></i><span class="hidden md:flex text-sm font-semibold">Cerrar sesion</span>
               </button>
             </form>
