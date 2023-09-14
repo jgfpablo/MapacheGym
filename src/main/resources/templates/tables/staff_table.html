@@ -36,10 +36,6 @@
                     <td class="px-2 py-1" th:text="${empleado.apellido}"></td>
                     <td class="px-2 py-1" th:text="${empleado.dni}"></td>
                     <td class="px-2 py-1" th:text="${empleado.telefono}"></td>
-                    <!-- <td
-                        class="px-2 py-1"
-                        th:text="${empleado.contrasenia}"
-                    ></td> -->
                     <td class="px-2 py-1" th:text="${empleado.email}"></td>
                     <td class="px-2 py-1" th:text="${empleado.rol.nombre}"></td>
                     <td class="px-2 py-1">
@@ -75,30 +71,6 @@
             </tbody>
         </table>
     </div>
-
-    <div th:if="${param.error}">
-        <p>
-            Error-----------------------------------------------------------------------------------------:
-            -----------------------------------------------------------------------------------------:
-            -----------------------------------------------------------------------------------------:
-            -----------------------------------------------------------------------------------------:
-            -----------------------------------------------------------------------------------------:<span
-                th:text="${param.error}"
-            ></span>
-        </p>
-    </div>
 </main>
-<!-- <script>
-    $(document).ready(function () {
-        $("#tabla").DataTable({
-            language: {
-                url: "//cdn.datatables.net/plug-ins/1.11.5/i18n/es-ES.json",
-            },
-            searching: true,
-            pageLength: 5,
-            lengthMenu: [5, 10, 25, 50],
-            pagingType: "simple",
-        });
-    });
-</script> -->
+
 <script th:fragment="script"></script>

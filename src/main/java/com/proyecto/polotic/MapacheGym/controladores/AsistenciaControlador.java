@@ -72,7 +72,7 @@ public class AsistenciaControlador {
             return new RedirectView("/asistencias/nueva", true);
 
     } else if (noDniCliente) {
-                 // Realiza las operaciones necesarias para crear la asistencia del empleado
+                
                 asistenciaServicio.crearAsistenciaEmpleado(dniAsistencia);
             
             redirectAttributes.addFlashAttribute("success", "Asistencia de empleado Registrada");
@@ -88,27 +88,6 @@ public class AsistenciaControlador {
             return new RedirectView("/asistencias/nueva", true);
     }
 
-/*  ESTA ERA LA FORMA DE REGISTRAR ASISTENCIA, PERO NO DEVUELVE MENSAJES AL CODIGO JS
-    @PostMapping
-    public Asistencia crearAsistencia(@RequestParam("dni-asistencia") String dni) {
-        if (dni.isEmpty()) {
-            throw new IllegalArgumentException("Complete el campo DNI");
-        }
-
-        boolean noDniEmpleado = validar.validarDniEmpleado(dni);
-        boolean noDniCliente = validar.validarDniCliente(dni);
-
-        if (noDniEmpleado && noDniCliente) {
-            throw new IllegalArgumentException("DNI no registrado previamente");
-        } else if (noDniCliente) {
-            return asistenciaServicio.crearAsistenciaEmpleado(dni);
-        } else if (noDniEmpleado) {
-            return asistenciaServicio.crearAsistenciaCliente(dni);
-        }
-
-        throw new IllegalArgumentException("DNI no válido");
-    }
-*/
     @PutMapping
     public Asistencia modificarAsistencia(@RequestBody Asistencia asistencia){
         return asistenciaServicio.modificarAsistencia(asistencia);

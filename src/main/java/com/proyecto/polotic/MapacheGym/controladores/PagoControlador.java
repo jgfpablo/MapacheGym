@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.time.LocalDate;
@@ -74,19 +75,21 @@ public class PagoControlador {
 
 
     @PostMapping("/cliente/nuevo")
-    public RedirectView guardarPago(@RequestParam Integer idMembresia,@RequestParam Integer idCliente){
+    public RedirectView guardarPago(@RequestParam Integer idMembresia,@RequestParam Integer idCliente,RedirectAttributes redirectAttributes){
+
+        if (idMembresia == null || idCliente == null) {
+            redirectAttributes.addFlashAttribute("error", "No fue posible guardar el pago. Contactese con su Administrador");
+            redirectAttributes.addFlashAttribute("alertScript", true);
+            return new RedirectView("/empleados/nuevo", true);
+        }
 
         Cliente cliente = clienteServicio.traerClientePorId(idCliente);
 
         Membresia membresia = membresiaServicio.traerMembresiaPorId(idMembresia);
 
-
-        // Membresia membresia = membresiaServicio.traerMembresiaPorId(idMembresia);
-
         Pago pago = new Pago();
 
         LocalDate fechaActual = LocalDate.now();
-         // Calcular la fecha de validez (1 mes después de la fecha actual)
         LocalDate fechaValidez = fechaActual.plusMonths(1);
         cliente.setStatus("Activo");
         cliente.setFechaAlta(fechaActual);
@@ -100,25 +103,11 @@ public class PagoControlador {
         pago.setFechaPago(fechaActual);
         pago.setValidez(fechaValidez);
 
-        
-         //ERROR GIGANTE --------------------------------------------------------------------------------
-        //  if (!validar.validarDniCliente(cliente.getDni())) {
-        //      return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-        //              .body(Collections.singletonMap("error", "Ya existe un cliente registrado para el DNI: " + cliente.getDni()));
-        //   }
-
-
-        // ERROR GIGANTE ------------------------------------------------------------------------------------
-        //   if (cliente.getDni().isEmpty() || cliente.getNombre().isEmpty() || cliente.getApellido().isEmpty() || cliente.getTelefono().isEmpty()/* || idMembresia == 0*/) {
-        //      return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-        //              .body(Collections.singletonMap("error", "Todos los campos son obligatorios, incluyendo idMembresia"));
-        //  }
-
-
         clienteServicio.crearCliente(cliente);
         pagoServicio.crearPago(pago);
 
-        // return "redirect:/pagos/cliente?id="+cliente.getId();
+        redirectAttributes.addFlashAttribute("success", "El Pago fue registrado con exito");
+        redirectAttributes.addFlashAttribute("alertScript", true);
                 return new RedirectView("/pagos/cliente?id="+cliente.getId(), true);
 
     }
@@ -126,13 +115,21 @@ public class PagoControlador {
 
 
     @PostMapping(value = {"/eliminar"})
-    public RedirectView eliminarPago(Model model,@RequestParam Integer idPago,@RequestParam Integer idCliente)
+    public RedirectView eliminarPago(Model model,@RequestParam Integer idPago,@RequestParam Integer idCliente,RedirectAttributes redirectAttributes)
     {
+
+        if (idPago == null || idCliente == null) {
+            redirectAttributes.addFlashAttribute("error", "No fue posible eliminar el pago. Contactese con su Administrador");
+            redirectAttributes.addFlashAttribute("alertScript", true);
+            return new RedirectView("/empleados/nuevo", true);
+    }
+
         Pago pago = new Pago();
         pago = pagoServicio.traerPagoPorId(idPago);
         pagoServicio.eliminarPago(pago);
 
-        // return "redirect:/pagos/cliente?id="+idCliente;
+        redirectAttributes.addFlashAttribute("success", "El Pago fue eliminado con exito");
+        redirectAttributes.addFlashAttribute("alertScript", true);
         return new RedirectView("/pagos/cliente?id="+idCliente, true);
     }
 
@@ -162,7 +159,14 @@ public class PagoControlador {
 
 
     @PostMapping("/clientes/update")
-    public RedirectView updatePago(@RequestParam Integer idMembresia,@RequestParam Integer idCliente,@RequestParam Integer idPago){
+    public RedirectView updatePago(@RequestParam Integer idMembresia,@RequestParam Integer idCliente,@RequestParam Integer idPago,RedirectAttributes redirectAttributes){
+
+
+            if (idPago == null || idCliente == null||idMembresia == null) {
+            redirectAttributes.addFlashAttribute("error", "No fue posible modificar el pago. Contactese con su Administrador");
+            redirectAttributes.addFlashAttribute("alertScript", true);
+            return new RedirectView("/empleados/nuevo", true);
+    }
 
         Cliente cliente = clienteServicio.traerClientePorId(idCliente);
         Membresia membresia = membresiaServicio.traerMembresiaPorId(idMembresia);
@@ -185,54 +189,13 @@ public class PagoControlador {
         pago.setIdPago(idPago);
         
 
-        
-         //ERROR GIGANTE --------------------------------------------------------------------------------
-        //  if (!validar.validarDniCliente(cliente.getDni())) {
-        //      return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-        //              .body(Collections.singletonMap("error", "Ya existe un cliente registrado para el DNI: " + cliente.getDni()));
-        //   }
-
-
-        // ERROR GIGANTE ------------------------------------------------------------------------------------
-        //   if (cliente.getDni().isEmpty() || cliente.getNombre().isEmpty() || cliente.getApellido().isEmpty() || cliente.getTelefono().isEmpty()/* || idMembresia == 0*/) {
-        //      return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-        //              .body(Collections.singletonMap("error", "Todos los campos son obligatorios, incluyendo idMembresia"));
-        //  }
-
-
         clienteServicio.modificarCliente(cliente);
         pagoServicio.modificarPago(pago);
-
-        // return "redirect:/pagos/cliente?id="+cliente.getId();
+        
+        redirectAttributes.addFlashAttribute("success", "El Pago fue modificado con exito");
+        redirectAttributes.addFlashAttribute("alertScript", true);
             return new RedirectView("/pagos/cliente?id="+cliente.getId(), true);
     }
-
-
-
-
-
-    // @GetMapping
-    // public List<Pago> traerPagos(){
-    //     return pagoServicio.traerPagos();
-    // }
-
-    // @PostMapping
-    // public String crearPago(@RequestParam("dni") String dni) {
-    //     //ESTO TODAVIA NO HACE NADA...
-    //     return null;
-    // }
-
-
-    // @PutMapping
-    // public Pago modificarPago(@RequestBody Pago pago){
-    //     return pagoServicio.modificarPago(pago);
-    // }
-
-    // @DeleteMapping
-    // public void eliminarPago(@RequestBody Pago pago){
-    //     pagoServicio.eliminarPago(pago);
-    // }
-
 
 
 }
