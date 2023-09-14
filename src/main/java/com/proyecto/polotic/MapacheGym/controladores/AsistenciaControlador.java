@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.Collections;
@@ -59,80 +60,32 @@ public class AsistenciaControlador {
     }
 
     @PostMapping("/crear")
-    public ModelAndView crearAsistencia(@RequestParam String dniAsistencia) {
-        // if (dniAsistencia.isEmpty()) {
-        //     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.singletonMap("error", "Complete el campo DNI"));
-        // }
-        // System.out.println(dniAsistencia);
-
+    public RedirectView crearAsistencia(@RequestParam String dniAsistencia,RedirectAttributes redirectAttributes) {
+    
         boolean noDniEmpleado = validar.validarDniEmpleado(dniAsistencia);
         boolean noDniCliente = validar.validarDniCliente(dniAsistencia);
     if (noDniEmpleado && noDniCliente) {
 
-        String error = "DNI no registrado";
     
-        ModelAndView maw = new ModelAndView();
-        maw.setViewName("fragments/base");
-        maw.addObject("title", "Crear Aasistencia");
-        maw.addObject("view", "formsCreate/attendance_form");
-        maw.addObject("error", error);
-        return maw;  
+    redirectAttributes.addFlashAttribute("miVariable", "No se encontraron registros");
+            redirectAttributes.addFlashAttribute("alertScript", true);
+            return new RedirectView("/asistencias/nueva", true);
+
     } else if (noDniCliente) {
                  // Realiza las operaciones necesarias para crear la asistencia del empleado
                 asistenciaServicio.crearAsistenciaEmpleado(dniAsistencia);
-                //  return ResponseEntity.status(HttpStatus.OK).body(Collections.singletonMap("message", "Asistencia del empleado se registró exitosamente"));
-                String error = "Asistencia del empleado se registró exitosamente";
-    
-                ModelAndView maw = new ModelAndView();
-                maw.setViewName("fragments/base");
-                maw.addObject("title", "Crear Aasistencia");
-                maw.addObject("view", "formsCreate/attendance_form");
-                maw.addObject("error", error);
-                return maw;  
+            
+            redirectAttributes.addFlashAttribute("success", "Asistencia de empleado Registrada");
+            redirectAttributes.addFlashAttribute("alertScript", true);
+            return new RedirectView("/asistencias/nueva", true);
             
             } else if (noDniEmpleado) {
-        //         // Realiza las operaciones necesarias para crear la asistencia del cliente
-                asistenciaServicio.crearAsistenciaCliente(dniAsistencia);
-
-                String error = "Asistencia del empleado se registró exitosamente";
-    
-                ModelAndView maw = new ModelAndView();
-                maw.setViewName("fragments/base");
-                maw.addObject("title", "Crear Aasistencia");
-                maw.addObject("view", "formsCreate/attendance_form");
-                maw.addObject("error", error);
-                return maw;  
-                //  return ResponseEntity.status(HttpStatus.OK).body(Collections.singletonMap("message", "Asistencia del cliente se registró exitosamente"));
+            redirectAttributes.addFlashAttribute("success", "Asistencia de cliente Regitrada");
+            redirectAttributes.addFlashAttribute("alertScript", true);
+            return new RedirectView("/asistencias/nueva", true);
             }
 
-
-
-
-
-        // try {
-        //     if (noDniEmpleado && noDniCliente) {
-        //         throw new IllegalArgumentException("DNI no registrado previamente");
-        //     } else if (noDniCliente) {
-        //         // Realiza las operaciones necesarias para crear la asistencia del empleado
-        //         asistenciaServicio.crearAsistenciaEmpleado(dniAsistencia);
-        //         return ResponseEntity.status(HttpStatus.OK).body(Collections.singletonMap("message", "Asistencia del empleado se registró exitosamente"));
-        //     } else if (noDniEmpleado) {
-        //         // Realiza las operaciones necesarias para crear la asistencia del cliente
-        //         asistenciaServicio.crearAsistenciaCliente(dniAsistencia);
-        //         return ResponseEntity.status(HttpStatus.OK).body(Collections.singletonMap("message", "Asistencia del cliente se registró exitosamente"));
-        //     }
-        // } catch (IllegalArgumentException e) {
-        //     // Captura la excepción lanzada desde el servicio y devuelve el mensaje de error correspondiente
-        //     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Collections.singletonMap("error", e.getMessage()));
-        // }
-
-        // return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.singletonMap("error", "DNI no válido"));
-
-        ModelAndView maw = new ModelAndView();
-        maw.setViewName("fragments/base");
-        maw.addObject("title", "Crear Aasistencia");
-        maw.addObject("view", "formsCreate/attendance_form");
-        return maw;  
+            return new RedirectView("/asistencias/nueva", true);
     }
 
 /*  ESTA ERA LA FORMA DE REGISTRAR ASISTENCIA, PERO NO DEVUELVE MENSAJES AL CODIGO JS
