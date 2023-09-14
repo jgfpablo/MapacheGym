@@ -18,26 +18,27 @@ public class SecurityConfiguration {
 	private UsuarioServicio usuarioServicio;
 
 	@Autowired
-	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
-			auth.userDetailsService(usuarioServicio).passwordEncoder(new BCryptPasswordEncoder());
+	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(usuarioServicio).passwordEncoder(new BCryptPasswordEncoder());
 	}
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
-			.authorizeHttpRequests((requests) -> requests
-				.requestMatchers("/", "/registro", "/css/*", "/images/*",  "/images/*/*").permitAll()
-				.requestMatchers("/membresias", "/membresias/*","formsCreate/", "/empleados", "/empleados/*","/clientes","/clientes/*","/clientes","/clientes/*","/pagos","/pagos/*","/asistencias","/asistencias/*").hasRole("Administrador")
-				.anyRequest().authenticated()
-			)
-			.formLogin((form) -> form
-				.loginPage("/login")
-				.loginProcessingUrl("/logincheck")
-				.usernameParameter("email")
-				.passwordParameter("password")
-				.permitAll()
-			)
-			.logout((logout) -> logout.permitAll());
+				.authorizeHttpRequests((requests) -> requests
+						.requestMatchers("/", "/registro", "/css/*", "/images/*", "/images/*/*", "/js/*").permitAll()
+						.requestMatchers("/membresias", "/membresias/*", "formsCreate/", "/empleados", "/empleados/*",
+								"/clientes", "/clientes/*", "/clientes", "/clientes/*", "/pagos", "/pagos/*",
+								"/asistencias", "/asistencias/*")
+						.hasRole("Administrador")
+						.anyRequest().authenticated())
+				.formLogin((form) -> form
+						.loginPage("/login")
+						.loginProcessingUrl("/logincheck")
+						.usernameParameter("email")
+						.passwordParameter("password")
+						.permitAll())
+				.logout((logout) -> logout.permitAll());
 
 		return http.build();
 	}
