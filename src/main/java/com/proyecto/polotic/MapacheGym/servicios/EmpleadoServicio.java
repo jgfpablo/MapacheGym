@@ -43,6 +43,10 @@ public class EmpleadoServicio implements UserDetailsService{
     public Empleado traerEmpleadoPorDni(String dni){
         return empleadoRepositorio.findByDni(dni);
     }
+    
+    public String traerContraseniaEmpleado(Integer id){
+        return empleadoRepositorio.findPasswordById(id);
+    }
 
 
     public Empleado traerEmpleadoPorId(Integer id){

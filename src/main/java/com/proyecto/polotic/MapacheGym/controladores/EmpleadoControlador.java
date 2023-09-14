@@ -91,6 +91,9 @@ public class EmpleadoControlador {
     BCryptPasswordEncoder coder = new BCryptPasswordEncoder();
     String contraseniaCrypt = coder.encode(password);
     empleado.setContrasenia(contraseniaCrypt);
+        }else{
+        String oldPassword = empleadoServicio.traerContraseniaEmpleado(empleado.getId());
+        empleado.setContrasenia(oldPassword);
         }
     empleadoServicio.modificarEmpleado(empleado);
     return new RedirectView("/empleados", true);
