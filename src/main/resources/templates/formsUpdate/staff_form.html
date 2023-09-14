@@ -57,7 +57,7 @@
                 <input
                     class="p-1.5 rounded-md text-black mb-2"
                     type="text"
-                    th:field="${empleado.contrasenia}"
+                    name="password"
                 />
             </div>
             <br />
@@ -70,31 +70,20 @@
                 />
             </div>
             <br />
-            <div class="mb-4 text-xl">
+            <div class="text-left mb-4">
                 <span class="font-sans text-sm">Tipo Empleado</span>
+
                 <select
                     class="text-black p-1.5 rounded-md text-black mb-2 w-full"
-                    id="tipoEmpleado"
-                    th:field="${empleado.tipoEmpleado}"
+                    id="rol"
+                    name="rol"
+                    th:field="*{rol}"
                 >
                     <option
-                        value="Administrador"
-                        th:selected="${empleado.tipoEmpleado == 'Administrador'}"
-                    >
-                        Administrador
-                    </option>
-                    <option
-                        value="Usuario"
-                        th:selected="${empleado.tipoEmpleado == 'Usuario'}"
-                    >
-                        Usuario
-                    </option>
-                    <option
-                        value="Instructor"
-                        th:selected="${empleado.tipoEmpleado == 'Instructor'}"
-                    >
-                        Instructor
-                    </option>
+                        th:each="rol : ${roles}"
+                        th:value="${rol.id}"
+                        th:text="${rol.nombre}"
+                    ></option>
                 </select>
             </div>
             <br />

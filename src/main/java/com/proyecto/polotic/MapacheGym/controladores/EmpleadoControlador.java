@@ -69,16 +69,29 @@ public class EmpleadoControlador {
     public ModelAndView modificarEmpleado(@RequestParam Integer id, Model model){
         Empleado empleado = empleadoServicio.traerEmpleadoPorId(id);
 
+
+        List<Rol> roles = rolServicio.getAll();
+
+
+
+
         ModelAndView maw = new ModelAndView();
         maw.setViewName("fragments/base");
         maw.addObject("title", "Modificar Empleado");
         maw.addObject("view", "formsUpdate/staff_form");
         maw.addObject("empleado", empleado);
+        maw.addObject("roles", roles);
+
         return maw;  
     }
 
     @PostMapping("/update")
-    public RedirectView updateEmpleado(Empleado empleado){
+    public RedirectView updateEmpleado(Empleado empleado,@RequestParam String password){
+         if (password != null && password != "") {
+    BCryptPasswordEncoder coder = new BCryptPasswordEncoder();
+    String contraseniaCrypt = coder.encode(password);
+    empleado.setContrasenia(contraseniaCrypt);
+        }
     empleadoServicio.modificarEmpleado(empleado);
     return new RedirectView("/empleados", true);
 
