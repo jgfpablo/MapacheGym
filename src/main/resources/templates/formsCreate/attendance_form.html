@@ -4,15 +4,14 @@
 >
     <div class="registro" id="registro-asistencias">
         <h2>Formulario de Registro de Asistencias</h2>
-        <form
+        <!-- <form
             id="asistenciaForm"
             th:action="@{/asistencias/crear}"
             method="post"
             enctype="application/x-www-form-urlencoded"
         >
-            <!-- enctype="application/x-www-form-urlencoded" -->
 
-            <label for="dniAsistencia">DNI:</label>
+            <span>DNI:</span>
             <input
                 class="text-black"
                 type="text"
@@ -23,9 +22,40 @@
                 pattern="[0-9]{8}"
                 title="El DNI debe tener 8 dígitos numéricos sin puntos"
                 required
-            /><br />
+            />
             <button type="submit">Registrar</button>
+        </form> -->
+
+        <form th:action="@{/asistencias/crear}" method="post">
+            <input
+                class="text-black"
+                id="dniAsistencia"
+                type="number"
+                th:name="dniAsistencia"
+                th:value="${dniAsistencia}"
+                pattern="[0-9]{8}"
+                required
+            />
+            <button
+                class="w-28 bg-red-400 mt-2 rounded-2xl border-solid borde border-white text-white hover:bg-red-300 hover:text-black transition duration-300"
+                type="submit"
+            >
+                Registrar Asistencia
+            </button>
         </form>
+
+        <div th:if="${error}">
+            <p>
+                Error-----------------------------------------------------------------------------------------:
+                -----------------------------------------------------------------------------------------:
+                -----------------------------------------------------------------------------------------:
+                -----------------------------------------------------------------------------------------:
+                -----------------------------------------------------------------------------------------:<span
+                    th:text="${error}"
+                ></span>
+            </p>
+        </div>
+
         <!-- este codigo js recibe el mensaje desde la controladora y lo muestra en pantalla -->
         <script>
             document.addEventListener("DOMContentLoaded", function () {

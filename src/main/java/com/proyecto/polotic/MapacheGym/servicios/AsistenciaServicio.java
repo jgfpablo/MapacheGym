@@ -110,6 +110,10 @@ public class AsistenciaServicio {
         return asistenciaRepositorio.findAsistenciasEmpleados();
     }
 
+    public List<Asistencia> traerAsistenciasClientes(){
+        return asistenciaRepositorio.findAsistenciasClientes();
+    }
+
     public void eliminarAsistencia(Asistencia asistencia){
         asistenciaRepositorio.delete(asistencia);
     }

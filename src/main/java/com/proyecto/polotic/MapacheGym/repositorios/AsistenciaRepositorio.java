@@ -27,6 +27,10 @@ public interface AsistenciaRepositorio extends JpaRepository<Asistencia, Integer
 
     @Query("SELECT a FROM Asistencia a WHERE a.asistenciaEmpleado IS NOT NULL ORDER BY a.fecha DESC, a.horaInicio DESC")
     List<Asistencia> findAsistenciasEmpleados();
+
+    @Query("SELECT a FROM Asistencia a WHERE a.asistenciaCliente IS NOT NULL ORDER BY a.fecha DESC, a.horaInicio DESC")
+    List<Asistencia> findAsistenciasClientes();
+
 //Estos no...
     //@Query("SELECT a FROM Asistencia a WHERE a.asistenciaCliente = :cliente ORDER BY a.fecha DESC")
     //Asistencia findUltimaAsistenciaCliente(@Param("cliente") Cliente cliente);
