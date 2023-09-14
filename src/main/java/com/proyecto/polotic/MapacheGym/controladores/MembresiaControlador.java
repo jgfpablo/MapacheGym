@@ -52,11 +52,15 @@ public class MembresiaControlador implements WebMvcConfigurer{
     @PostMapping("/guardar")
     public RedirectView crearMembresia(@ModelAttribute Membresia membresia,RedirectAttributes redirectAttributes){
 
-        if (membresia == null) {
+       String tipo =  membresia.getTipoMembresia();
+//  tipo==""||tipo==null||tipo.isEmpty()
+// usa "" 
+        if (membresia.getTipoMembresia() == ""||membresia.getDescripcion() == ""||membresia.getPrecio()== 0.0||membresia.getDiasSemanales() == null) {
             redirectAttributes.addFlashAttribute("error", "No fue posible crear la membresia. Contactese con su Administrador");
             redirectAttributes.addFlashAttribute("alertScript", true);
-            return new RedirectView("/empleados/nuevo", true);
+            return new RedirectView("/membresias/nueva", true);
     }
+
 
         membresiaServicio.crearMembresia(membresia);
 
@@ -70,7 +74,9 @@ public class MembresiaControlador implements WebMvcConfigurer{
     @PostMapping({"/eliminar"})
     public RedirectView eliminarMembresia(Membresia membresia,RedirectAttributes redirectAttributes){
 
-        if (membresia == null) {
+        String tipo =  membresia.getTipoMembresia();
+ 
+        if (tipo==""||tipo==null||tipo.isEmpty()) {
             redirectAttributes.addFlashAttribute("error", "No fue posible crear la membresia. Contactese con su Administrador");
             redirectAttributes.addFlashAttribute("alertScript", true);
             return new RedirectView("/empleados/nuevo", true);
@@ -100,10 +106,10 @@ public class MembresiaControlador implements WebMvcConfigurer{
     @PostMapping("/update")
     public RedirectView modificarMembresia( Membresia membresia,RedirectAttributes redirectAttributes){
 
-        if (membresia == null) {
-            redirectAttributes.addFlashAttribute("error", "No fue posible modificar la membresia. Contactese con su Administrador");
+        if (membresia.getTipoMembresia() == ""||membresia.getDescripcion() == ""||membresia.getPrecio() == 0.0||membresia.getDiasSemanales() == null) {
+            redirectAttributes.addFlashAttribute("error", "No fue posible crear la membresia. Contactese con su Administrador");
             redirectAttributes.addFlashAttribute("alertScript", true);
-            return new RedirectView("/empleados/nuevo", true);
+            return new RedirectView("/membresias/modificar-membresia?id="+membresia.getIdMembresia(), true);
     }
         membresiaServicio.modificarMembresia(membresia);
 

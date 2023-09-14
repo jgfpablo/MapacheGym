@@ -52,4 +52,22 @@
         </form>
     </div>
 </main>
+
+<script th:if="${alertScript}" th:inline="javascript">
+    var errorMessage = /*[[${error}]]*/ "";
+    var successMessage = /*[[${success}]]*/ "";
+    if (errorMessage) {
+        Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: errorMessage,
+        });
+    } else if (successMessage) {
+        Swal.fire({
+            icon: "success",
+            title: "Exito",
+            text: successMessage,
+        });
+    }
+</script>
 <script th:fragment="script"></script>
