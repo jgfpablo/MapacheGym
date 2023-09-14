@@ -33,7 +33,9 @@
         <header th:replace="~{fragments/header :: header}"></header>
     </div>
 
-    <main  th:replace="~{${view} :: content}"></main>  
+    <div>
+        <main th:replace="~{${view} :: content}"></main>  
+    </div>
     
     <footer th:replace="~{fragments/footer :: footer}"></footer>
 
