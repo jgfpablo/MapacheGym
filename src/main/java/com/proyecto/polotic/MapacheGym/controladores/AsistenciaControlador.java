@@ -71,17 +71,22 @@ public class AsistenciaControlador {
         
         boolean noDniEmpleado = validar.validarDniEmpleado(dniAsistencia);
         boolean noDniCliente = validar.validarDniCliente(dniAsistencia);
-        // boolean clienteActivo = validar.validarClienteActivo(dniAsistencia);
-        System.out.println("soy empleado si soy falso significa que existo: "+ noDniEmpleado);
-        System.out.println("soy un cliente si soy falso significa que existo: "+ noDniCliente);
+        boolean clienteActivo = validar.validarClienteActivo(dniAsistencia);
 
         if (noDniCliente == false) {
 
+        if (clienteActivo == false) {
             asistenciaServicio.crearAsistenciaCliente(dniAsistencia);
 
             redirectAttributes.addFlashAttribute("success", "Asistencia de cliente Regitrada");
             redirectAttributes.addFlashAttribute("alertScript", true);
             return new RedirectView("/asistencias/nueva", true);
+        }else{
+            redirectAttributes.addFlashAttribute("error", "Cliente Inactivo");
+            redirectAttributes.addFlashAttribute("alertScript", true);
+            return new RedirectView("/asistencias/nueva", true);
+            }
+
 
         } else if(noDniEmpleado == false) {
             asistenciaServicio.crearAsistenciaEmpleado(dniAsistencia);

@@ -40,6 +40,6 @@ public class Validacion {
      public boolean validarClienteActivo(String dni) {
          Cliente clienteActivo = clienteServicio.traerClientePorDni(dni);
 
-         return clienteActivo.getStatus() == "Activo";  //si es true significa que esta Activo
+         return clienteActivo.getStatus().equals("Inactivo");  //si es false significa que esta Activo
      }
 }
