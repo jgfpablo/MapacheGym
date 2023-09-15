@@ -30,13 +30,8 @@ public class Validacion {
         Empleado empleadoExistente = EmpleadoServicio.traerEmpleadoPorDni(dni);
         return empleadoExistente == null;
     }
-   
-
 
     public boolean validarDniCliente(String dni) {
-        /*if (clienteRepositorio == null) {
-            System.out.println("Cliente es nulo");
-        }*/
         Cliente clienteExistente = clienteServicio.traerClientePorDni(dni);
 
         return clienteExistente == null   ;
@@ -45,6 +40,6 @@ public class Validacion {
      public boolean validarClienteActivo(String dni) {
          Cliente clienteActivo = clienteServicio.traerClientePorDni(dni);
 
-         return clienteActivo.getStatus() != "Activo";  //si es true significa que esta inactivo
+         return clienteActivo.getStatus() == "Activo";  //si es true significa que esta Activo
      }
 }
