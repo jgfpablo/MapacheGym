@@ -63,4 +63,16 @@
         </form>
     </div>
 </div>
+
+<script>
+    var currentUrl = window.location.href;
+    if (currentUrl.includes("?error")) {
+        Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Error usuario o contraseña incorrectos",
+        });
+    }
+</script>
+
 <script th:fragment="script"></script>
