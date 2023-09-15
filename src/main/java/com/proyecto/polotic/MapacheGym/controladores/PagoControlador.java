@@ -130,7 +130,21 @@ public class PagoControlador {
 
         Pago pago = new Pago();
         pago = pagoServicio.traerPagoPorId(idPago);
+
         pagoServicio.eliminarPago(pago);
+
+        List<Pago> todosLosPagos;
+        todosLosPagos = pagoServicio.findAllPagosCliente(idCliente);
+
+        if (todosLosPagos.size() == 0) {
+            
+            Cliente cliente = new Cliente();
+            cliente = clienteServicio.traerClientePorId(idCliente);
+            cliente.setStatus("Inactivo");
+            cliente.setDiasDisponibles(0);
+            
+            clienteServicio.modificarCliente(cliente);
+        }
 
         redirectAttributes.addFlashAttribute("success", "El Pago fue eliminado con exito");
         redirectAttributes.addFlashAttribute("alertScript", true);
