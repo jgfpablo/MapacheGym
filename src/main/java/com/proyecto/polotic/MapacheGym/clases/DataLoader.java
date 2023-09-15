@@ -2,8 +2,10 @@ package com.proyecto.polotic.MapacheGym.clases;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import com.proyecto.polotic.MapacheGym.entidades.*;
+import com.proyecto.polotic.MapacheGym.repositorios.EmpleadoRepositorio;
 import com.proyecto.polotic.MapacheGym.repositorios.MembresiaRepositorio;
 import com.proyecto.polotic.MapacheGym.repositorios.RolRepositorio;
 
@@ -23,12 +25,16 @@ public class DataLoader implements CommandLineRunner{
     @Autowired
     private final MembresiaRepositorio membresiaRepositorio;
 
+    @Autowired
+    private final EmpleadoRepositorio empleadoRepositorio;
+
 
     
     @Autowired
-    public DataLoader(RolRepositorio rolRepositorio,MembresiaRepositorio membresiaRepositorio){
+    public DataLoader(RolRepositorio rolRepositorio,MembresiaRepositorio membresiaRepositorio,EmpleadoRepositorio empleadoRepositorio){
         this.rolRepositorio = rolRepositorio;
         this.membresiaRepositorio = membresiaRepositorio;
+        this.empleadoRepositorio = empleadoRepositorio;
     }
 
     
@@ -65,6 +71,17 @@ public class DataLoader implements CommandLineRunner{
         membresia3.setPrecio("14.99");
         membresia3.setDiasSemanales(5);
         membresiaRepositorio.save(membresia3);
+
+
+        Empleado empleado = new Empleado();
+        empleado.setNombre("Admin");
+        empleado.setApellido("Admin");
+        empleado.setEmail("admin@admin");
+        String contrasenia = "admin";
+        BCryptPasswordEncoder coder = new BCryptPasswordEncoder();
+        empleado.setContrasenia(coder.encode(contrasenia));
+        empleado.setRol(administrador);
+        empleadoRepositorio.save(empleado);
 
 
     }

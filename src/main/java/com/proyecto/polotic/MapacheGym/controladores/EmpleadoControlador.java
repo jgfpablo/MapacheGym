@@ -110,7 +110,7 @@ public class EmpleadoControlador {
 @PostMapping("/guardar")
     public RedirectView guardarEmpleado(@ModelAttribute Empleado empleado,RedirectAttributes redirectAttributes){
 
-         if (empleado.getNombre()==""||empleado.getApellido()==""||empleado.getDni()=="") {
+         if (empleado.getNombre()==""||empleado.getApellido()==""||empleado.getDni()==""||empleado.getTelefono()==""||empleado.getEmail()=="") {
             redirectAttributes.addFlashAttribute("error", "No fue posible crear un nuevo empleado");
             redirectAttributes.addFlashAttribute("alertScript", true);
             return new RedirectView("/empleados/nuevo", true);
