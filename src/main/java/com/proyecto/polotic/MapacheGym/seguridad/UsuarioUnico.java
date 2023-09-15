@@ -9,10 +9,10 @@ import jakarta.validation.*;
 
 @Target({TYPE, ANNOTATION_TYPE})
 @Retention(RUNTIME)
-@Constraint(validatedBy = EmailUnicoValidator.class)
+@Constraint(validatedBy = UsuarioUnicoValidator.class)
 @Documented
-public @interface EmailUnico {
-    String message() default "Ya existe un usuario con este email";
+public @interface UsuarioUnico {
+    String message() default "Ya existe un usuario con este usuario";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

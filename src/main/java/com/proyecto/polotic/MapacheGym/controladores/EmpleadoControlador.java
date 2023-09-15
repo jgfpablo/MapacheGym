@@ -61,10 +61,12 @@ public class EmpleadoControlador {
 
 
     @PostMapping("/eliminar")
-    public RedirectView eliminarEmpleado(@RequestParam Integer id){
+    public RedirectView eliminarEmpleado(@RequestParam Integer id,RedirectAttributes redirectAttributes){
         Empleado empleado = new Empleado();
         empleado = empleadoServicio.traerEmpleadoPorId(id);
         empleadoServicio.eliminarEmpleado(empleado);
+        redirectAttributes.addFlashAttribute("success", "El empleado fue eliminado.");
+        redirectAttributes.addFlashAttribute("alertScript", true);
         return new RedirectView("/empleados", true);
     }
 
@@ -87,8 +89,8 @@ public class EmpleadoControlador {
 @PostMapping("/update")
     public RedirectView updateEmpleado(Empleado empleado,@RequestParam String password,RedirectAttributes redirectAttributes){
 
-            if (empleado.getDni() == null || empleado.getDni().isEmpty()) {
-    redirectAttributes.addFlashAttribute("miVariable", "El DNI es obligatorio.");
+            if (empleado.getNombre()==""||empleado.getApellido()==""||empleado.getDni()==""||empleado.getTelefono()==""||empleado.getUsuario()=="") {
+            redirectAttributes.addFlashAttribute("error", "Todos los campos deben estar completos.");
             redirectAttributes.addFlashAttribute("alertScript", true);
             return new RedirectView("/empleados/modificar-empleado?id=" + empleado.getId(), true);
     }
@@ -102,6 +104,9 @@ public class EmpleadoControlador {
         empleado.setContrasenia(oldPassword);
         }
     empleadoServicio.modificarEmpleado(empleado);
+
+        redirectAttributes.addFlashAttribute("success", "El empleado fue modificado con exito.");
+        redirectAttributes.addFlashAttribute("alertScript", true);
     return new RedirectView("/empleados", true);
 
     }
@@ -110,11 +115,11 @@ public class EmpleadoControlador {
 @PostMapping("/guardar")
     public RedirectView guardarEmpleado(@ModelAttribute Empleado empleado,RedirectAttributes redirectAttributes){
 
-         if (empleado.getNombre()==""||empleado.getApellido()==""||empleado.getDni()==""||empleado.getTelefono()==""||empleado.getEmail()=="") {
+        if (empleado.getNombre()==""||empleado.getApellido()==""||empleado.getDni()==""||empleado.getTelefono()==""||empleado.getUsuario()=="") {
             redirectAttributes.addFlashAttribute("error", "No fue posible crear un nuevo empleado");
             redirectAttributes.addFlashAttribute("alertScript", true);
             return new RedirectView("/empleados/nuevo", true);
-         }
+        }
 
     String contrasenia = empleado.getContrasenia();
     BCryptPasswordEncoder coder = new BCryptPasswordEncoder();

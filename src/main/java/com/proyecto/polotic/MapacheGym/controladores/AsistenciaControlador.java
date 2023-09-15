@@ -61,31 +61,45 @@ public class AsistenciaControlador {
 
     @PostMapping("/crear")
     public RedirectView crearAsistencia(@RequestParam String dniAsistencia,RedirectAttributes redirectAttributes) {
-    
+    try {
+        
         boolean noDniEmpleado = validar.validarDniEmpleado(dniAsistencia);
         boolean noDniCliente = validar.validarDniCliente(dniAsistencia);
-    if (noDniEmpleado && noDniCliente) {
+        boolean clienteActivo = validar.validarClienteActivo(dniAsistencia);
 
-    
-    redirectAttributes.addFlashAttribute("miVariable", "No se encontraron registros");
-            redirectAttributes.addFlashAttribute("alertScript", true);
-            return new RedirectView("/asistencias/nueva", true);
-
-    } else if (noDniCliente) {
+     if (noDniEmpleado && noDniCliente) {
+     redirectAttributes.addFlashAttribute("error", "No se encontraron registros");
+             redirectAttributes.addFlashAttribute("alertScript", true);
+             return new RedirectView("/asistencias/nueva", true);
+     } else if (noDniCliente) {
                 
+          if (clienteActivo == false) {
                 asistenciaServicio.crearAsistenciaEmpleado(dniAsistencia);
             
-            redirectAttributes.addFlashAttribute("success", "Asistencia de empleado Registrada");
-            redirectAttributes.addFlashAttribute("alertScript", true);
-            return new RedirectView("/asistencias/nueva", true);
+             redirectAttributes.addFlashAttribute("error", "Cliente Inactivo");
+             redirectAttributes.addFlashAttribute("alertScript", true);
+             return new RedirectView("/asistencias/nueva", true);
+          }else{
+             redirectAttributes.addFlashAttribute("error", "Asistencia de empleado Registrada");
+             redirectAttributes.addFlashAttribute("alertScript", true);
+             return new RedirectView("/asistencias/nueva", true);
+          }
             
-            } else if (noDniEmpleado) {
-            redirectAttributes.addFlashAttribute("success", "Asistencia de cliente Regitrada");
-            redirectAttributes.addFlashAttribute("alertScript", true);
-            return new RedirectView("/asistencias/nueva", true);
-            }
+             } else if (noDniEmpleado) {
+                             asistenciaServicio.crearAsistenciaCliente(dniAsistencia);
+
+             redirectAttributes.addFlashAttribute("success", "Asistencia de cliente Regitrada");
+             redirectAttributes.addFlashAttribute("alertScript", true);
+             return new RedirectView("/asistencias/nueva", true);
+             }
+    // ----------------------------------------------------------------------------------
 
             return new RedirectView("/asistencias/nueva", true);
+    } catch (Exception e) {
+        redirectAttributes.addFlashAttribute("error", "No existen registros de esta persona");
+        redirectAttributes.addFlashAttribute("alertScript", true);
+        return new RedirectView("/asistencias/nueva", true);
+    }
     }
 
     @PutMapping

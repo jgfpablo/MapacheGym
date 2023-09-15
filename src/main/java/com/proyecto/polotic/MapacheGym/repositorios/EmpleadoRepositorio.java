@@ -15,9 +15,9 @@ public interface EmpleadoRepositorio extends CrudRepository<Empleado, Integer> {
 
     Empleado findEmpleadoById(Integer id);
 
-    Empleado findByEmail(String email);
+    Empleado findByUsuario(String usuario);
 
-    boolean existsByEmail(String email);
+    boolean existsByUsuario(String usuario);
 
     // List<Empleado> findAll();
 

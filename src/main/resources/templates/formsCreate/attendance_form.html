@@ -26,9 +26,8 @@
 </main>
 
 <script th:if="${alertScript}" th:inline="javascript">
-    var errorMessage = /*[[${miVariable}]]*/ "";
+    var errorMessage = /*[[${error}]]*/ "";
     var successMessage = /*[[${success}]]*/ "";
-
     if (errorMessage) {
         Swal.fire({
             icon: "error",

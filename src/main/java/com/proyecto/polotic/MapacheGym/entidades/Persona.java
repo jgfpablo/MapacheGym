@@ -10,7 +10,8 @@ public class Persona {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
 
-    @Column(length=8)
+    
+    @Column(length=8,unique = true)
     private String dni;
 
     @Column(name = "nombre")

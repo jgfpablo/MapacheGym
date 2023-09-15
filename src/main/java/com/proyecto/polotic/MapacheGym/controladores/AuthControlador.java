@@ -79,7 +79,7 @@ public class AuthControlador {
         }
 
         Empleado u = new Empleado();
-        u.setEmail(registroDto.getEmail());
+        u.setUsuario(registroDto.getUsuario());
         u.setContrasenia(codificador.encode(registroDto.getPassword()));
         u.setRol(rolRepositorio.findByNombre("Administrador")
                 .orElseThrow(() -> new IllegalArgumentException("Error al crear usuario")));

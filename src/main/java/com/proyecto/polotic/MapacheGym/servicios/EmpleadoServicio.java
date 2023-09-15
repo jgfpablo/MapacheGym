@@ -59,14 +59,14 @@ public class EmpleadoServicio implements UserDetailsService{
 
     
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Empleado empleado = empleadoRepositorio.findByEmail(email);
+    public UserDetails loadUserByUsername(String usuario) throws UsernameNotFoundException {
+        Empleado empleado = empleadoRepositorio.findByUsuario(usuario);
         List<GrantedAuthority> ga = buildAuthorities(empleado.getRol());
         return buildUser(empleado, ga);
     }
 
     public User buildUser(Empleado empleado, List<GrantedAuthority> ga) {
-        return new User(empleado.getEmail(), empleado.getContrasenia(), ga);
+        return new User(empleado.getUsuario(), empleado.getContrasenia(), ga);
     }
 
     public List<GrantedAuthority> buildAuthorities(Rol rol) {
@@ -77,8 +77,8 @@ public class EmpleadoServicio implements UserDetailsService{
 
     @Transactional
     public void registro(Empleado empleado) {
-        if (empleadoRepositorio.existsByEmail(empleado.getEmail()))
-            throw new IllegalArgumentException("Ya existe un usuario con este email");
+        if (empleadoRepositorio.existsByUsuario(empleado.getUsuario()))
+            throw new IllegalArgumentException("Ya existe un usuario con este usuario");
 
         empleado.setContrasenia( codificador.encode(empleado.getContrasenia()) );
         empleado.setRol(rolRepositorio.findByNombre("Usuario").orElseThrow(() -> new IllegalArgumentException("Error al crear usuario")));

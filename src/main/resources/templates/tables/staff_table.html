@@ -24,7 +24,7 @@
                     <th class="w-1/12 px-2 py-1 text-center">Apellido</th>
                     <th class="w-1/12 px-2 py-1 text-center">DNI</th>
                     <th class="w-1/12 px-2 py-1 text-center">Telefono</th>
-                    <th class="w-1/12 px-2 py-1 text-center">email</th>
+                    <th class="w-1/12 px-2 py-1 text-center">usuario</th>
                     <th class="w-1/12 px-2 py-1 text-center">Tipo Empleado</th>
                     <th class="w-1/12 px-2 py-1 text-center">Accion</th>
                 </tr>
@@ -36,7 +36,7 @@
                     <td class="px-2 py-1" th:text="${empleado.apellido}"></td>
                     <td class="px-2 py-1" th:text="${empleado.dni}"></td>
                     <td class="px-2 py-1" th:text="${empleado.telefono}"></td>
-                    <td class="px-2 py-1" th:text="${empleado.email}"></td>
+                    <td class="px-2 py-1" th:text="${empleado.usuario}"></td>
                     <td class="px-2 py-1" th:text="${empleado.rol.nombre}"></td>
                     <td class="px-2 py-1">
                         <form th:action="@{/empleados/eliminar}" method="post">

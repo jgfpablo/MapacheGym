@@ -1,45 +1,119 @@
-<div class="flex flex-col items-center justify-center text-center h-screen" th:fragment="content">
-  <div class="bg-gradient-to-b from-slate-800 to-gray-900 rounded-md shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px]">
-      <div class="flex flex-col items-center text-center p-6">
-          <img src="/images/logo-light.svg" alt="MapacheGym" class="h-24 w-24">
-          <div class="font-semibold text-glow pt-2">
-              <span class="text-white">Mapache</span><span class="text-red-500">Gym</span>
-          </div>
-      </div>
-      <form th:action="@{/registro}" th:object="${registroDto}" method="POST">
-          <div class="mx-6 flex flex-col items-center">
-              <div class="mt-6 mx-6 text-left">
-                  <label class="font-bold text-white ml-1.5">Mail</label>
-                  <br>
-                  <input class="mt-1.5 py-2 px-5 rounded-full placeholder:text-slate-500 placeholder:text-opacity-50 text-sm font-medium focus:outline-none focus:ring-4 focus:ring-red-500 transition duration-300 ease-in-out hover:ring-4 hover:ring-red-500 hover:transition-transform hover:scale-105" placeholder="Ingrese su mail" id="email" name="email" type="email" autocomplete="email" required th:field="*{email}" th:errorClass="'is-invalid'">
-                  <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
-              </div>
-              <div class="mx-6 mb-3 mt-4 text-left">
-                  <label class="font-bold text-white ml-1.5">Contraseña</label>
-                  <br>
-                  <input class="mt-1.5 py-2 px-5 rounded-full placeholder:text-slate-500 placeholder:text-opacity-50 text-sm font-medium focus:outline-none focus:ring-4 focus:ring-red-500 transition duration-300 ease-in-out hover:ring-4 hover:ring-red-500 hover:transition-transform hover:scale-105" placeholder="Ingrese su contraseña" id="confirmar" name="confirmar" type="password" required th:field="*{password}" th:errorClass="'is-invalid'">
-                  <div class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
-                  <br>
-                  <input class="mb-4 mt-2 py-2 px-5 rounded-full placeholder:text-slate-500 placeholder:text-opacity-50 text-sm font-medium focus:outline-none focus:ring-4 focus:ring-red-500 transition duration-300 ease-in-out hover:ring-4 hover:ring-red-500 hover:transition-transform hover:scale-105" placeholder="Repetir contraseña" id="password" name="password" type="password" autocomplete="current-password" required th:field="*{confirmar}" th:errorClass="'is-invalid'">
-                  <div class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
-              </div>
-              <div>
-                <div>
-                  <div class="g-recaptcha" style="transform:scale(0.80);" name="recaptcha" th:errorClass="'is-invalid'" data-sitekey="6LcxtgwoAAAAAA2qs-Az2wR7T1ZgVPHb1HZkDt8S"></div>
-                  <div class="invalid-feedback" th:if="${#fields.hasErrors('recaptcha')}" th:errors="*{recaptcha}"></div>
+<div
+    class="flex flex-col items-center justify-center text-center h-screen"
+    th:fragment="content"
+>
+    <div
+        class="bg-gradient-to-b from-slate-800 to-gray-900 rounded-md shadow-[rgba(0,_0,_0,_0.25)_0px_25px_50px_-12px]"
+    >
+        <div class="flex flex-col items-center text-center p-6">
+            <img
+                src="/images/logo-light.svg"
+                alt="MapacheGym"
+                class="h-24 w-24"
+            />
+            <div class="font-semibold text-glow pt-2">
+                <span class="text-white">Mapache</span
+                ><span class="text-red-500">Gym</span>
+            </div>
+        </div>
+        <form th:action="@{/registro}" th:object="${registroDto}" method="POST">
+            <div class="mx-6 flex flex-col items-center">
+                <div class="mt-6 mx-6 text-left">
+                    <label class="font-bold text-white ml-1.5">Mail</label>
+                    <br />
+                    <input
+                        class="mt-1.5 py-2 px-5 rounded-full placeholder:text-slate-500 placeholder:text-opacity-50 text-sm font-medium focus:outline-none focus:ring-4 focus:ring-red-500 transition duration-300 ease-in-out hover:ring-4 hover:ring-red-500 hover:transition-transform hover:scale-105"
+                        placeholder="Ingrese su mail"
+                        id="usuario"
+                        name="usuario"
+                        type="usuario"
+                        autocomplete="usuario"
+                        required
+                        th:field="*{usuario}"
+                        th:errorClass="'is-invalid'"
+                    />
+                    <div
+                        class="invalid-feedback"
+                        th:if="${#fields.hasErrors('usuario')}"
+                        th:errors="*{usuario}"
+                    ></div>
                 </div>
-              </div>
-              <div>
-                  <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 border border-red-700 rounded transition duration-300 mb-4 hover:ring-red-500 hover:transition-transform hover:scale-110">Registrarse</button>
-              </div>
-          </div>
-      </form>
-      <div class="mb-4">
-          <a class="inline-block text-white text-glow transition-transform transform hover:scale-150 hover:duration-300 hover:animate-shake text-sm" href="/login">
-              ¿Ya está registrado?
-          </a>
-      </div>
-  </div>
+                <div class="mx-6 mb-3 mt-4 text-left">
+                    <label class="font-bold text-white ml-1.5"
+                        >Contraseña</label
+                    >
+                    <br />
+                    <input
+                        class="mt-1.5 py-2 px-5 rounded-full placeholder:text-slate-500 placeholder:text-opacity-50 text-sm font-medium focus:outline-none focus:ring-4 focus:ring-red-500 transition duration-300 ease-in-out hover:ring-4 hover:ring-red-500 hover:transition-transform hover:scale-105"
+                        placeholder="Ingrese su contraseña"
+                        id="confirmar"
+                        name="confirmar"
+                        type="password"
+                        required
+                        th:field="*{password}"
+                        th:errorClass="'is-invalid'"
+                    />
+                    <div
+                        class="invalid-feedback"
+                        th:if="${#fields.hasErrors('password')}"
+                        th:errors="*{password}"
+                    ></div>
+                    <br />
+                    <input
+                        class="mb-4 mt-2 py-2 px-5 rounded-full placeholder:text-slate-500 placeholder:text-opacity-50 text-sm font-medium focus:outline-none focus:ring-4 focus:ring-red-500 transition duration-300 ease-in-out hover:ring-4 hover:ring-red-500 hover:transition-transform hover:scale-105"
+                        placeholder="Repetir contraseña"
+                        id="password"
+                        name="password"
+                        type="password"
+                        autocomplete="current-password"
+                        required
+                        th:field="*{confirmar}"
+                        th:errorClass="'is-invalid'"
+                    />
+                    <div
+                        class="invalid-feedback"
+                        th:if="${#fields.hasErrors('password')}"
+                        th:errors="*{password}"
+                    ></div>
+                </div>
+                <div>
+                    <div>
+                        <div
+                            class="g-recaptcha"
+                            style="transform: scale(0.8)"
+                            name="recaptcha"
+                            th:errorClass="'is-invalid'"
+                            data-sitekey="6LcxtgwoAAAAAA2qs-Az2wR7T1ZgVPHb1HZkDt8S"
+                        ></div>
+                        <div
+                            class="invalid-feedback"
+                            th:if="${#fields.hasErrors('recaptcha')}"
+                            th:errors="*{recaptcha}"
+                        ></div>
+                    </div>
+                </div>
+                <div>
+                    <button
+                        type="submit"
+                        class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 border border-red-700 rounded transition duration-300 mb-4 hover:ring-red-500 hover:transition-transform hover:scale-110"
+                    >
+                        Registrarse
+                    </button>
+                </div>
+            </div>
+        </form>
+        <div class="mb-4">
+            <a
+                class="inline-block text-white text-glow transition-transform transform hover:scale-150 hover:duration-300 hover:animate-shake text-sm"
+                href="/login"
+            >
+                ¿Ya está registrado?
+            </a>
+        </div>
+    </div>
 </div>
 
-<script th:fragment="script" src="https://www.google.com/recaptcha/api.js"></script>
+<script
+    th:fragment="script"
+    src="https://www.google.com/recaptcha/api.js"
+></script>

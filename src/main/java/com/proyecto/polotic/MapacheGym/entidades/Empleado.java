@@ -20,10 +20,10 @@ public class Empleado extends Persona implements Serializable {
     @Column(name = "legajo")
     private String legajo;
 
-    @Pattern(regexp = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9.-]+$")
+    // @Pattern(regexp = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9.-]+$")
     @NotNull
-    @Column(name = "email")
-    private String email;
+    @Column(name = "usuario")
+    private String usuario;
 
     @Column(name = "contrasenia")
     private String password;
@@ -35,11 +35,11 @@ public class Empleado extends Persona implements Serializable {
     public Empleado() {
     }
 
-    public Empleado(int id, String dni, String nombre, String apellido, String telefono, Rol rol, String legajo, String email, String password, List<Asistencia> asistencia) {
+    public Empleado(int id, String dni, String nombre, String apellido, String telefono, Rol rol, String legajo, String usuario, String password, List<Asistencia> asistencia) {
         super(id, dni, nombre, apellido, telefono);
         this.rol = rol;
         this.legajo = legajo;
-        this.email = email;
+        this.usuario = usuario;
         this.password = password;
         this.asistencia = asistencia;
     }
@@ -60,12 +60,12 @@ public class Empleado extends Persona implements Serializable {
         this.legajo = legajo;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUsuario() {
+        return usuario;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 
     public String getContrasenia() {

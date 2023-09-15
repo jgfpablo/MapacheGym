@@ -85,11 +85,14 @@ public class ClienteControlador {
 
 
     @PostMapping("/eliminar")
-    public RedirectView eliminarCliente(@RequestParam Integer clienteId){
+    public RedirectView eliminarCliente(@RequestParam Integer clienteId,RedirectAttributes redirectAttributes){
         Cliente cliente = clienteServicio.traerClientePorId(clienteId);
         cliente.setStatus("Inactivo");
         cliente.setId(clienteId);
+        cliente.setDiasDisponibles(0);
         clienteServicio.crearCliente(cliente);
+        redirectAttributes.addFlashAttribute("success", "El cliente fue eliminado con exito.");
+        redirectAttributes.addFlashAttribute("alertScript", true);
         return new RedirectView("/clientes", true);
     }
 
@@ -99,7 +102,8 @@ public class ClienteControlador {
 @PostMapping("/guardar")
     public RedirectView guardarCliente(@ModelAttribute Cliente cliente,@RequestParam Integer idMembresia,RedirectAttributes redirectAttributes){
 
-        Membresia membresia = membresiaServicio.traerMembresiaPorId(idMembresia);
+       try {
+         Membresia membresia = membresiaServicio.traerMembresiaPorId(idMembresia);
         Pago pago = new Pago();
 
         LocalDate fechaActual = LocalDate.now();
@@ -117,29 +121,38 @@ public class ClienteControlador {
         pago.setFechaPago(fechaActual);
         pago.setValidez(fechaValidez);
 
-    if (cliente.getNombre().isEmpty()||cliente.getApellido().isEmpty()||cliente.getDni().isEmpty()||cliente.getTelefono().isEmpty()) {
-            redirectAttributes.addFlashAttribute("miVariable", "Disparador");
+        if (cliente.getNombre()==""||cliente.getApellido()==""||cliente.getDni()==""||cliente.getTelefono()=="") {
+            redirectAttributes.addFlashAttribute("error", "Todos los campos deben estar completos. Si el problema persiste contactese con su Administrador");
             redirectAttributes.addFlashAttribute("alertScript", true);
             return new RedirectView("/clientes/nuevo", true);
-    }
+        }
 
         clienteServicio.crearCliente(cliente);
         pagoServicio.crearPago(pago);
+        redirectAttributes.addFlashAttribute("success", "El cliente fue creado con exito.");
+        redirectAttributes.addFlashAttribute("alertScript", true);
         return new RedirectView("/clientes", true);
+        } catch (Exception e) {
+        redirectAttributes.addFlashAttribute("error", "El dni de este cliente ya existe. De no ser asi contactese con su Administrador");
+        redirectAttributes.addFlashAttribute("alertScript", true);
+        return new RedirectView("/clientes/nuevo", true);
+        }
     }
 
 @PostMapping("/update")
     public RedirectView updateEmpleado(Cliente cliente,@RequestParam Integer idMembresia,RedirectAttributes redirectAttributes){
 
             if (cliente.getNombre().isEmpty()||cliente.getApellido().isEmpty()||cliente.getDni().isEmpty()||cliente.getTelefono().isEmpty()) {
-            redirectAttributes.addFlashAttribute("miVariable", "Disparador");
+            redirectAttributes.addFlashAttribute("error", "Todos los campos deben estar completos. Si el problema persiste contactese con su Administrador");
             redirectAttributes.addFlashAttribute("alertScript", true);
             return new RedirectView("/clientes/modificar_cliente?id=" + cliente.getId(), true);
     }
         Membresia membresia = membresiaServicio.traerMembresiaPorId(idMembresia);
         cliente.setMembresia(membresia);
         cliente.setDiasDisponibles(membresia.getDiasSemanales());
-    clienteServicio.modificarCliente(cliente);
+        clienteServicio.modificarCliente(cliente);
+        redirectAttributes.addFlashAttribute("success", "El cliente fue modificado con exito.");
+        redirectAttributes.addFlashAttribute("alertScript", true);
     return new RedirectView("/clientes", true);
     }
 

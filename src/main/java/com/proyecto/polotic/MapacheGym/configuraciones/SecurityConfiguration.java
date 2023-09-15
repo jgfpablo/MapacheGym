@@ -25,22 +25,24 @@ public class SecurityConfiguration {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
-				.authorizeHttpRequests((requests) -> requests
-						.requestMatchers("/", "/registro", "/css/*", "/images/*", "/images/*/*", "/js/*").permitAll()
-						.requestMatchers("/membresias", "/membresias/*", "formsCreate/", "/empleados", "/empleados/*",
-								"/clientes", "/clientes/*", "/clientes", "/clientes/*", "/pagos", "/pagos/*",
-								"/asistencias", "/asistencias/*")
-						.hasRole("Administrador")
-						.anyRequest().authenticated())
+			.authorizeHttpRequests((requests) -> requests
+				.requestMatchers("/","/asistencias/nueva", "/registro/nuevo", "/css/*", "/images/*", "/images/*/*", "/js/*").permitAll()
+				.requestMatchers("/clientes", "/clientes/*", "/clientes").hasAnyRole("Instructor","Administrador","Usuario")  
+				.requestMatchers("/asistenias", "/asistenias/*", "/asistenias").hasAnyRole("Usuario","Administrador")
+				.requestMatchers("/membresias", "/membresias/*", "/membresias").hasAnyRole("Administrador") 
+				.requestMatchers("/empleados", "/empleados/*", "/empleados").hasAnyRole("Administrador")
+			.anyRequest().authenticated())
 				.formLogin((form) -> form
-						.loginPage("/login")
-						.loginProcessingUrl("/logincheck")
-						.usernameParameter("email")
-						.passwordParameter("password")
-						.permitAll())
+				.loginPage("/login")
+				.loginProcessingUrl("/logincheck")
+				.usernameParameter("usuario")
+				.passwordParameter("password")
+				.permitAll())
 				.logout((logout) -> logout.permitAll());
 
 		return http.build();
 	}
+
+	
 
 }

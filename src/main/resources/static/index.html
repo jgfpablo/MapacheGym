@@ -1,330 +1,492 @@
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>SpringBoot Page</title>
-</head>
-<body>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>SpringBoot Page</title>
+    </head>
+    <body>
+        <h1>¡MAPACHE GYM!</h1>
 
+        <section class="registro" id="registro-membresia">
+            <h2>Formulario de Registro de Membresías</h2>
 
-<h1>¡MAPACHE GYM!</h1>
+            <form
+                id="membresiaForm"
+                action="/membresia"
+                th:object="${membresia}"
+                method="post"
+                enctype="application/x-www-form-urlencoded"
+            >
+                <label for="descripcion">Descripción:</label>
+                <input
+                    type="text"
+                    id="descripcion"
+                    name="descripcion"
+                    th:field="*{descripcion}"
+                    required
+                /><br />
 
+                <label for="tipoMembresia">Tipo de Membresia:</label>
+                <input
+                    type="text"
+                    id="tipoMembresia"
+                    name="tipoMembresia"
+                    th:field="*{tipoMembresia}"
+                    required
+                /><br />
 
+                <label for="diasSemanales">Cantidad de días:</label>
+                <input
+                    type="number"
+                    id="diasSemanales"
+                    name="diasSemanales"
+                    th:field="*{diasSemanales}"
+                    required
+                    min="1"
+                    max="7"
+                /><br />
 
+                <label for="precio">Precio:</label>
+                <input
+                    type="number"
+                    id="precio"
+                    name="precio"
+                    th:field="*{precio}"
+                    required
+                /><br />
 
-<section class="registro" id="registro-membresia">
+                <button type="submit">Registrar</button>
+            </form>
+            <!-- este codigo js recibe el mensaje desde la controladora y lo muestra en pantalla -->
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    const membresiaForm =
+                        document.getElementById("membresiaForm");
 
-    <h2>Formulario de Registro de Membresías</h2>
+                    membresiaForm.addEventListener("submit", function (event) {
+                        event.preventDefault();
 
-    <form id="membresiaForm" action="/membresia" th:object="${membresia}" method="post" enctype="application/x-www-form-urlencoded">
-        <label for="descripcion">Descripción:</label>
-        <input type="text" id="descripcion" name="descripcion" th:field="*{descripcion}" required><br>
-
-        <label for="tipoMembresia">Tipo de Membresia:</label>
-        <input type="text" id="tipoMembresia" name="tipoMembresia" th:field="*{tipoMembresia}" required><br>
-
-        <label for="diasSemanales">Cantidad de días:</label>
-        <input type="number" id="diasSemanales" name="diasSemanales" th:field="*{diasSemanales}" required min="1" max="7"><br>
-
-        <label for="precio">Precio:</label>
-        <input type="number" id="precio" name="precio" th:field="*{precio}" required><br>
-
-        <button type="submit">Registrar</button>
-    </form>
-<!-- este codigo js recibe el mensaje desde la controladora y lo muestra en pantalla -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const membresiaForm = document.getElementById("membresiaForm");
-
-            membresiaForm.addEventListener("submit", function (event) {
-                event.preventDefault();
-
-                fetch("/membresia", {
-                    method: "POST",
-                    body: new FormData(this),
-                })
-                    .then((response) => response.json())
-                    .then((data) => {
-                        if (data.error) {
-                            alert(data.error);
-                        } else if (data.message) {
-                            alert(data.message);
-                        }
-                    })
-                    .catch((error) => {
-                        console.error(error);
-                        alert("Error interno del servidor");
+                        fetch("/membresia", {
+                            method: "POST",
+                            body: new FormData(this),
+                        })
+                            .then((response) => response.json())
+                            .then((data) => {
+                                if (data.error) {
+                                    alert(data.error);
+                                } else if (data.message) {
+                                    alert(data.message);
+                                }
+                            })
+                            .catch((error) => {
+                                console.error(error);
+                                alert("Error interno del servidor");
+                            });
                     });
-            });
-        });
-    </script>
-
-
-
-
-</section>
-<section class="form-register" id="registro-empleado">
-
-    <h2>Formulario Registro de Empleados</h2>
-
-    <form id="empleadoForm" action="/empleado" th:object="${empleado}" method="post" enctype="application/x-www-form-urlencoded">
-        <label for="dniEmpleado">DNI:</label>
-        <input type="text" id="dniEmpleado" name="dniEmpleado" th:field="*{dniEmpleado}" inputmode="numeric" pattern="[0-9]{8}" title="El DNI debe tener 8 dígitos numéricos sin puntos" required><br>
-
-        <label for="nombreEmpleado">Nombre:</label>
-        <input type="text" id="nombreEmpleado" name="nombreEmpleado" th:field="*{nombreEmpleado}" required><br>
-
-        <label for="apellidoEmpleado">Apellido:</label>
-        <input type="text" id="apellidoEmpleado" name="apellidoEmpleado" th:field="*{apellidoEmpleado}" required><br>
-
-        <label for="telefonoEmpleado">Teléfono:</label>
-        <input type="text" id="telefonoEmpleado" name="telefonoEmpleado" th:field="*{telefonoEmpleado}" required><br>
-
-        <label for="emailEmpleado">Correo Electrónico:</label>
-        <input type="email" id="emailEmpleado" name="emailEmpleado" th:field="*{emailEmpleado}" required><br>
-
-        <label for="tipoEmpleado">Tipo de Empleado:</label>
-        <select id="tipoEmpleado" name="tipoEmpleado" th:field="*{tipoEmpleado}" >
-            <option value="">Tipo de Empleado</option>
-            <option value="Administrador">Administrador</option>
-            <option value="Usuario">Usuario</option>
-            <option value="Instructor">Instructor</option>
-        </select>
-
-        <button type="submit">Registrar</button>
-    </form>
-<!-- este codigo js recibe el mensaje desde la controladora y lo muestra en pantalla -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const empleadoForm = document.getElementById("empleadoForm");
-
-            empleadoForm.addEventListener("submit", function (event) {
-                event.preventDefault();
-
-                fetch("/empleado", {
-                    method: "POST",
-                    body: new FormData(this),
-                })
-                    .then((response) => response.json())
-                    .then((data) => {
-                        if (data.error) {
-                            alert(data.error);
-                        } else if (data.message) {
-                            alert(data.message);
-                        }
-                    })
-                    .catch((error) => {
-                        console.error(error);
-                        alert("Error interno del servidor");
-                    });
-            });
-        });
-    </script>
-</section>
-
-
-
-
-<section class="form-register" id="registro-cliente">
-    <h2>Formulario Registro de Clientes</h2>
-
-    <form id="clienteForm" action="/cliente" th:object="${cliente}" method="post" enctype="application/x-www-form-urlencoded">
-        <label for="dniCliente">DNI:</label>
-        <input type="text" id="dniCliente" name="dniCliente" th:field="*{dniCliente}" inputmode="numeric" pattern="[0-9]{8}" title="El DNI debe tener 8 dígitos numéricos sin puntos" required><br>
-
-        <label for="nombreCliente">Nombre:</label>
-        <input type="text" id="nombreCliente" name="nombreCliente" th:field="*{nombreCliente}" required><br>
-
-        <label for="apellidoCliente">Apellido:</label>
-        <input type="text" id="apellidoCliente" name="apellidoCliente" th:field="*{apellidoCliente}" required><br>
-
-        <label for="telefonoCliente">Teléfono:</label>
-        <input type="text" id="telefonoCliente" name="telefonoCliente" th:field="*{telefonoCliente}" inputmode="numeric" pattern="[0-9]{10,11}" required><br>
-
-        <label for="membresiaSelect">Membresía:</label>
-        <select id="membresiaSelect" name="idMembresia" required>
-            <option value="">Elija la membresía</option>
-        </select>
-
-        <button type="submit">Registrar</button>
-    </form>
-
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- ESTE CODIGO JS CARGA LAS MEMBRESIAS EN EL SELECT (LISTA DESPLEGABLE) DEL FORMULARIO DE CLIENTES -->
-<!-- MUESTRA EL TIPO DE MEMBRESIA, PERO EL VALOR QUE TOMA Y QUE SE VA A ENVIAR ES EL ID DE LA MEMBRESIA-->
-<!-- SE PUEDE OPTIMIZAR, O CARGAR DE OTRA FORMA EL SELECT -->
-    <script>
-        $(document).ready(function() {
-        var timestamp = new Date().getTime();
-        var url = '/membresia/membresias?timestamp=' + timestamp;
-        $.ajax({
-            url: url,
-            type: 'GET',
-            dataType: 'json',
-            cache: false,
-            success: function(data) {
-                console.log(data);
-                var select = $('#membresiaSelect');
-                select.empty();
-                select.append($('<option>').text('Elija la membresía').attr('value', ''));
-                $.each(data, function(index, membresia) {
-                    select.append($('<option>').text(membresia.tipoMembresia).attr('value', membresia.idMembresia));
                 });
-            },
-            error: function() {
-                console.log('Error al cargar las membresías.');
-            }
-        });
-    });
-    </script>
-<!-- este codigo js recibe el mensaje desde la controladora y lo muestra en pantalla -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const clienteForm = document.getElementById("clienteForm");
+            </script>
+        </section>
+        <section class="form-register" id="registro-empleado">
+            <h2>Formulario Registro de Empleados</h2>
 
-            clienteForm.addEventListener("submit", function (event) {
-                event.preventDefault();
+            <form
+                id="empleadoForm"
+                action="/empleado"
+                th:object="${empleado}"
+                method="post"
+                enctype="application/x-www-form-urlencoded"
+            >
+                <label for="dniEmpleado">DNI:</label>
+                <input
+                    type="text"
+                    id="dniEmpleado"
+                    name="dniEmpleado"
+                    th:field="*{dniEmpleado}"
+                    inputmode="numeric"
+                    pattern="[0-9]{8}"
+                    title="El DNI debe tener 8 dígitos numéricos sin puntos"
+                    required
+                /><br />
 
-                fetch("/cliente", {
-                    method: "POST",
-                    body: new FormData(this),
-                })
-                    .then((response) => response.json())
-                    .then((data) => {
-                        if (data.error) {
-                            alert(data.error);
-                        } else if (data.message) {
-                            alert(data.message);
-                        }
-                    })
-                    .catch((error) => {
-                        console.error(error);
-                        alert("Error interno del servidor");
+                <label for="nombreEmpleado">Nombre:</label>
+                <input
+                    type="text"
+                    id="nombreEmpleado"
+                    name="nombreEmpleado"
+                    th:field="*{nombreEmpleado}"
+                    required
+                /><br />
+
+                <label for="apellidoEmpleado">Apellido:</label>
+                <input
+                    type="text"
+                    id="apellidoEmpleado"
+                    name="apellidoEmpleado"
+                    th:field="*{apellidoEmpleado}"
+                    required
+                /><br />
+
+                <label for="telefonoEmpleado">Teléfono:</label>
+                <input
+                    type="text"
+                    id="telefonoEmpleado"
+                    name="telefonoEmpleado"
+                    th:field="*{telefonoEmpleado}"
+                    required
+                /><br />
+
+                <label for="usuarioEmpleado">Correo Electrónico:</label>
+                <input
+                    type="usuario"
+                    id="usuarioEmpleado"
+                    name="usuarioEmpleado"
+                    th:field="*{usuarioEmpleado}"
+                    required
+                /><br />
+
+                <label for="tipoEmpleado">Tipo de Empleado:</label>
+                <select
+                    id="tipoEmpleado"
+                    name="tipoEmpleado"
+                    th:field="*{tipoEmpleado}"
+                >
+                    <option value="">Tipo de Empleado</option>
+                    <option value="Administrador">Administrador</option>
+                    <option value="Usuario">Usuario</option>
+                    <option value="Instructor">Instructor</option>
+                </select>
+
+                <button type="submit">Registrar</button>
+            </form>
+            <!-- este codigo js recibe el mensaje desde la controladora y lo muestra en pantalla -->
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    const empleadoForm =
+                        document.getElementById("empleadoForm");
+
+                    empleadoForm.addEventListener("submit", function (event) {
+                        event.preventDefault();
+
+                        fetch("/empleado", {
+                            method: "POST",
+                            body: new FormData(this),
+                        })
+                            .then((response) => response.json())
+                            .then((data) => {
+                                if (data.error) {
+                                    alert(data.error);
+                                } else if (data.message) {
+                                    alert(data.message);
+                                }
+                            })
+                            .catch((error) => {
+                                console.error(error);
+                                alert("Error interno del servidor");
+                            });
                     });
-            });
-        });
-    </script>
-</section>
+                });
+            </script>
+        </section>
 
+        <section class="form-register" id="registro-cliente">
+            <h2>Formulario Registro de Clientes</h2>
 
+            <form
+                id="clienteForm"
+                action="/cliente"
+                th:object="${cliente}"
+                method="post"
+                enctype="application/x-www-form-urlencoded"
+            >
+                <label for="dniCliente">DNI:</label>
+                <input
+                    type="text"
+                    id="dniCliente"
+                    name="dniCliente"
+                    th:field="*{dniCliente}"
+                    inputmode="numeric"
+                    pattern="[0-9]{8}"
+                    title="El DNI debe tener 8 dígitos numéricos sin puntos"
+                    required
+                /><br />
 
+                <label for="nombreCliente">Nombre:</label>
+                <input
+                    type="text"
+                    id="nombreCliente"
+                    name="nombreCliente"
+                    th:field="*{nombreCliente}"
+                    required
+                /><br />
 
-<section class="registro" id="registro-asistencias">
-    <h2>Formulario de Registro de Asistencias</h2>
-    <form id="asistenciaForm" action="/asistencia" method="post" enctype="application/x-www-form-urlencoded">
-        <label for="dniAsistencia">DNI:</label>
-        <input type="text" id="dniAsistencia" name="dniAsistencia" th:field="*{dniAsistencia}" inputmode="numeric" pattern="[0-9]{8}" title="El DNI debe tener 8 dígitos numéricos sin puntos" required><br>
-        <button type="submit">Registrar</button>
-    </form>
-<!-- este codigo js recibe el mensaje desde la controladora y lo muestra en pantalla -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const asistenciaForm = document.getElementById("asistenciaForm");
+                <label for="apellidoCliente">Apellido:</label>
+                <input
+                    type="text"
+                    id="apellidoCliente"
+                    name="apellidoCliente"
+                    th:field="*{apellidoCliente}"
+                    required
+                /><br />
 
-            asistenciaForm.addEventListener("submit", function (event) {
-                event.preventDefault();
+                <label for="telefonoCliente">Teléfono:</label>
+                <input
+                    type="text"
+                    id="telefonoCliente"
+                    name="telefonoCliente"
+                    th:field="*{telefonoCliente}"
+                    inputmode="numeric"
+                    pattern="[0-9]{10,11}"
+                    required
+                /><br />
 
-                fetch("/asistencia", {
-                    method: "POST",
-                    body: new FormData(this),
-                })
-                    .then((response) => response.json())
-                    .then((data) => {
-                        if (data.error) {
-                            alert(data.error);
-                        } else if (data.message) {
-                            alert(data.message);
-                        }
-                    })
-                    .catch((error) => {
-                        console.error(error);
-                        alert("Error interno del servidor");
+                <label for="membresiaSelect">Membresía:</label>
+                <select id="membresiaSelect" name="idMembresia" required>
+                    <option value="">Elija la membresía</option>
+                </select>
+
+                <button type="submit">Registrar</button>
+            </form>
+
+            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+            <!-- ESTE CODIGO JS CARGA LAS MEMBRESIAS EN EL SELECT (LISTA DESPLEGABLE) DEL FORMULARIO DE CLIENTES -->
+            <!-- MUESTRA EL TIPO DE MEMBRESIA, PERO EL VALOR QUE TOMA Y QUE SE VA A ENVIAR ES EL ID DE LA MEMBRESIA-->
+            <!-- SE PUEDE OPTIMIZAR, O CARGAR DE OTRA FORMA EL SELECT -->
+            <script>
+                $(document).ready(function () {
+                    var timestamp = new Date().getTime();
+                    var url = "/membresia/membresias?timestamp=" + timestamp;
+                    $.ajax({
+                        url: url,
+                        type: "GET",
+                        dataType: "json",
+                        cache: false,
+                        success: function (data) {
+                            console.log(data);
+                            var select = $("#membresiaSelect");
+                            select.empty();
+                            select.append(
+                                $("<option>")
+                                    .text("Elija la membresía")
+                                    .attr("value", "")
+                            );
+                            $.each(data, function (index, membresia) {
+                                select.append(
+                                    $("<option>")
+                                        .text(membresia.tipoMembresia)
+                                        .attr("value", membresia.idMembresia)
+                                );
+                            });
+                        },
+                        error: function () {
+                            console.log("Error al cargar las membresías.");
+                        },
                     });
-            });
-        });
-    </script>
-</section>
+                });
+            </script>
+            <!-- este codigo js recibe el mensaje desde la controladora y lo muestra en pantalla -->
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    const clienteForm = document.getElementById("clienteForm");
 
+                    clienteForm.addEventListener("submit", function (event) {
+                        event.preventDefault();
 
+                        fetch("/cliente", {
+                            method: "POST",
+                            body: new FormData(this),
+                        })
+                            .then((response) => response.json())
+                            .then((data) => {
+                                if (data.error) {
+                                    alert(data.error);
+                                } else if (data.message) {
+                                    alert(data.message);
+                                }
+                            })
+                            .catch((error) => {
+                                console.error(error);
+                                alert("Error interno del servidor");
+                            });
+                    });
+                });
+            </script>
+        </section>
 
+        <section class="registro" id="registro-asistencias">
+            <h2>Formulario de Registro de Asistencias</h2>
+            <form
+                id="asistenciaForm"
+                action="/asistencia"
+                method="post"
+                enctype="application/x-www-form-urlencoded"
+            >
+                <label for="dniAsistencia">DNI:</label>
+                <input
+                    type="text"
+                    id="dniAsistencia"
+                    name="dniAsistencia"
+                    th:field="*{dniAsistencia}"
+                    inputmode="numeric"
+                    pattern="[0-9]{8}"
+                    title="El DNI debe tener 8 dígitos numéricos sin puntos"
+                    required
+                /><br />
+                <button type="submit">Registrar</button>
+            </form>
+            <!-- este codigo js recibe el mensaje desde la controladora y lo muestra en pantalla -->
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    const asistenciaForm =
+                        document.getElementById("asistenciaForm");
 
-<section class="registro" id="registro-pagos">
-    <h2>Formulario de Registro de Pagos</h2>
-    <form enctype="application/x-www-form-urlencoded">
-        <label for="dni-busqueda">DNI:</label>
-        <input type="text" id="dni-busqueda" name="dni-busqueda" th:field="*{dni-busqueda}" inputmode="numeric" pattern="[0-9]{8}" title="El DNI debe tener 8 dígitos numéricos sin puntos" required><br>
-        <button type="button" id="buscarClienteBtn">Buscar</button>
+                    asistenciaForm.addEventListener("submit", function (event) {
+                        event.preventDefault();
 
-        <div id="clienteInfo" style="display: none;">
-            <h3>Información del Cliente</h3>
-            <p>¿Renovar suscripción? <input type="checkbox" id="renovarSuscripcionCheckbox" checked></p>
-            <p>Nombre: <span id="nombreClientePago"></span></p>
-            <p>Apellido: <span id="apellidoClientePago"></span></p>
-            <p>Membresía: <select id="membresiaClientePago"></select></p>
-            <p>Valor de la Membresía: <input type="text" id="valorMembresiaClientePago" readonly></p>
-            <button type="button" id="registrarPagoBtn">Registrar Pago</button>
-        </div>
-    </form>
-<!-- Este codigo js recibe la respuesta del controlador "ClienteControlador" (/cliente/datos)-->
-<!-- Al recibir la respuesta, carga los datos del cliente y su membresía, y se habilita para mostrarse en pantalla -->
-<!-- Además muestra los mensajes que se reciben -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const buscarBtn = document.getElementById("buscarClienteBtn");
-            const renovarSuscripcionCheckbox = document.getElementById("renovarSuscripcionCheckbox");
-            const membresiaCliente = document.getElementById("membresiaCliente");
-            const valorMembresiaCliente = document.getElementById("valorMembresiaCliente");
+                        fetch("/asistencia", {
+                            method: "POST",
+                            body: new FormData(this),
+                        })
+                            .then((response) => response.json())
+                            .then((data) => {
+                                if (data.error) {
+                                    alert(data.error);
+                                } else if (data.message) {
+                                    alert(data.message);
+                                }
+                            })
+                            .catch((error) => {
+                                console.error(error);
+                                alert("Error interno del servidor");
+                            });
+                    });
+                });
+            </script>
+        </section>
 
-            buscarBtn.addEventListener("click", function(event) {
-                event.preventDefault();
+        <section class="registro" id="registro-pagos">
+            <h2>Formulario de Registro de Pagos</h2>
+            <form enctype="application/x-www-form-urlencoded">
+                <label for="dni-busqueda">DNI:</label>
+                <input
+                    type="text"
+                    id="dni-busqueda"
+                    name="dni-busqueda"
+                    th:field="*{dni-busqueda}"
+                    inputmode="numeric"
+                    pattern="[0-9]{8}"
+                    title="El DNI debe tener 8 dígitos numéricos sin puntos"
+                    required
+                /><br />
+                <button type="button" id="buscarClienteBtn">Buscar</button>
 
-                const dniBusqueda = document.getElementById("dni-busqueda").value.trim();
+                <div id="clienteInfo" style="display: none">
+                    <h3>Información del Cliente</h3>
+                    <p>
+                        ¿Renovar suscripción?
+                        <input
+                            type="checkbox"
+                            id="renovarSuscripcionCheckbox"
+                            checked
+                        />
+                    </p>
+                    <p>Nombre: <span id="nombreClientePago"></span></p>
+                    <p>Apellido: <span id="apellidoClientePago"></span></p>
+                    <p>
+                        Membresía:
+                        <select id="membresiaClientePago"></select>
+                    </p>
+                    <p>
+                        Valor de la Membresía:
+                        <input
+                            type="text"
+                            id="valorMembresiaClientePago"
+                            readonly
+                        />
+                    </p>
+                    <button type="button" id="registrarPagoBtn">
+                        Registrar Pago
+                    </button>
+                </div>
+            </form>
+            <!-- Este codigo js recibe la respuesta del controlador "ClienteControlador" (/cliente/datos)-->
+            <!-- Al recibir la respuesta, carga los datos del cliente y su membresía, y se habilita para mostrarse en pantalla -->
+            <!-- Además muestra los mensajes que se reciben -->
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    const buscarBtn =
+                        document.getElementById("buscarClienteBtn");
+                    const renovarSuscripcionCheckbox = document.getElementById(
+                        "renovarSuscripcionCheckbox"
+                    );
+                    const membresiaCliente =
+                        document.getElementById("membresiaCliente");
+                    const valorMembresiaCliente = document.getElementById(
+                        "valorMembresiaCliente"
+                    );
 
-                if (!dniBusqueda) {
-                    alert("Por favor, ingresa un número de DNI válido.");
-                    return;
-                }
+                    buscarBtn.addEventListener("click", function (event) {
+                        event.preventDefault();
 
-                fetch(`/cliente/datos?dni-busqueda=${dniBusqueda}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.error) {
-                            alert(data.error);
-                        } else {
-                            document.getElementById("nombreClientePago").textContent = data.nombre;
-                            document.getElementById("apellidoClientePago").textContent = data.apellido;
+                        const dniBusqueda = document
+                            .getElementById("dni-busqueda")
+                            .value.trim();
 
+                        if (!dniBusqueda) {
+                            alert(
+                                "Por favor, ingresa un número de DNI válido."
+                            );
+                            return;
+                        }
+
+                        fetch(`/cliente/datos?dni-busqueda=${dniBusqueda}`)
+                            .then((response) => response.json())
+                            .then((data) => {
+                                if (data.error) {
+                                    alert(data.error);
+                                } else {
+                                    document.getElementById(
+                                        "nombreClientePago"
+                                    ).textContent = data.nombre;
+                                    document.getElementById(
+                                        "apellidoClientePago"
+                                    ).textContent = data.apellido;
+
+                                    if (renovarSuscripcionCheckbox.checked) {
+                                        membresiaClientePago.innerHTML = `<option value="${data.idMembresia}" selected>${data.membresia}</option>`;
+                                        membresiaClientePago.disabled = true;
+                                        valorMembresiaClientePago.value =
+                                            data.valor;
+                                        valorMembresiaClientePago.readOnly = true;
+                                    } else {
+                                        membresiaClientePago.disabled = false;
+                                        valorMembresiaClientePago.readOnly = false;
+                                    }
+
+                                    document.getElementById(
+                                        "clienteInfo"
+                                    ).style.display = "block";
+                                }
+                            })
+                            .catch((error) => {
+                                console.error(error);
+                                alert("Error interno del servidor");
+                            });
+                    });
+
+                    // Cuando el estado del checkbox cambia
+                    renovarSuscripcionCheckbox.addEventListener(
+                        "change",
+                        function () {
                             if (renovarSuscripcionCheckbox.checked) {
-                                membresiaClientePago.innerHTML = `<option value="${data.idMembresia}" selected>${data.membresia}</option>`;
                                 membresiaClientePago.disabled = true;
-                                valorMembresiaClientePago.value = data.valor;
                                 valorMembresiaClientePago.readOnly = true;
                             } else {
                                 membresiaClientePago.disabled = false;
                                 valorMembresiaClientePago.readOnly = false;
                             }
-
-                            document.getElementById("clienteInfo").style.display = "block";
                         }
-                    })
-                    .catch(error => {
-                        console.error(error);
-                        alert("Error interno del servidor");
-                    });
-            });
-
-            // Cuando el estado del checkbox cambia
-            renovarSuscripcionCheckbox.addEventListener("change", function() {
-                if (renovarSuscripcionCheckbox.checked) {
-                    membresiaClientePago.disabled = true;
-                    valorMembresiaClientePago.readOnly = true;
-                } else {
-                    membresiaClientePago.disabled = false;
-                    valorMembresiaClientePago.readOnly = false;
-                }
-            });
-        });
-    </script>
-</section>
-
-</body>
+                    );
+                });
+            </script>
+        </section>
+    </body>
 </html>

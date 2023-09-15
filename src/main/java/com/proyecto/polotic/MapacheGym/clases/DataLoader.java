@@ -50,6 +50,10 @@ public class DataLoader implements CommandLineRunner{
         administrador.setNombre("Administrador");
         rolRepositorio.save(administrador);
 
+        Rol instructor = new Rol();
+        instructor.setNombre("Instructor");
+        rolRepositorio.save(instructor);
+
         Membresia membresia = new Membresia();
 
         membresia.setTipoMembresia("Basico");
@@ -76,12 +80,33 @@ public class DataLoader implements CommandLineRunner{
         Empleado empleado = new Empleado();
         empleado.setNombre("Admin");
         empleado.setApellido("Admin");
-        empleado.setEmail("admin@admin");
+        empleado.setUsuario("admin");
+        empleado.setDni("11111111");
         String contrasenia = "admin";
         BCryptPasswordEncoder coder = new BCryptPasswordEncoder();
         empleado.setContrasenia(coder.encode(contrasenia));
         empleado.setRol(administrador);
         empleadoRepositorio.save(empleado);
+
+        Empleado empleado2 = new Empleado();
+        empleado2.setNombre("Instructor");
+        empleado2.setApellido("Instructor");
+        empleado2.setUsuario("instructor");
+        empleado2.setDni("22222222");
+        String contrasenia2 = "instructor";
+        empleado2.setContrasenia(coder.encode(contrasenia2));
+        empleado2.setRol(instructor);
+        empleadoRepositorio.save(empleado2);
+
+        Empleado empleado3 = new Empleado();
+        empleado3.setNombre("Usuario");
+        empleado3.setApellido("Usuario");
+        empleado3.setUsuario("usuario");
+        empleado3.setDni("33333333");
+        String contrasenia3 = "usuario";
+        empleado3.setContrasenia(coder.encode(contrasenia3));
+        empleado3.setRol(usuario);
+        empleadoRepositorio.save(empleado3);
 
 
     }
