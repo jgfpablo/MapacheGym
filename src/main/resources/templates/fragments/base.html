@@ -49,13 +49,13 @@
     <body
         class="bg-gradient-to-b from-gray-800 to-gray-900 via-opacity-0 via-opacity-0 bg-no-repeat bg-fixed"
     >
-        <div
+        <!-- <div
             th:unless="${showHeader}"
             class="text-sm text-white font-medium transition-transform transform hover:scale-125 md:hover:scale-105 duration-200 bg-red-500 max-w-fit px-3 py-1.5 m-4 fixed rounded-full md:rounded-2xl flex items-center"
         >
             <a href="/" class="fa fa-arrow-left"></a>
             <a href="/" class="hidden md:flex pl-2">Volver al inicio</a>
-        </div>
+        </div> -->
 
         <div th:if="${showHeader}">
             <header th:replace="~{fragments/header :: header}"></header>

@@ -60,8 +60,6 @@ public class AsistenciaControlador {
         maw.setViewName("fragments/base");
         maw.addObject("title", "Crear Aasistencia");
         maw.addObject("view", "formsCreate/attendance_form");
-        boolean showHeader = true;
-        maw.addObject("showHeader", showHeader);
         return maw;  
     }
 

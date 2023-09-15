@@ -47,6 +47,7 @@
 
             <div class="text-left">
                         <span class="font-sans text-sm">Tipo Membresia</span>
+                        <br>
                         <select class="p-1.5 rounded-md text-black mb-2"  name="idMembresia">
                             <option  th:each="membresia : ${membresias}"  th:value="${membresia.idMembresia}"  th:text="${membresia.tipoMembresia}"></option>
                         </select> 
