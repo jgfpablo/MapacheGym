@@ -17,4 +17,15 @@ public class HomeControlador {
         maw.addObject("showHeader", showHeader);
         return maw;
     }
+
+    @GetMapping(value = { "/error" })
+        public ModelAndView error() {
+        ModelAndView maw = new ModelAndView();
+        maw.setViewName("fragments/base");
+        maw.addObject("title", "Inicio");
+        maw.addObject("view", "index/error");
+        boolean showHeader = true;
+        maw.addObject("showHeader", showHeader);
+        return maw;
+    }
 }

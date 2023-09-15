@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.proyecto.polotic.MapacheGym.entidades.Asistencia;
 import com.proyecto.polotic.MapacheGym.entidades.Cliente;
 import com.proyecto.polotic.MapacheGym.entidades.Empleado;
-import com.proyecto.polotic.MapacheGym.entidades.*;
+
 
 import java.time.LocalDate;
 import java.util.List;

@@ -1,35 +1,15 @@
 
 package com.proyecto.polotic.MapacheGym.controladores;
 
-import com.proyecto.polotic.MapacheGym.dto.*;
-import com.proyecto.polotic.MapacheGym.entidades.*;
-import com.proyecto.polotic.MapacheGym.repositorios.*;
-import com.proyecto.polotic.MapacheGym.servicios.*;
-import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
-import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 public class AuthControlador {
 
-    @Autowired
-    private BCryptPasswordEncoder codificador;
-
-    @Autowired
-    private RolRepositorio rolRepositorio;
-
-    @Autowired
-    private EmpleadoRepositorio empleadoRepositorio;
-
-    @Autowired
-    private RecaptchaServicio recaptchaServicio;
 
     @GetMapping("/login")
     public ModelAndView showLoginForm(Model model,
@@ -52,7 +32,7 @@ public class AuthControlador {
         return new RedirectView("/home");
     }
 
-    @GetMapping("/registro")
+ /*    @GetMapping("/registro")
     public ModelAndView registro(RegistroDto registroDto) {
         ModelAndView maw = new ModelAndView();
         boolean showHeader = false;
@@ -62,9 +42,9 @@ public class AuthControlador {
         maw.addObject("registroDto", registroDto);
         maw.addObject("showHeader", showHeader);
         return maw;
-    }
+    } */
 
-    @PostMapping("/registro")
+/*     @PostMapping("/registro")
     public ModelAndView registrar(@RequestParam(name = "g-recaptcha-response") String recaptchaResponse,
             @Valid RegistroDto registroDto, BindingResult br, RedirectAttributes ra, HttpServletRequest request) {
         String ip = request.getRemoteAddr();
@@ -88,6 +68,6 @@ public class AuthControlador {
 
         HomeControlador hc = new HomeControlador();
         return hc.home();
-    }
+    } */
 
 }
