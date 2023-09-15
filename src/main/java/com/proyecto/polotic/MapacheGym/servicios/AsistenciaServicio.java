@@ -14,8 +14,11 @@ import javax.transaction.Transactional;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 public class AsistenciaServicio {
@@ -39,6 +42,15 @@ public class AsistenciaServicio {
         //LocalDate fechaActual = LocalDate.of(2023, 9, 30);
         LocalTime hora = LocalTime.now();
         DayOfWeek diaHoy = fechaActual.getDayOfWeek();
+
+        String[] nombresDias = {
+            "Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"
+        };
+
+        String nombreDia = nombresDias[diaHoy.getValue()];
+
+
+
         Cliente cliente = clienteServicio.traerClientePorDni(dni);
         Pago ultimoPago = clienteServicio.obtenerUltimoPago(cliente.getId());
         if (fechaActual.isBefore(ultimoPago.getValidez())) {
@@ -54,7 +66,7 @@ public class AsistenciaServicio {
             if (cliente.getDiasDisponibles() > 0) {
                 // Si el cliente tiene días disponibles para asistir esta semana
                 asistencia.setAsistenciaCliente(cliente);
-                asistencia.setDia(String.valueOf(diaHoy));
+                asistencia.setDia(nombreDia);
                 asistencia.setFecha(fechaActual);
                 asistencia.setHoraInicio(hora);
                 asistencia.setHoraFin(hora.plusHours(2));
@@ -77,13 +89,17 @@ public class AsistenciaServicio {
         LocalDate fechaActual = LocalDate.now();
         LocalTime hora = LocalTime.now();
         DayOfWeek diaHoy = fechaActual.getDayOfWeek();
+         String[] nombresDias = {
+            "Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"
+        };
+        String nombreDia = nombresDias[diaHoy.getValue()];
         Empleado empleado = empleadoServicio.traerEmpleadoPorDni(dni);
         // Verificamos si el empleado ya ha registrado asistencia hoy...
         Asistencia asistenciaExistente = obtenerAsistenciaEmpleado(empleado, fechaActual);
         if (asistenciaExistente == null || asistenciaExistente.getHoraFin() != null) {
             // Si no hay asistencia para hoy o la asistencia previa ya se registro la salida
             asistencia.setAsistenciaEmpleado(empleado);
-            asistencia.setDia(String.valueOf(diaHoy)); //ATENTI ACA
+            asistencia.setDia(nombreDia); //ATENTI ACA
             asistencia.setFecha(fechaActual);
             asistencia.setHoraInicio(hora);
             return crearAsistencia(asistencia);

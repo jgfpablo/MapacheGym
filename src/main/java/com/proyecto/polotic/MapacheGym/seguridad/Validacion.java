@@ -14,12 +14,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class Validacion {
 
-    //  @Autowired
-    //  private EmpleadoRepositorio empleadoRepositorio;
-
-    //  @Autowired
-    //  private ClienteRepositorio clienteRepositorio;
-
     @Autowired
     private EmpleadoServicio EmpleadoServicio;
 
@@ -37,9 +31,14 @@ public class Validacion {
         return clienteExistente == null   ;
     }
 
-     public boolean validarClienteActivo(String dni) {
-         Cliente clienteActivo = clienteServicio.traerClientePorDni(dni);
+        public boolean validarClienteActivo(String dni) {
+            Cliente clienteActivo = clienteServicio.traerClientePorDni(dni);
 
-         return clienteActivo.getStatus().equals("Inactivo");  //si es false significa que esta Activo
-     }
+            boolean status = true;
+            if(clienteActivo != null){
+            status = clienteActivo.getStatus().equals("Inactivo");
+            }
+
+         return status;  //si es false significa que esta Activo
+    }
 }

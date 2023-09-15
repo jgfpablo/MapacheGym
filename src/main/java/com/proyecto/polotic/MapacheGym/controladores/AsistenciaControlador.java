@@ -73,12 +73,14 @@ public class AsistenciaControlador {
         boolean noDniCliente = validar.validarDniCliente(dniAsistencia);
         boolean clienteActivo = validar.validarClienteActivo(dniAsistencia);
 
+
+        System.out.println("soy un empleado si soy false signifca que existo: "+noDniEmpleado);
         if (noDniCliente == false) {
 
         if (clienteActivo == false) {
             asistenciaServicio.crearAsistenciaCliente(dniAsistencia);
 
-            redirectAttributes.addFlashAttribute("success", "Asistencia de cliente Regitrada");
+            redirectAttributes.addFlashAttribute("success", "Asistencia de cliente Registrada");
             redirectAttributes.addFlashAttribute("alertScript", true);
             return new RedirectView("/asistencias/nueva", true);
         }else{
@@ -101,6 +103,7 @@ public class AsistenciaControlador {
             return new RedirectView("/asistencias/nueva", true);
         }
     } catch (Exception e) {
+        System.out.println(e);
         redirectAttributes.addFlashAttribute("error", "No existen registros de esta persona");
         redirectAttributes.addFlashAttribute("alertScript", true);
         return new RedirectView("/asistencias/nueva", true);
