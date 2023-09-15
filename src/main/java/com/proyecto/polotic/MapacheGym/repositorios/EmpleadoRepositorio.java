@@ -19,7 +19,13 @@ public interface EmpleadoRepositorio extends CrudRepository<Empleado, Integer> {
 
     boolean existsByEmail(String email);
 
+    // List<Empleado> findAll();
+
+    //todos los empleados menos admin
+    @Query("SELECT e FROM Empleado e WHERE e.rol.id <> 2")
     List<Empleado> findAll();
+
+    
     
     @Query("SELECT e.password FROM Empleado e WHERE e.id = :id")
     String findPasswordById(@Param("id") Integer id);
