@@ -2,21 +2,24 @@
     class="text-white p-4 m-2 rounded-sm flex justify-center"
     th:fragment="content"
 >
-    <div class="registro" id="registro-asistencias">
-        <h2>Formulario de Registro de Asistencias</h2>
+    <div class="inline-flex flex-col items-center rounded-md p-6 m-12 px-12 bg-gradient-to-b from-gray-900 to-gray-900 via-opacity-0 via-opacity-0 bg-no-repeat bg-fixed text-white font-light shadow-sm shadow-black" id="registro-asistencias">
+        <div class="mb-4 text-xl">
+        <span class="font-semibold">Registrar </span><span class="text-red-400 font-semibold">Asistencia</span>
+        </div>
 
         <form th:action="@{/asistencias/crear}" method="post">
             <input
-                class="text-black"
+                class="p-1.5 rounded-md placeholder-red-500 text-black mb-2 flex"
                 id="dniAsistencia"
                 type="number"
                 th:name="dniAsistencia"
                 th:value="${dniAsistencia}"
                 pattern="[0-9]{8}"
+                placeholder="Ingrese su DNI"
                 required
             />
             <button
-                class="w-28 bg-red-400 mt-2 rounded-2xl border-solid borde border-white text-white hover:bg-red-300 hover:text-black transition duration-300"
+                class="bg-red-600 rounded-sm text-white w-full py-2 mb-2 hover:bg-red-800 transition duration-300 mt-4"
                 type="submit"
             >
                 Registrar Asistencia
