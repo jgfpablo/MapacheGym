@@ -10,10 +10,10 @@ public class HomeControlador {
     @GetMapping(value = { "/", "/home", "/inicio", "/index" })
     public ModelAndView home() {
         ModelAndView maw = new ModelAndView();
-        boolean showHeader = true;
         maw.setViewName("fragments/base");
         maw.addObject("title", "Inicio");
         maw.addObject("view", "index/home");
+        boolean showHeader = true;
         maw.addObject("showHeader", showHeader);
         return maw;
     }

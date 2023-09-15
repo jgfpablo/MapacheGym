@@ -37,6 +37,8 @@ public class MembresiaControlador implements WebMvcConfigurer{
         maw.addObject("title", "Membresias");
         maw.addObject("view", "tables/membership_table");
         maw.addObject("membresias", membresia);
+        boolean showHeader = true;
+        maw.addObject("showHeader", showHeader);
         return maw;  
     }
 
@@ -47,6 +49,8 @@ public class MembresiaControlador implements WebMvcConfigurer{
         maw.addObject("title", "Nueva Membresia");
         maw.addObject("view", "formsCreate/membership_form_create");
         maw.addObject("membresia", membresia);
+        boolean showHeader = true;
+        maw.addObject("showHeader", showHeader);
         return maw;   
     }
 
@@ -94,6 +98,8 @@ public class MembresiaControlador implements WebMvcConfigurer{
         maw.addObject("title", "Modificar Membresia");
         maw.addObject("view", "formsUpdate/membership_form");
         maw.addObject("membresia", membresia);
+        boolean showHeader = true;
+        maw.addObject("showHeader", showHeader);
         return maw;  
     }
 

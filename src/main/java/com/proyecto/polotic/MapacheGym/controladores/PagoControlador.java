@@ -48,6 +48,8 @@ public class PagoControlador {
         maw.addObject("view", "tables/payments_table");
         maw.addObject("pagos", pagos);
         maw.addObject("idCliente", id);
+        boolean showHeader = true;
+        maw.addObject("showHeader", showHeader);
 
 
 
@@ -69,6 +71,8 @@ public class PagoControlador {
         model.addAttribute("cliente", new Cliente());
         maw.addObject("membresias", membresias);
         maw.addObject("idCliente", idCliente);
+        boolean showHeader = true;
+        maw.addObject("showHeader", showHeader);
 
         return maw;  
     }

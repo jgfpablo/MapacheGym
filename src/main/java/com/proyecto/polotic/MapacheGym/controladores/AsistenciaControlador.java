@@ -35,6 +35,8 @@ public class AsistenciaControlador {
         maw.addObject("title", "Asistencias Empleados");
         maw.addObject("view", "tables/attendance_staff_table");
         maw.addObject("asistencias", asistencias);
+        boolean showHeader = true;
+        maw.addObject("showHeader", showHeader);
         return maw;  
     }
 
@@ -47,6 +49,8 @@ public class AsistenciaControlador {
         maw.addObject("title", "Asistencias Clientes");
         maw.addObject("view", "tables/attendance_client_table");
         maw.addObject("asistencias", asistencias);
+        boolean showHeader = true;
+        maw.addObject("showHeader", showHeader);
         return maw;  
     }
 
@@ -56,6 +60,8 @@ public class AsistenciaControlador {
         maw.setViewName("fragments/base");
         maw.addObject("title", "Crear Aasistencia");
         maw.addObject("view", "formsCreate/attendance_form");
+        boolean showHeader = true;
+        maw.addObject("showHeader", showHeader);
         return maw;  
     }
 

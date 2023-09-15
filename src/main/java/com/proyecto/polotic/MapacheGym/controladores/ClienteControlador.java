@@ -48,6 +48,8 @@ public class ClienteControlador {
         maw.addObject("title", "Lista Clientes");
         maw.addObject("view", "tables/client_table");
         maw.addObject("clientes", cliente);
+        boolean showHeader = true;
+        maw.addObject("showHeader", showHeader);
         return maw;   
     }
 
@@ -63,6 +65,8 @@ public class ClienteControlador {
         maw.addObject("view", "formsCreate/client_form");
         maw.addObject("cliente", new Cliente());
         maw.addObject("membresias", membresias);
+        boolean showHeader = true;
+        maw.addObject("showHeader", showHeader);
         return maw;   
     }
 
@@ -79,6 +83,8 @@ public class ClienteControlador {
         maw.addObject("view", "formsUpdate/client_form");
         maw.addObject("cliente", cliente);
         maw.addObject("membresias", membresias);
+        boolean showHeader = true;
+        maw.addObject("showHeader", showHeader);
 
         return maw;  
     }

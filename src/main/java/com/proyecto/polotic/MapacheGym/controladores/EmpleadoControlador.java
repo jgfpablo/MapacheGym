@@ -42,6 +42,8 @@ public class EmpleadoControlador {
         maw.setViewName("fragments/base");
         maw.addObject("title", "Inicio");
         maw.addObject("view", "tables/staff_table");
+        boolean showHeader = true;
+        maw.addObject("showHeader", showHeader);
         return maw;  
     }
 
@@ -56,6 +58,8 @@ public class EmpleadoControlador {
         maw.addObject("view", "formsCreate/staff_form");
         maw.addObject("empleado", new Empleado());
         maw.addObject("roles", roles);
+        boolean showHeader = true;
+        maw.addObject("showHeader", showHeader);
         return maw;   
     }
 
@@ -82,7 +86,8 @@ public class EmpleadoControlador {
         maw.addObject("view", "formsUpdate/staff_form");
         maw.addObject("empleado", empleado);
         maw.addObject("roles", roles);
-
+        boolean showHeader = true;
+        maw.addObject("showHeader", showHeader);
         return maw;  
     }
 //-------------------------------------------
