@@ -27,10 +27,10 @@ public class SecurityConfiguration {
 		http
 			.authorizeHttpRequests((requests) -> requests
 				.requestMatchers("/","/asistencias/nueva", "/registro/nuevo", "/css/*", "/images/*", "/images/*/*", "/js/*").permitAll()
-				.requestMatchers("/clientes", "/clientes/*", "/clientes").hasAnyRole("Instructor","Administrador","Usuario")  
-				.requestMatchers("/asistenias", "/asistenias/*", "/asistenias").hasAnyRole("Usuario","Administrador")
-				.requestMatchers("/membresias", "/membresias/*", "/membresias").hasAnyRole("Administrador") 
-				.requestMatchers("/empleados", "/empleados/*", "/empleados").hasAnyRole("Administrador")
+				.requestMatchers("/clientes", "/clientes/*").hasAnyRole("Instructor","Administrador","Usuario")  
+				.requestMatchers("/asistencias", "/asistencias/*").hasAnyRole("Usuario","Administrador")
+				.requestMatchers("/membresias", "/membresias/*").hasAnyRole("Administrador") 
+				.requestMatchers("/empleados", "/empleados/*").hasAnyRole("Administrador")
 			.anyRequest().authenticated())
 				.formLogin((form) -> form
 				.loginPage("/login")

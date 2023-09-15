@@ -27,10 +27,10 @@ public class AuthControlador {
         return maw;
     }
 
-    @GetMapping({ "/loginSuccess" })
-    public RedirectView loginCheck() {
-        return new RedirectView("/home");
-    }
+     @GetMapping({ "/loginSuccess" })
+     public RedirectView loginCheck() {
+         return new RedirectView("/home");
+     }
 
  /*    @GetMapping("/registro")
     public ModelAndView registro(RegistroDto registroDto) {
