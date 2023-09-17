@@ -192,6 +192,10 @@
                 </button>
                 
             </form>
+            <div style="text-align: center;">
+                <i class="fa-regular fa-user" style="color: #ff0000;"></i>
+                <div sec:authentication="name"></div>
+            </div>
             <div class="border-l border-gray-400 h-10 mx-2"></div>
             <form class="form-inline" th:action="@{/logout}" method="POST">
                 <button
