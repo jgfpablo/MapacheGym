@@ -37,7 +37,7 @@
                 </svg>
             </a>
 
-            <div
+            <div 
                 sec:authorize="isAuthenticated()"
                 id="dropdownMenu"
                 class="scale-0 opacity-0 transition-all duration-200 overflow-hidden absolute z-10 bg-gray-800 origin-top-right right-0 mt-2 rounded-md shadow-lg font-semibold"
@@ -53,8 +53,9 @@
                                     type="submit"
                                     class="fa-solid fa-user mr-2"
                                 ></button
-                                >example@mail.com
+                                ><span sec:authentication="name"></span>
                             </form>
+                            
                         </li>
                         <hr class="my-1 border-t border-gray-400" />
                         <form
