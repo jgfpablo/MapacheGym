@@ -25,24 +25,26 @@ public class SecurityConfiguration {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
-			.authorizeHttpRequests((requests) -> requests
-				.requestMatchers("/","/asistencias/nueva", "/registro/nuevo", "/css/*", "/images/*", "/images/*/*", "/js/*").permitAll()
-				.requestMatchers("/clientes", "/clientes/*").hasAnyRole("Instructor","Administrador","Usuario")  
-				.requestMatchers("/asistencias", "/asistencias/*").hasAnyRole("Usuario","Administrador")
-				.requestMatchers("/membresias", "/membresias/*").hasAnyRole("Administrador") 
-				.requestMatchers("/empleados", "/empleados/*").hasAnyRole("Administrador")
-			.anyRequest().authenticated())
+				.authorizeHttpRequests((requests) -> requests
+						.requestMatchers("/", "/asistencias/nueva", "asistencias/crear", "/registro/nuevo", "/css/*",
+								"/images/*",
+								"/images/*/*", "/js/*")
+						.permitAll()
+						.requestMatchers("/clientes", "/clientes/*")
+						.hasAnyRole("Instructor", "Administrador", "Usuario")
+						.requestMatchers("/asistencias", "/asistencias/*").hasAnyRole("Usuario", "Administrador")
+						.requestMatchers("/membresias", "/membresias/*").hasAnyRole("Administrador")
+						.requestMatchers("/empleados", "/empleados/*").hasAnyRole("Administrador")
+						.anyRequest().authenticated())
 				.formLogin((form) -> form
-				.loginPage("/login")
-				.loginProcessingUrl("/logincheck")
-				.usernameParameter("usuario")
-				.passwordParameter("password")
-				.permitAll())
+						.loginPage("/login")
+						.loginProcessingUrl("/logincheck")
+						.usernameParameter("usuario")
+						.passwordParameter("password")
+						.permitAll())
 				.logout((logout) -> logout.permitAll());
 
 		return http.build();
 	}
-
-	
 
 }
